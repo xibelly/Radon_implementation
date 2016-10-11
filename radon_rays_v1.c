@@ -41,7 +41,7 @@ CONTROL TESTS
 #include<stdlib.h>
 #include<math.h>
 #include<time.h>
-#include<complex.h>
+//#include<complex.h>
 
 #include<fftw3.h>
 #include "rsf.h"
@@ -368,7 +368,7 @@ fourier(sf_file out)
   
   for(i=0; i<=N; i++)
     {
-      FT_RT[i] =  out_fourier1D[i];
+      FT_RT[i][0] =  out_fourier1D[i][0];
       
     }
 
