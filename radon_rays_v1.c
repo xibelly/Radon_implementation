@@ -351,13 +351,8 @@ fourier(sf_file out)
 
   for(i=0; i<=N; i++)
     {
-      for(j=0; j<=N; j++)
-	{
-	  
-	  fprintf(out_wave1,"%lf %lf\n", out_origin[i][j][0]/N*N, out_origin[i][j][1]/N*N);
-	  
-	}
-
+      
+      fprintf(out_wave1,"%lf %lf\n", out_origin[i][0]/N*N, out_origin[i][1]/N*N);
     }
 
 
@@ -383,11 +378,7 @@ fourier(sf_file out)
 
   for(i=0; i<=N; i++)
     {
-      for(j=0; j<=N; j++)
-	{
-	  
-	  fprintf(out_wave2D,"%lf %lf\n", out_fourier2D[i][j][0]/N*N, out_fourier2D[i][j][1]/N*N);
-	}
+      fprintf(out_wave2D,"%lf %lf\n", out_fourier2D[i][0]/N*N, out_fourier2D[i][1]/N*N);
       
     }
 
