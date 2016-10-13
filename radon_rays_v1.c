@@ -44,13 +44,23 @@ CONTROL TESTS
 //#include<complex.h>
 
 #include<fftw3.h>
-#include "rsf.h"
-#include "myradon2.h"
+#include"rsf.h"
+#include"myradon2.h"
 
 /*PATHS: /home/xibelly/Madagascar/rsfsrc/user/pyang myradon2.c
 PATHS: /home/xibelly/Madagascar/rsfsrc/system/seismic/Mradon.c radon.c
 PATHS: /home/xibelly/Madagascar/include */
 
+
+/*LIBRARY PATHS
+
+  /home/xibelly/Madagascar/rsf/include -> source rsf.h
+
+  /home/xibelly/Madagascar/rsf/lib    -> file.o of rsf.h
+
+  /home/xibelly/Madagascar/rsfsrc/build/api/c  -> file.o of rsf.h
+
+*/
 
 /*NOTA: el indicador sf_...  es para indicar el formato por defecto de MADAGASCAR -> rsf */
 
