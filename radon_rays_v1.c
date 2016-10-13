@@ -80,15 +80,15 @@ struct ray RAY;
 ///////////////////////FUNCTIONS/////////////////////////////
 void matrix_transpose(sf_complex *matrix, int nx, int nz)
 {
-	int ix, iz;
-	sf_complex *tmp=(sf_complex*)malloc(nx*nz*sizeof(sf_complex));
-	if (tmp==NULL) {printf("out of memory!\n"); exit(1);}
-	for(iz=0; iz<nz; iz++)
-	for(ix=0; ix<nx; ix++)
-		tmp[iz+nz*ix]=matrix[ix+nx*iz];
-
-	memcpy(matrix, tmp, nx*nz*sizeof(sf_complex));
-	free(tmp);
+  int ix, iz;
+  sf_complex *tmp=(sf_complex*)malloc(nx*nz*sizeof(sf_complex));
+  if (tmp==NULL) {printf("out of memory!\n"); exit(1);}
+  for(iz=0; iz<nz; iz++)
+    for(ix=0; ix<nx; ix++)
+      tmp[iz+nz*ix]=matrix[ix+nx*iz];
+  
+  memcpy(matrix, tmp, nx*nz*sizeof(sf_complex));
+  free(tmp);
 }
 
 /*Computes the LRT or PRT to the load data -rays- */
@@ -129,7 +129,7 @@ int radon(char *in_file, char *out_file)
   /* origin of time axis */
   
   
-  if (adj||inv) { /* m(tau,p)=sum_{i=0}^{nx} d(t=tau+p*x_i,x_i) */
+  if (adj||inv){ /* m(tau,p)=sum_{i=0}^{nx} d(t=tau+p*x_i,x_i) */
     if (!sf_histint(in,"n2",&nx)) sf_error("No n2= in input");
     /* number of offset if the input in the data domain */
     
