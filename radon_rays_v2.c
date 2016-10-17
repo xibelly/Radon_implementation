@@ -84,7 +84,7 @@ double cpu_time_used;
 
 struct ray {
   
-  double *t_time;
+  double *ttime;
   double *path;
 
 };
@@ -158,8 +158,8 @@ int radon(char *in_file_ray, char *in_file_ttime, char *out_file)
     
     if(inv){			
       if ( !(invmode=sf_getstring("invmode")) ) invmode="toeplitz";
-      /* inverse method: 'ls' if least-squares; 'toeplitz' if use FFT */			
-      if (invmode[0]=='l' &&  niter=100); //!sf_getint("niter",&niter))
+      /* inverse method: 'ls' if least-squares; 'toeplitz' -> 't' if use FFT */			
+      if ((invmode[0]=='l') && (niter=100)); //!sf_getint("niter",&niter))
       /* number of CGLS iterations */
       if (eps=0.01) ;  //!sf_getfloat("eps",&eps)
       /* regularization parameter */
@@ -170,9 +170,7 @@ int radon(char *in_file_ray, char *in_file_ttime, char *out_file)
    
   }
   
-  //invmode = NULL;
-
-  
+    
   nfft=2*kiss_fft_next_fast_size(nt);
   nw=nfft/2+1;
   p=sf_floatalloc(np);
@@ -188,7 +186,7 @@ int radon(char *in_file_ray, char *in_file_ttime, char *out_file)
   
   for(ip=0; ip<np; ip++) p[ip]=p0+ip*dp;	
   if (adj||inv) {/* m(tau,p)=sum_{i=0}^{nx} d(t=tau+p*x_i,x_i) */
-    sf_floatread(dd[0], nt*nx, in);  /
+    sf_floatread(dd[0], nt*nx, in); 
 
     ox = 0.0;
     /* data origin in x */
