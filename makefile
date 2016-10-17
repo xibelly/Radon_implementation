@@ -1,14 +1,12 @@
 CC = gcc
 
-CFLAGS = -c -O0  -I/home/$(USER)/local/include/ -I/usr/include/
+CFLAGS = -c -O1  -I/home/$(USER)/local/include/ -I/usr/include/
 
 #-I/home/$(USER)/Madagascar/rsf/include
 
 CFLAGSDEBUG = -g -Wall -c -I/home/$(USER)/local/include/ -I/usr/include/
 
-LFLAGS = -L/home/$(USER)/local/lib -L/home/$(USER)/Madagascar/rsf/lib
-
-#-Wl,-R /home/$(USER)/local/lib /home/$(USER)/Madagascar/rsf/lib
+LFLAGS = -L/home/$(USER)/local/lib -L/home/$(USER)/Madagascar/rsf/lib -Wl,-R /home/$(USER)/local/lib 
 
 
 myradon2:
