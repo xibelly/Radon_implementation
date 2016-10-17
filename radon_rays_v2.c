@@ -214,7 +214,7 @@ int radon(char *in_file_ray, char *in_file_ttime, char *out_file)
 	for (ix=0; ix < nx; ix++)/* normalize offsets */
 	  {
 	    if (par) xx[ix] *= xx[ix]/(x0*x0);
-	    else if (x0!=1.) xx[ix] /= x0;
+	    //else if (x0!=1.) xx[ix] /= x0;
 	  }
 	
 	if(adj||inv){/* m(tau,p)=sum_{i=0}^{nx} d(t=tau+p*x_i,x_i) */
@@ -231,9 +231,9 @@ int radon(char *in_file_ray, char *in_file_ttime, char *out_file)
 	    {
 	      memset(tmpr, 0, nfft*sizeof(float));
 	      memcpy(tmpr, mm[ip], nt*sizeof(float));
-	      //fftwf_execute(fft1);/* FFT: mm-->cmm */
-	      //memcpy(&cmm[ip*nw], tmpc, nw*sizeof(float));
-	      memcpy(&cmm[ip*nw], tmpr, nw*sizeof(float));			
+	      fftwf_execute(fft1);/* FFT: mm-->cmm */
+	      memcpy(&cmm[ip*nw], tmpc, nw*sizeof(float));
+	      			
 	    }
 	  matrix_transpose(cmm, nw, np);
 	}
@@ -244,7 +244,7 @@ int radon(char *in_file_ray, char *in_file_ttime, char *out_file)
 	  {
 	    w=2.*SF_PI*iw/(nfft*dt);
 	    myradon2_set(w);
-	    myradon2_lop(adj, false, np, nx, &cmm[iw*np], &cdd[iw*nx]);//cmm -> travel time
+	    myradon2_lop(adj, false, np, nx, &cmm[iw*np], &cdd[iw*nx]);//Linear operator RT
 	    if(adj&&inv){
 			if (invmode[0]=='t' )
 			  myradon2_inv(&cmm[iw*np], &cmm[iw*np], eps);
@@ -260,25 +260,14 @@ int radon(char *in_file_ray, char *in_file_ttime, char *out_file)
 	  for(ip=0; ip<np; ip++) // loop over slopes // 
 	    {			
 	      memcpy(tmpc, &cmm[ip*nw], nw*sizeof(sf_complex));
-	      //fftwf_execute(ifft1); // IFFT: cmm-->mm //
-	      for(iw=0; iw<nt; iw++) mm[ip][iw]=tmpc[iw]/nfft; //mm[ip][iw]=tmpr[iw]/nfft;
+	      fftwf_execute(ifft1); // IFFT: cmm-->mm //
+	      for(iw=0; iw<nt; iw++) mm[ip][iw]=tmpr[iw]/nfft; //mm[ip][iw]=tmpr[iw]/nfft;
 	    }
 	  
 	  sf_floatwrite(mm[0], nt*np, out);
 	}
 
-	/*else{// d(t,h)=sum_{i=0}^{np} m(tau=t-p_i*h,p_i) //
-	  matrix_transpose(cdd, nx, nw);
-	  for(ix=0; ix<nx; ix++) // loop over offsets //
-	    {
-	      memcpy(tmpc, &cdd[ix*nw], nw*sizeof(sf_complex));
-	      fftwf_execute(ifft1);// IFFT: cmm-->mm //
-	      for(iw=0; iw<nt; iw++) dd[ix][iw]=tmpr[iw]/nfft;
-	      }
-	  
-	//sf_floatwrite(dd[0], nt*nx, out);
-	}*/
-
+	
 	
 	free(p);
 	free(xx);
