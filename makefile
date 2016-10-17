@@ -16,7 +16,7 @@ myradon2:
 	$(CC) $(CFLAGS) $@.c -o $@.o
 
 
-radon_rays_v1:
+radon_rays_v2:
 	echo Estoy compilando $@.c
 	$(CC) $(CFLAGS) $@.c -o $@.o
 	$(CC) myradon2.o $@.o $(LFLAGS) -lm -lfftw3 -o  $@.x		

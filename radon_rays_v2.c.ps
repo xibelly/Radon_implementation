@@ -1,0 +1,3831 @@
+%!PS-Adobe-3.0
+%%Title: radon_rays_v2.c
+%%Creator: ps-print v7.3.5
+%%For: XIBELLY
+%%CreationDate: 12:26:54 oct 17 2016
+%%Orientation: Portrait
+%%DocumentNeededResources: font Times-Roman Times-Italic
+%%+ font Courier
+%%+ font Courier-Bold
+%%+ font Courier-Oblique
+%%+ font Courier-BoldOblique
+%%+ font Helvetica
+%%+ font Helvetica-Bold
+%%DocumentSuppliedResources: procset PSPrintUserDefinedPrologue-xibelly 0 0
+%%DocumentMedia: A4 595 842 0 () ()
+%%PageOrder: Ascend
+%%Pages: (atend)
+%%Requirements:
+%%EndComments
+%%BeginDefaults
+%%PageMedia: A4
+%%EndDefaults
+
+%%BeginProlog
+
+/languagelevel where{pop}{/languagelevel 1 def}ifelse
+/ErrorMessage  1 def
+
+% === BEGIN ps-print prologue 0
+% version: 6.0
+
+% Copyright (C) 2000-2013 Free Software Foundation, Inc.
+
+% This file is part of GNU Emacs.
+
+% GNU Emacs is free software: you can redistribute it and/or modify
+% it under the terms of the GNU General Public License as published by
+% the Free Software Foundation, either version 3 of the License, or
+% (at your option) any later version.
+
+% GNU Emacs is distributed in the hope that it will be useful,
+% but WITHOUT ANY WARRANTY; without even the implied warranty of
+% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+% GNU General Public License for more details.
+
+% You should have received a copy of the GNU General Public License
+% along with GNU Emacs.  If not, see <http://www.gnu.org/licenses/>.
+
+% As a special exception, the copyright holders of this module give
+% you permission to include the module in a Postscript file generated
+% by Emacs or other free software together with the result of
+% converting text to be printed, regardless of the license terms of
+% that text, and to use under terms of your choice the page images
+% resulting from formatting said combination.  If you modify this
+% module, you may extend this exception to your version of the module
+% but you are not obligated to do so.  If you do not wish to do so,
+% delete this exception statement from your version.
+
+
+%%BeginProcSet: ErrorHandler
+% Downloaded Error Break-page handler
+% Adapted from:
+%     PostScript Language Program Design,
+%     Adobe Systems Incorporated.
+%     Appendix A, pages 217-219
+
+/ps$brkpage where{pop}
+{
+ /ps$brkpage 64 dict def
+ ps$brkpage begin
+  /tx 0 def/ty 0 def/toy 0 def/tox 0 def
+  /prnt{
+   dup type/stringtype ne{=string cvs}if
+   dup length 6 mul
+   /tx exch def/ty 10 def
+   currentpoint/toy exch def/tox exch def
+   1 setgray newpath
+   tox toy 2 sub moveto
+   0 ty rlineto tx 0 rlineto
+   0 ty neg rlineto
+   closepath fill
+   tox toy moveto 0 setgray show
+  }bind def
+  /nl{currentpoint exch pop lmargin exch moveto 0 -10 rmoveto}def
+  /=={/cp 0 def typeprint nl}def
+  /typeprint{dup type dup currentdict exch known{exec}{unknowntype}ifelse}readonly def
+  /lmargin 72 def
+  /rmargin 72 def
+  /tprint{
+   dup length cp add rmargin gt{nl/cp 0 def}if
+   dup length cp add/cp exch def
+   prnt
+  }readonly def
+  /cvsprint{=string cvs tprint( )tprint}readonly def
+  /unknowntype{exch pop cvlit(??)tprint cvsprint}readonly def
+  /integertype{cvsprint}readonly def
+  /realtype{cvsprint}readonly def
+  /booleantype{cvsprint}readonly def
+  /operatortype{(//)tprint cvsprint}readonly def
+  /marktype{pop(-mark-)tprint}readonly def
+  /dicttype{pop(-dictionary-)tprint}readonly def
+  /nulltype{pop(-null-)tprint}readonly def
+  /filetype{pop(-filestream-)tprint}readonly def
+  /savetype{pop(-savelevel-)tprint}readonly def
+  /fonttype{pop(-fontid-)tprint}readonly def
+  /nametype{dup xcheck not{(/)tprint}if cvsprint}readonly def
+  /stringtype{
+   dup rcheck
+   {(\()tprint tprint(\))tprint}
+   {pop(-string-)tprint}ifelse}readonly def
+  /arraytype{
+   dup rcheck
+   {dup xcheck
+    {({)tprint{typeprint}forall(})tprint}
+    {([)tprint{typeprint}forall(])tprint}ifelse}
+   {pop(-array-)tprint}ifelse}readonly def
+  /packedarraytype{
+   dup rcheck
+   {dup xcheck
+    {({)tprint{typeprint}forall(})tprint}
+    {([)tprint{typeprint}forall(])tprint}ifelse}
+   {pop(-packedarray-)tprint}ifelse}readonly def
+  /courier/Courier findfont 10 scalefont def
+  /OLDhandleerror errordict/handleerror get def
+ end %ps$brkpage
+
+ /handleerror{
+  systemdict begin $error begin ps$brkpage begin
+  newerror
+  {/newerror false store vmstatus pop pop 0 ne{grestoreall}if
+   initgraphics
+   ErrorMessage 1 and 0 ne{ % print on paper
+    courier setfont lmargin 720 moveto
+    (# ERROR: )prnt errorname prnt nl
+    (# OFFENDING COMMAND: )prnt/command load prnt
+    $error/ostack known
+    {nl nl(# STACK:)prnt nl nl $error/ostack get aload length{==}repeat}if
+    $error/errorinfo known
+    {nl nl(# ERRORINFO:)prnt nl nl $error/errorinfo get aload length{==}repeat}if
+    systemdict/showpage get exec}if
+   ErrorMessage 2 and 0 ne{ % send back to printing system
+    (\%\%[ Error: )print errorname =print
+    (; OffendingCommand: )print/command load =print
+    $error/errorinfo known
+    {(; ErrorInfo:)print $error/errorinfo get aload length{( )=print =print}repeat}if
+    ( ]\%\%)= flush
+    (\%\%[ Rest of job is ignored ]\%\%)= flush}if
+   /newerror true store}if
+  end end end
+  stop
+ } % handleerror
+ dup 0 systemdict put % replace name by actual dict object
+ dup 4 ps$brkpage put % replace name by dict object
+ bind readonly
+
+ errordict 3 1 roll put % put proc in errordict as /handleerror
+}ifelse
+%%EndProcSet
+
+
+% operators for language level 2 only
+
+(<<)cvn where			% << operator
+{pop/BMark(<<)cvn load def}
+{/BMark{mark}bind def}ifelse
+(>>)cvn where			% >> operator
+{pop/EMark(>>)cvn load def}
+{/EMark{counttomark 2 idiv dup dict begin{def}repeat pop currentdict end}bind def}ifelse
+/setpagedevice where		% setpagedevice
+{pop}
+{/setpagedevice{pop}bind def}ifelse
+/packedarray where		% packedarray
+{pop}
+{/packedarray{array astore readonly}bind def}ifelse
+
+
+% device dependent operators
+
+/DefOp{
+ dup where{pop pop pop}
+ {exch dup where{pop}{pop/pop}ifelse load def}ifelse}def
+
+/duplexmode/setduplexmode DefOp
+/tumble/settumble DefOp
+
+% === END ps-print prologue 0
+
+%%BeginResource: procset PSPrintUserDefinedPrologue-xibelly 0 0
+
+
+%%EndResource
+
+/LandscapeMode       false def
+/UpsideDown          false def
+/NumberOfColumns     1 def
+/LandscapePageHeight 841.8897637795276 def
+/PrintPageWidth      481.8897637795275 def
+/PrintWidth   481.8897637795275 def
+/PrintHeight  693.5927370078741 def
+/LeftMargin   56.69291338582677 def
+/RightMargin  56.69291338582677 def
+/InterColumn  56.69291338582677 def
+/BottomMargin 42.51968503937008 def
+/TopMargin    42.51968503937008 def
+/HeaderOffset 28.346456692913385 def
+/HeaderPad    2.4276 def
+/FooterOffset 28.346456692913385 def
+/FooterPad    0 def
+/FooterLines  2 def
+/ShowNofN           true def
+/SwitchHeader       false def
+/PrintOnlyOneHeader false def
+/PrintHeader        true def
+/PrintHeaderFrame   true def
+/HeaderFrameProperties [0.000 0.900 0.400 0.000 0.000 ]def
+/PrintFooter        false def
+/PrintFooterFrame   true def
+/FooterFrameProperties [0.000 0.900 0.400 0.000 0.000 ]def
+/LineSpacing      0 def
+/ParagraphSpacing 0 def
+/LineHeight       8.967500000000001 def
+/LinesPerColumn   78 def
+/WarnPaperSize    true def
+/Zebra            false def
+/PrintLineNumber  false def
+/SyncLineZebra    false def
+/ZebraFollow      0 def
+/PrintLineStep    1 def
+/PrintLineStart   1 def
+/LineNumberColor  [0.000 0.000 0.000] def
+/ZebraHeight      3 def
+/ZebraColor       0.950 def
+/BackgroundColor  [1.000 1.000 1.000] def
+/UseSetpagedevice false def
+
+/PageWidth PrintPageWidth LeftMargin add RightMargin add def
+
+/N-Up           1 def
+/N-Up-Landscape false def
+/N-Up-Border    true def
+/N-Up-Lines     1 def
+/N-Up-Columns   1 def
+/N-Up-Missing   0 def
+/N-Up-Margin    28.346456692913385 def
+/N-Up-Repeat    N-Up-Lines def
+/N-Up-End       N-Up-Columns def
+/N-Up-XColumn   PageWidth def
+/N-Up-YColumn   0 def
+/N-Up-XLine     N-Up-End 1 sub PageWidth mul neg def
+/N-Up-YLine     LandscapePageHeight neg def
+/N-Up-XStart    0 def
+/N-Up-YStart    0 def
+
+% === BEGIN ps-print prologue 1
+% version: 6.1
+
+% Copyright (C) 2000-2013 Free Software Foundation, Inc.
+
+% This file is part of GNU Emacs.
+
+% GNU Emacs is free software: you can redistribute it and/or modify
+% it under the terms of the GNU General Public License as published by
+% the Free Software Foundation, either version 3 of the License, or
+% (at your option) any later version.
+
+% GNU Emacs is distributed in the hope that it will be useful,
+% but WITHOUT ANY WARRANTY; without even the implied warranty of
+% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+% GNU General Public License for more details.
+
+% You should have received a copy of the GNU General Public License
+% along with GNU Emacs.  If not, see <http://www.gnu.org/licenses/>.
+
+% As a special exception, the copyright holders of this module give
+% you permission to include the module in a Postscript file generated
+% by Emacs or other free software together with the result of
+% converting text to be printed, regardless of the license terms of
+% that text, and to use under terms of your choice the page images
+% resulting from formatting said combination.  If you modify this
+% module, you may extend this exception to your version of the module
+% but you are not obligated to do so.  If you do not wish to do so,
+% delete this exception statement from your version.
+
+
+% ISOLatin1Encoding stolen from ps_init.ps in GhostScript 2.6.1.4:
+/ISOLatin1Encoding where{pop}{
+% -- The ISO Latin-1 encoding vector isn't known, so define it.
+% -- The first half is the same as the standard encoding,
+% -- except for minus instead of hyphen at code 055.
+/ISOLatin1Encoding
+StandardEncoding 0 45 getinterval aload pop
+    /minus
+StandardEncoding 46 82 getinterval aload pop
+%*** NOTE: the following are missing in the Adobe documentation,
+%*** but appear in the displayed table:
+%*** macron at 0225, dieresis at 0230, cedilla at 0233, space at 0240.
+% 0200 (128)
+    /.notdef/.notdef/.notdef/.notdef/.notdef/.notdef/.notdef/.notdef
+    /.notdef/.notdef/.notdef/.notdef/.notdef/.notdef/.notdef/.notdef
+    /dotlessi/grave/acute/circumflex/tilde/macron/breve/dotaccent
+    /dieresis/.notdef/ring/cedilla/.notdef/hungarumlaut/ogonek/caron
+% 0240 (160)
+    /space/exclamdown/cent/sterling
+	/currency/yen/brokenbar/section
+    /dieresis/copyright/ordfeminine/guillemotleft
+	/logicalnot/hyphen/registered/macron
+    /degree/plusminus/twosuperior/threesuperior
+	/acute/mu/paragraph/periodcentered
+    /cedilla/onesuperior/ordmasculine/guillemotright
+	/onequarter/onehalf/threequarters/questiondown
+% 0300 (192)
+    /Agrave/Aacute/Acircumflex/Atilde
+	/Adieresis/Aring/AE/Ccedilla
+    /Egrave/Eacute/Ecircumflex/Edieresis
+	/Igrave/Iacute/Icircumflex/Idieresis
+    /Eth/Ntilde/Ograve/Oacute
+	/Ocircumflex/Otilde/Odieresis/multiply
+    /Oslash/Ugrave/Uacute/Ucircumflex
+	/Udieresis/Yacute/Thorn/germandbls
+% 0340 (224)
+    /agrave/aacute/acircumflex/atilde
+	/adieresis/aring/ae/ccedilla
+    /egrave/eacute/ecircumflex/edieresis
+	/igrave/iacute/icircumflex/idieresis
+    /eth/ntilde/ograve/oacute
+	/ocircumflex/otilde/odieresis/divide
+    /oslash/ugrave/uacute/ucircumflex
+	/udieresis/yacute/thorn/ydieresis
+256 packedarray def
+}ifelse
+
+/reencodeFontISO{ %def
+  dup
+  length 12 add dict	% Make a new font (a new dict the same size
+			% as the old one) with room for our new symbols.
+
+  begin			% Make the new font the current dictionary.
+
+    % Copy each of the symbols from the old dictionary
+    % to the new one except for the font ID.
+    {1 index/FID ne{def}{pop pop}ifelse}forall
+
+    % Override the encoding with the ISOLatin1 encoding.
+    currentdict/FontType get 0 ne{/Encoding ISOLatin1Encoding def}if
+
+    % Use the font's bounding box to determine the ascent, descent,
+    % and overall height; don't forget that these values have to be
+    % transformed using the font's matrix.
+
+%          ^    (x2 y2)
+%          |       |
+%          |       v
+%          |  +----+ - -
+%          |  |    |   ^
+%          |  |    |   | Ascent (usually > 0)
+%          |  |    |   |
+% (0 0) -> +--+----+-------->
+%             |    |   |
+%             |    |   v Descent (usually < 0)
+% (x1 y1) --> +----+ - -
+
+    currentdict/FontType get 0 ne
+    {/FontBBox load aload pop			% -- x1 y1 x2 y2
+     FontMatrix transform/Ascent  exch def pop
+     FontMatrix transform/Descent exch def pop}
+    {/PrimaryFont FDepVector 0 get def
+     PrimaryFont/FontBBox get aload pop
+     PrimaryFont/FontMatrix get transform/Ascent exch def pop
+     PrimaryFont/FontMatrix get transform/Descent exch def pop}ifelse
+
+    /FontHeight Ascent Descent sub def	% use `sub' because descent < 0
+
+    % Define these in case they're not in the FontInfo
+    % (also, here they're easier to get to).
+    /UnderlinePosition  Descent 0.70 mul def
+    /OverlinePosition   Descent UnderlinePosition sub Ascent add def
+    /StrikeoutPosition  Ascent 0.30 mul def
+    /LineThickness      FontHeight 0.05 mul def
+    /Xshadow            FontHeight  0.08 mul def
+    /Yshadow            FontHeight -0.09 mul def
+    /SpaceBackground    Descent neg UnderlinePosition add def
+    /XBox               Descent neg def
+    /YBox               LineThickness 0.7 mul def
+
+    currentdict		% Leave the new font on the stack
+    end			% Stop using the font as the current dictionary.
+    definefont		% Put the font into the font dictionary
+    pop			% Discard the returned font.
+}bind def
+
+% Font definition
+/DefFont{findfont exch scalefont reencodeFontISO}def
+
+% Font selection
+/F{
+  findfont
+  dup/Ascent            get/Ascent            exch def
+  dup/Descent           get/Descent           exch def
+  dup/FontHeight        get/FontHeight        exch def
+  dup/UnderlinePosition get/UnderlinePosition exch def
+  dup/OverlinePosition  get/OverlinePosition  exch def
+  dup/StrikeoutPosition get/StrikeoutPosition exch def
+  dup/LineThickness     get/LineThickness     exch def
+  dup/Xshadow           get/Xshadow           exch def
+  dup/Yshadow           get/Yshadow           exch def
+  dup/SpaceBackground   get/SpaceBackground   exch def
+  dup/XBox              get/XBox              exch def
+  dup/YBox              get/YBox              exch def
+  setfont
+}def
+
+/FG/setrgbcolor load def
+
+/bg false def
+/BG{
+  dup/bg exch def
+  {[4 1 roll]}
+  {[1.0 1.0 1.0]}
+  ifelse
+  /bgcolor exch def
+}def
+
+%  B    width    C
+%   +-----------+
+%               | Ascent  (usually > 0)
+% A +           +
+%               | Descent (usually < 0)
+%   +-----------+
+%  E    width    D
+
+/dobackground{				% width --
+  currentpoint				% -- width x y
+  gsave
+    newpath
+    moveto				% A (x y)
+    0 Ascent rmoveto			% B
+    dup 0 rlineto			% C
+    0 Descent Ascent sub rlineto	% D
+    neg 0 rlineto			% E
+    closepath
+    FillBgColor
+  grestore
+}def
+
+/eolbg{					% dobackground until right margin
+  PrintWidth				% -- x-eol
+  currentpoint pop			% -- cur-x
+  sub					% -- width until eol
+  dobackground
+}def
+
+/LineHS LineHeight LineSpacing add def
+/ParagraphHS LineHeight ParagraphSpacing add def
+/PSL{/h exch def bg{eolbg}if  0  currentpoint exch pop h sub  moveto}def
+/PLN{PrintLineNumber{doLineNumber}if}def
+
+/SL{LineHS PSL isLineStep pop}def	% Soft Linefeed
+
+/PHL{ParagraphHS PSL PLN}def		% Paragraph Hard Linefeed
+/LHL{LineHS PSL PLN}def			% Hard Linefeed
+
+% Some debug
+/dcp{currentpoint exch 40 string cvs print(, )print =}def
+/dp{print 2 copy  exch 40 string cvs print(, )print =}def
+
+/W{
+  ( )stringwidth	% Get the width of a space in the current font.
+  pop			% Discard the Y component.
+  mul			% Multiply the width of a space
+			% by the number of spaces to plot
+  bg{dup dobackground}if
+  0 rmoveto
+}def
+
+/Effect          0 def
+/EffectUnderline false def
+/EffectStrikeout false def
+/EffectOverline  false def
+/EffectShadow    false def
+/EffectBox       false def
+/EffectOutline   false def
+
+% effect: 1  - underline  2   - strikeout  4  - overline
+%         8  - shadow     16  - box        32 - outline
+/EF{
+  /Effect exch def
+  /EffectUnderline Effect 1  and 0 ne def
+  /EffectStrikeout Effect 2  and 0 ne def
+  /EffectOverline  Effect 4  and 0 ne def
+  /EffectShadow    Effect 8  and 0 ne def
+  /EffectBox       Effect 16 and 0 ne def
+  /EffectOutline   Effect 32 and 0 ne def
+}def
+
+% stack:  string  |-  --
+/S{
+  /xx currentpoint dup Descent add/yy exch def
+  Ascent add/YY exch def def
+  dup stringwidth pop xx add/XX exch def
+  EffectShadow{
+    /yy yy Yshadow add def
+    /XX XX Xshadow add def
+  }if
+  bg{
+    true
+    EffectBox
+      {SpaceBackground doBox}
+      {xx yy XX YY doRect}
+    ifelse
+  }if						% background
+  EffectBox      {false 0 doBox}if		% box
+  EffectShadow   {dup doShadow}if		% shadow
+  EffectOutline
+    {true doOutline}				% outline
+    {show}					% normal text
+  ifelse
+  EffectUnderline{UnderlinePosition Hline}if	% underline
+  EffectStrikeout{StrikeoutPosition Hline}if	% strikeout
+  EffectOverline {OverlinePosition  Hline}if	% overline
+}bind def
+
+% stack:  position  |-  --
+/Hline{
+  currentpoint exch pop add dup
+  gsave
+  newpath
+  xx exch moveto
+  XX exch lineto
+  closepath
+  LineThickness setlinewidth stroke
+  grestore
+}bind def
+
+% stack:  fill-or-not delta  |-  --
+/doBox{
+  /dd exch def
+  xx XBox sub dd sub yy YBox sub dd sub
+  XX XBox add dd add YY YBox add dd add
+  doRect
+}bind def
+
+% stack:  fill-or-not lower-x lower-y upper-x upper-y  |-  --
+/doRect{
+  /rYY exch def
+  /rXX exch def
+  /ryy exch def
+  /rxx exch def
+  gsave
+  newpath
+  rXX rYY moveto
+  rxx rYY lineto
+  rxx ryy lineto
+  rXX ryy lineto
+  closepath
+  % top of stack: fill-or-not
+  {FillBgColor}
+  {LineThickness setlinewidth stroke}ifelse
+  grestore
+}bind def
+
+% stack:  string  |-  --
+/doShadow{
+  gsave
+  Xshadow Yshadow rmoveto
+  false doOutline
+  grestore
+}bind def
+
+/st 1 string def
+
+% stack:  string fill-or-not  |-  --
+/doOutline{
+  /-fillp- exch def
+  /-ox- currentpoint/-oy- exch def def
+  gsave
+  LineThickness setlinewidth
+  {st 0 3 -1 roll put
+   st dup true charpath
+   -fillp- {gsave FillBgColor grestore}if
+   stroke stringwidth
+   -oy- add/-oy- exch def
+   -ox- add/-ox- exch def
+   -ox- -oy- moveto
+  }forall
+  grestore
+  -ox- -oy- moveto
+}bind def
+
+% stack:  --
+/FillBgColor{bgcolor aload pop setrgbcolor fill}bind def
+
+% stack:  -- |- boolean
+/isLineStep{
+  SyncLineZebra
+  {PLScounter 0 gt						% or zebra
+   {/PLScounter PLScounter 1 sub def PLScounter 0 eq}
+   {false}ifelse
+   PrintLineStep 1 gt
+   {/PrintLineStep PrintLineStep 1 sub def}
+   {/PrintLineStep ZebraHeight def
+    /PLScounter PrintLineStart def}ifelse}
+  {LineNumber PrintLineStart sub PrintLineStep mod 0 eq}ifelse	% or line step
+}def
+
+% stack:  --
+/doLineNumber{
+  /LineNumber where
+  {pop
+   isLineStep			% or line step
+   LineNumber Lines ge or	% or last line
+   {currentfont
+    gsave
+    LineNumberColor SetColor
+    /L0 findfont setfont
+    LineNumber Lines ge
+    {(end      )}
+    {LineNumber 6 string cvs(      )strcat}ifelse
+    dup stringwidth pop neg 0 rmoveto
+    show
+    grestore
+    setfont}if
+    /LineNumber LineNumber 1 add def
+  }if
+}def
+
+% stack: color-specifier |- --
+/SetColor{dup type/realtype eq{setgray}{aload pop setrgbcolor}ifelse}def
+
+% stack: --
+/printZebra{
+  gsave
+  ZebraColor SetColor
+  /double-zebra ZebraHeight ZebraHeight add def
+  /yiter double-zebra LineHS mul neg def
+  /xiter PrintWidth InterColumn add def
+  /zebra-line LinesPrinted def
+  NumberOfColumns{LinesPerColumn doColumnZebra xiter 0 rmoveto}repeat
+  grestore
+}def
+
+% stack:  lines-per-column |- --
+/doColumnZebra{
+  /lpc exch def
+  gsave
+  ZebraFollow 1 and 0 ne{
+    /H ZebraHeight zebra-line ZebraHeight mod sub def
+    /lpc lpc H sub def
+    zebra-line double-zebra mod ZebraHeight lt
+    {H doZebra	% "black" stripe followed by a "white" stripe
+     /lpc lpc ZebraHeight sub def
+     H ZebraHeight add}
+    {H}ifelse	% "white" stripe
+    LineHS mul neg 0 exch rmoveto
+    /zebra-line zebra-line LinesPerColumn add def
+  }if
+  /zspacing 0 def
+  lpc dup double-zebra idiv{ZebraHeight doZebra 0 yiter rmoveto}repeat
+  double-zebra mod dup 0 le{pop}
+  {dup ZebraHeight gt
+   {pop ZebraHeight}
+   {/zspacing LineSpacing def
+    ZebraFollow 2 and 0 ne{pop ZebraHeight}if}ifelse
+   doZebra}ifelse
+  grestore
+}def
+
+% stack:  zebra-height (in lines) |- --
+/doZebra{
+  /zh exch 0.05 sub LineHS mul zspacing sub def
+  gsave
+  0 LineHeight 0.65 mul rmoveto
+  PrintWidth 0 rlineto
+  0 zh neg rlineto
+  PrintWidth neg 0 rlineto
+  0 zh rlineto
+  fill
+  grestore
+}def
+
+% stack: --
+/printBackground{
+  /BackgroundColor where{
+    /LHg LineHeight 0.65 mul def
+    /PHg PrintHeight LHg add def
+    pop gsave BackgroundColor SetColor
+    NumberOfColumns{
+     gsave
+     0 LHg rmoveto
+     PrintWidth 0 rlineto
+     0 PHg neg rlineto
+     PrintWidth neg 0 rlineto
+     0 PHg rlineto
+     fill
+     grestore
+     PrintWidth InterColumn add 0 rmoveto
+    }repeat
+    grestore
+  }if
+}def
+
+% tx ty rotation xscale yscale xpos ypos BeginBackImage
+/BeginBackImage{
+  /-save-image- save def
+  /showpage{}def
+  translate
+  scale
+  rotate
+  translate
+}def
+
+/EndBackImage{-save-image- restore}def
+
+% string fontsize fontname rotation gray xpos ypos ShowBackText
+/ShowBackText{
+  gsave
+  translate
+  setgray
+  rotate
+  findfont exch dup/-offset- exch -0.25 mul def scalefont setfont
+  0 -offset- moveto
+  /-saveLineThickness- LineThickness def
+  /LineThickness 1 def
+  false doOutline
+  /LineThickness -saveLineThickness- def
+  grestore
+}def
+
+/SetPageSize{
+  BMark/PageSize[PageWidth LandscapePageHeight LandscapeMode{exch}if]EMark setpagedevice
+}def
+
+/BeginDoc{
+  % ---- Remember space width of the normal text font `f0'.
+  /SpaceWidth/f0 findfont setfont( )stringwidth pop def
+  % ---- save the state of the document (useful for ghostscript!)
+  /docState save def
+  % ---- [andrewi] set PageSize based on chosen dimensions
+  UseSetpagedevice{
+   WarnPaperSize{SetPageSize}{mark{SetPageSize}stopped cleartomark}ifelse
+  }if
+  /ColumnWidth PrintWidth InterColumn add def
+  % ---- define where  printing will start
+  /f0 F					% this installs Ascent
+  /PrintStartY PrintHeight Ascent sub def
+  /ColumnIndex 1 def
+  /N-Up-Counter N-Up-End 1 sub def
+  /PLScounter PrintLineStart def
+}def
+
+/EndDoc{
+  % ---- restore the state of the document (useful for ghostscript!)
+  docState restore
+}def
+
+/BeginDSCPage{
+  % ---- when 1st column, save the state of the page
+  ColumnIndex 1 eq{/pageState save def}if
+  % ---- save the state of the column
+  /columnState save def
+}def
+
+/PrintHeaderWidth PrintOnlyOneHeader{PrintPageWidth}{PrintWidth}ifelse def
+
+/BeginPage{
+  /LinesPrinted exch def
+  % ---- when 1st column, print all background effects
+  ColumnIndex 1 eq{
+    0 PrintStartY moveto		% move to where printing will start
+    printBackground
+    Zebra{printZebra}if
+    printGlobalBackground
+    printLocalBackground
+  }if
+  PrintOnlyOneHeader{ColumnIndex 1 eq}{true}ifelse
+  dup PrintHeader and{
+    PrintHeaderFrame{HeaderFrame}if
+    HeaderText
+  }if
+  PrintFooter and{
+    PrintFooterFrame{FooterFrame}if
+    FooterText
+  }if
+  0 PrintStartY moveto			% move to where printing will start
+  /LineNumber where
+  {pop
+   SyncLineZebra
+   {/H PageNumber 1 sub NumberOfColumns mul ColumnIndex 1 sub add
+       LinesPerColumn mul ZebraHeight mod def
+    /PLScounter H PrintLineStart ge{0}{PrintLineStart H sub}ifelse def
+    /PrintLineStep ZebraHeight H sub def}if}if
+  PLN
+}def
+
+/EndPage{bg{eolbg}if}def
+
+/EndDSCPage{
+  ColumnIndex NumberOfColumns eq{
+    % ---- restore the state of the page
+    pageState restore
+    /ColumnIndex 1 def
+    % ---- N-up printing
+    N-Up 1 gt{
+      N-Up-Counter 0 gt
+      {% ---- Next page on same row
+	/N-Up-Counter N-Up-Counter 1 sub def
+	N-Up-XColumn N-Up-YColumn}
+      {% ---- Next page on next line
+	/N-Up-Counter N-Up-End 1 sub def
+	N-Up-XLine N-Up-YLine}ifelse
+      translate
+    }if
+  }{ % else
+    % ---- restore the state of the current column
+    columnState restore
+    % ---- and translate to the next column
+    ColumnWidth 0 translate
+    /ColumnIndex ColumnIndex 1 add def
+  }ifelse
+}def
+
+/TextStart{
+  LeftMargin BottomMargin
+  PrintFooter{
+    FooterPad add
+    FooterLines FooterLineHeight mul add
+    FooterPad add
+    FooterOffset add}if
+}def
+
+% stack: number-of-pages-per-sheet |- --
+/BeginSheet{
+  /sheetState save def
+  /pages-per-sheet exch def
+
+  % ---- translate to bottom-right corner of Portrait page
+  LandscapeMode{
+    LandscapePageHeight 0 translate
+    90 rotate
+  }if
+  % ---- [jack] Kludge: my ghostscript window is 21x27.7 instead of 21x29.7
+  /JackGhostscript where{pop 1 27.7 29.7 div scale}if
+  UpsideDown{PageWidth LandscapePageHeight translate 180 rotate}if
+  % ---- N-Up printing
+  N-Up 1 gt{
+    % ---- landscape
+    N-Up-Landscape{
+      PageWidth 0 translate
+      90 rotate
+    }if
+    N-Up-Margin dup translate
+    % ---- scale
+    LandscapeMode{
+      /HH PageWidth def
+      /WW LandscapePageHeight def
+    }{
+      /HH LandscapePageHeight def
+      /WW PageWidth def
+    }ifelse
+    /xx 0 def
+    N-Up-Landscape{
+      /ww WW WW mul N-Up-Lines HH mul div def
+      /cc HH N-Up-Columns N-Up-Missing add div def
+      ww cc gt{/xx WW def/WW cc ww div WW mul def/xx xx WW sub def}if
+    }{
+      /hh HH N-Up-Columns N-Up-Missing add div def
+      /cc HH N-Up-Lines div def
+      hh cc gt{/xx WW def/WW cc hh div WW mul def/xx xx WW sub def}if
+    }ifelse
+    WW N-Up-Margin sub N-Up-Margin sub
+    N-Up-Landscape
+    {N-Up-Lines div HH}
+    {N-Up-Columns N-Up-Missing add div WW}ifelse
+    div dup scale
+    LandscapeMode{/yy 0 def}{/yy xx def/xx 0 def}ifelse
+    xx N-Up-Repeat 1 sub LandscapePageHeight mul yy add translate
+    % ---- go to start position in page matrix
+    N-Up-XStart N-Up-Missing 0.5 mul
+    LandscapeMode
+    {LandscapePageHeight mul N-Up-YStart add}
+    {PageWidth mul add N-Up-YStart}ifelse
+    translate
+  }if
+  % ---- translate to lower left corner of TEXT
+  TextStart translate
+
+  % ---- N-up printing
+  N-Up 1 gt N-Up-Border and pages-per-sheet 0 gt and{
+    % ---- page border
+    gsave
+    0 setgray
+    TextStart exch neg exch neg moveto
+    N-Up-Repeat
+    {N-Up-End
+     {gsave
+      PageWidth 0 rlineto
+      0 LandscapePageHeight rlineto
+      PageWidth neg 0 rlineto
+      closepath stroke
+      grestore
+      /pages-per-sheet pages-per-sheet 1 sub def
+      pages-per-sheet 0 le{exit}if
+      N-Up-XColumn N-Up-YColumn rmoveto
+     }repeat
+     pages-per-sheet 0 le{exit}if
+     N-Up-XLine N-Up-XColumn sub N-Up-YLine rmoveto
+    }repeat
+    grestore
+  }if
+}def
+
+/EndSheet{
+  showpage
+  sheetState restore
+}def
+
+/SetHeaderLines{			% nb-lines --
+  /HeaderLines exch def
+  % ---- bottom up
+  HeaderPad
+  HeaderLines 1 sub HeaderLineHeight mul add
+  HeaderTitleLineHeight add
+  HeaderPad add
+  /HeaderHeight exch def
+}def
+
+/SetFooterLines{			% nb-lines --
+  /FooterLines exch def
+  % ---- bottom up
+  FooterPad
+  FooterLines FooterLineHeight mul add
+  FooterPad add
+  /FooterHeight exch def
+}def
+
+% |---------|
+% |  tm     |
+% |---------|
+% |  header |
+% |-+-------| <-- (x y)
+% |  ho     |
+% |---------|
+% |  text   |
+% |---------|
+% |  fo     |
+% |---------|
+% |  footer |
+% |-+-------| <-- (0 0)
+% |  bm     |
+% |---------|
+
+% -- |- x y
+/HeaderFrameStart{0  PrintHeight HeaderOffset add}def
+/FooterFrameStart{0  FooterHeight FooterOffset add neg}def
+
+/doFramePath{
+  /h exch def
+  PrintHeaderWidth	0	rlineto
+  0			h	rlineto
+  PrintHeaderWidth neg	0	rlineto
+  0			h neg	rlineto
+}def
+
+/HeaderFramePath{HeaderHeight doFramePath}def
+/FooterFramePath{FooterHeight doFramePath}def
+
+% /path-fun /start-fun vector-property doFrame
+/doFrame{
+  /vecFrame exch def
+  /startFrame exch load def
+  /pathFrame exch load def
+  gsave
+    vecFrame 2 get setlinewidth				% frame border width
+    % ---- do the shadow of the next rectangle
+    startFrame moveto
+    1 -1 rmoveto
+    pathFrame
+    vecFrame 4 get SetColor fill			% frame shadow color
+    % ---- do the next rectangle ...
+    startFrame moveto
+    pathFrame
+    gsave vecFrame 1 get SetColor fill grestore		% frame background
+    gsave vecFrame 3 get SetColor stroke grestore	% frame border color
+  grestore
+}def
+
+/HeaderFrame{/HeaderFramePath /HeaderFrameStart HeaderFrameProperties doFrame}def
+/FooterFrame{/FooterFramePath /FooterFrameStart FooterFrameProperties doFrame}def
+
+/HeaderStart{
+  HeaderFrameStart
+  exch HeaderPad add exch	% horizontal pad
+  % ---- bottom up
+  HeaderPad add			% vertical   pad
+  HeaderDescent sub
+  HeaderLineHeight HeaderLines 1 sub mul add
+}def
+
+/FooterStart{
+  FooterFrameStart
+  exch FooterPad add exch	% horizontal pad
+  % ---- bottom up
+  FooterPad add			% vertical   pad
+  FooterDescent sub
+  FooterLineHeight FooterLines 1 sub mul add
+}def
+
+/HeaderClip{HeaderFrameStart moveto HeaderFramePath clip}def
+/FooterClip{FooterFrameStart moveto FooterFramePath clip}def
+
+/strcat{
+  dup length 3 -1 roll dup length dup 4 -1 roll add string dup
+  0 5 -1 roll putinterval
+  dup 4 2 roll exch putinterval
+}def
+
+/pagenumberstring{
+  PageNumber 32 string cvs
+  ShowNofN{(/)strcat PageCount 32 string cvs strcat}if
+}def
+
+% lines is-right HeaderOrFooterTextLines
+/HeaderOrFooterTextLines{
+  /is_right exch def
+  HFStart moveto
+  { % ---- process the lines
+   aload pop
+   exch F
+   gsave
+    dup xcheck{exec}if
+    is_right{
+     dup stringwidth pop
+     PrintHeaderWidth exch sub HFPad HFPad add sub 0 rmoveto
+    }if
+    HFColor SetColor
+    show
+   grestore
+   0 HFLineHeight neg rmoveto
+  }forall
+}def
+
+% right-lines left-lines /start lineheight pad fore-color HeaderOrFooterText
+/HeaderOrFooterText{
+  /HFColor exch def
+  /HFPad exch def
+  /HFLineHeight exch def
+  /HFStart exch load def
+
+  % -- rightLines leftLines -- at stack
+
+  % ---- hack: `PN 1 and'  ==  `PN 2 modulo'
+  % ---- if even page number and duplex, then exchange left and right
+  PageNumber 1 and 0 eq SwitchHeader and{exch}if
+
+  % ---- process the left lines
+  false HeaderOrFooterTextLines
+
+  % ---- process the right lines
+  true HeaderOrFooterTextLines
+}def
+
+/HeaderText{
+  gsave HeaderClip
+  HeaderLinesRight HeaderLinesLeft
+  /HeaderStart HeaderLineHeight HeaderPad
+  HeaderFrameProperties 0 get
+  HeaderOrFooterText
+  grestore
+}def
+
+/FooterText{
+  gsave FooterClip
+  FooterLinesRight FooterLinesLeft
+  /FooterStart FooterLineHeight FooterPad
+  FooterFrameProperties 0 get
+  HeaderOrFooterText
+  grestore
+}def
+
+/ReportFontInfo{
+  2 copy
+  /t0 3 1 roll DefFont
+  /t0 F
+  /lh FontHeight def
+  /sw( )stringwidth pop def
+  /aw(01234567890abcdefghijklmnopqrstuvwxyz)dup length exch
+  stringwidth pop exch div def
+  /t1 12/Helvetica-Oblique DefFont
+  /t1 F
+  gsave
+    (languagelevel = )show
+    languagelevel 32 string cvs show
+  grestore
+  0 FontHeight neg rmoveto
+  gsave
+    (For )show
+    128 string cvs show
+    ( )show
+    32 string cvs show
+    ( point, the line height is )show
+    lh 32 string cvs show
+    (, the space width is )show
+    sw 32 string cvs show
+    (,)show
+  grestore
+  0 FontHeight neg rmoveto
+  gsave
+    (and a crude estimate of average character width is )show
+    aw 32 string cvs show
+    (.)show
+  grestore
+  0 FontHeight neg rmoveto
+}def
+
+% cm to point
+/cm{72 mul 2.54 div}def
+
+/ReportAllFontInfo{
+  % key = font name   value = font dictionary
+  FontDirectory{pop 10 exch ReportFontInfo}forall
+}def
+
+% 3 cm 20 cm moveto  10/Courier ReportFontInfo  showpage
+% 3 cm 20 cm moveto  ReportAllFontInfo          showpage
+
+% === END ps-print prologue 1
+
+/printGlobalBackground{
+}def
+/printLocalBackground{
+}def
+
+%%EndProlog
+
+%%BeginSetup
+
+%%IncludeResource: font Times-Roman
+%%IncludeResource: font Times-Italic
+%%IncludeResource: font Courier
+%%IncludeResource: font Courier-Bold
+%%IncludeResource: font Courier-Oblique
+%%IncludeResource: font Courier-BoldOblique
+%%IncludeResource: font Helvetica
+%%IncludeResource: font Helvetica-Bold
+/h0 14(Helvetica-Bold)cvn DefFont
+/h1 12(Helvetica)cvn DefFont
+/L0 6(Times-Italic)cvn DefFont
+/H0 12(Helvetica)cvn DefFont
+
+
+% ---- These lines must be kept together because...
+
+/h0 F
+/HeaderTitleLineHeight FontHeight def
+
+/h1 F
+/HeaderLineHeight FontHeight def
+/HeaderDescent    Descent def
+
+/H0 F
+/FooterLineHeight FontHeight def
+/FooterDescent    Descent def
+
+% ---- ...because `F' has a side-effect on `FontHeight' and `Descent'
+
+/f0 8.5(Courier)cvn DefFont
+/f1 8.5(Courier-Bold)cvn DefFont
+/f2 8.5(Courier-Oblique)cvn DefFont
+/f3 8.5(Courier-BoldOblique)cvn DefFont
+/SpaceWidthRatio 0.600000 def
+
+%%BeginFeature: *ManualFeed False
+BMark /ManualFeed false EMark setpagedevice
+%%EndFeature
+
+%%%% Start of Mule Section
+
+/Latin1Encoding {	% newname fontname  |  font
+    findfont dup length dict begin
+	{ 1 index /FID ne { def } { pop pop } ifelse } forall
+        /Encoding ISOLatin1Encoding def
+	currentdict
+    end
+    definefont
+} bind def
+
+%% Redefine fonts for multiple charsets.
+/ReDefFont {		     % fontname encoding fdepvector size  |  -
+  20 dict begin
+  3 index findfont {
+    1 index /FID ne 2 index /UniqueID ne and {def} {pop pop} ifelse
+  } forall
+  /FontType 0 def
+  /FMapType 3 def
+  /EscChar 0 def
+  % FontMatrix ::= [ size 0 0 size 0 0 ]
+  /FontMatrix exch [ exch dup 0 exch 0 exch 0 0 ] def
+  /FDepVector exch def
+  /Encoding exch def
+  currentdict
+  end			% fontname dic
+  definefont pop
+} bind def
+
+/EscChar 0 def
+
+%% End of Mule Section
+
+/F00 /Courier findfont def
+/ETOP0 256 array def
+0 1 255 { ETOP0 exch 0 put } for
+ETOP0 0 0 put
+/VTOP0 [F00] def
+/ETOP1 256 array def
+0 1 255 { ETOP1 exch 0 put } for
+ETOP1 0 0 put
+/VTOP1 [F00] def
+/ETOP2 256 array def
+0 1 255 { ETOP2 exch 0 put } for
+ETOP2 0 0 put
+/VTOP2 [F00] def
+/ETOP3 256 array def
+0 1 255 { ETOP3 exch 0 put } for
+ETOP3 0 0 put
+/VTOP3 [F00] def
+/Vh0 [ VTOP1 aload pop ] def
+
+Vh0 0 /Helvetica-Bold-latin1 /Helvetica-Bold Latin1Encoding put
+/h0 ETOP1 Vh0 14.000000 ReDefFont
+/Vh1 [ VTOP0 aload pop ] def
+
+Vh1 0 /Helvetica-latin1 /Helvetica Latin1Encoding put
+/h1 ETOP0 Vh1 12.000000 ReDefFont
+/VH0 [ VTOP0 aload pop ] def
+
+VH0 0 /Helvetica-latin1 /Helvetica Latin1Encoding put
+/H0 ETOP0 VH0 12.000000 ReDefFont
+/Vf0 [ VTOP0 aload pop ] def
+
+Vf0 0 /Courier-latin1 /Courier Latin1Encoding put
+/f0 ETOP0 Vf0 8.500000 ReDefFont
+/Vf1 [ VTOP1 aload pop ] def
+
+Vf1 0 /Courier-Bold-latin1 /Courier-Bold Latin1Encoding put
+/f1 ETOP1 Vf1 8.500000 ReDefFont
+/Vf2 [ VTOP2 aload pop ] def
+
+Vf2 0 /Courier-Oblique-latin1 /Courier-Oblique Latin1Encoding put
+/f2 ETOP2 Vf2 8.500000 ReDefFont
+/Vf3 [ VTOP3 aload pop ] def
+
+Vf3 0 /Courier-BoldOblique-latin1 /Courier-BoldOblique Latin1Encoding put
+/f3 ETOP3 Vf3 8.500000 ReDefFont
+BeginDoc
+%%EndSetup
+
+%%Page: 1 1
+/Lines 470 def
+/PageCount 7 def
+1 BeginSheet
+BeginDSCPage
+/LineNumber 1 def
+/PageNumber 1 def
+/HeaderLinesLeft[
+ [/h0 (radon_rays_v2.c)]
+ [/h1 (~/Documentos/UdeA/Maestria_Fisi/SemestreII/InvestigacionII/Radon_implementation-master/)]
+]def
+/HeaderLinesRight[
+ [/h0 /pagenumberstring load]
+ [/h1 (17/10/16)]
+]def
+2 SetHeaderLines
+0 BeginPage
+/f0 F
+false BG
+0.000 0.000 0.000 FG
+0.698 0.133 0.133 FG
+(/) S
+(* ) S
+(Xibelly Eliseth Mosquera Escobar) S
+LHL
+(Implementation of the Radon Transform \(RT\) in the ray aproximation.) S
+PHL
+LHL
+(The ray equation is:) S
+PHL
+LHL
+(   T\(p\)  = int_{S} dS / c\(X\)      \(1\)) S
+PHL
+LHL
+(X -> \(x,y\) in 2D) S
+PHL
+LHL
+(where T is the travel time, S is the ray path and c\(X\) is the velocity of the wave propagation) S
+SL
+(.) S
+PHL
+LHL
+(The aim is to obtain the medium's parameter -c- from the travel time measured on the surface a) S
+SL
+(nd knowing the ray path. To this end the RT will be used, due to the form that this integral t) S
+SL
+(ransform is. Also the Central Slice Theorem -CST-will be used, since this present a relation b) S
+SL
+(etween the RT and the FT. So the IFT will be used to invert the equation \(1\).) S
+LHL
+( ) S
+(*/) S
+0.000 0.000 0.000 FG
+PHL
+LHL
+0.698 0.133 0.133 FG
+(/*) S
+LHL
+(ANALISIS AND DESIGN) S
+PHL
+LHL
+(To solve our problem we have to do:) S
+PHL
+LHL
+(-Receive the travel times and the ray trajectories, and verify that these are apload in the co) S
+SL
+(rrect way) S
+PHL
+LHL
+(-Receive the iterations number \(# of data lines\)) S
+PHL
+LHL
+(-Do a fit to the trajectories -Nonlinear adjustment- to ensure the geometry of the trajectorie) S
+SL
+(s) S
+PHL
+LHL
+(NOTE: AS A PRACTICAL EXERCISE, IN FIRST APPROXIMATION WE WILL CONSIDER THAT THE TRAJECTORIES D) S
+SL
+(ESCRIBING THE CORRECT GEOMETRY, IS TO SAY, THESE ARE PARABOLAS. WITH THIS ASSUMPTION WE DON'T ) S
+SL
+(HAVE TO DO ANY ADJUSTMENT.) S
+PHL
+LHL
+(-Perform the RT to the trajectories) S
+PHL
+LHL
+(-Use the CST to obtain c. This is done in the next way, apply a 1D FT on the RT that was perfo) S
+SL
+(rmed previously, and then apply a 2D IFT on the last set of data.) S
+PHL
+LHL
+(-Write in disk the results of the before step.) S
+PHL
+LHL
+(CONTROL TESTS) S
+PHL
+LHL
+(-the clock\(\) function will be used to check the ejecution time) S
+PHL
+LHL
+(*/) S
+0.000 0.000 0.000 FG
+PHL
+LHL
+0.698 0.133 0.133 FG
+(/* ) S
+(IMPLEMENTATION -> PARABOLIC RADON TRANSFORM ) S
+(*/) S
+0.000 0.000 0.000 FG
+PHL
+LHL
+0.698 0.133 0.133 FG
+(/*) S
+(Note: The idea is to use the code Mmyradon2.c to implement the PRT in the ray approach) S
+(*/) S
+0.000 0.000 0.000 FG
+PHL
+PHL
+PHL
+LHL
+0.282 0.239 0.545 FG
+(#) S
+(include) S
+0.545 0.133 0.322 FG
+(<stdio.h>) S
+0.000 0.000 0.000 FG
+LHL
+0.282 0.239 0.545 FG
+(#) S
+(include) S
+0.545 0.133 0.322 FG
+(<stdlib.h>) S
+0.000 0.000 0.000 FG
+LHL
+0.282 0.239 0.545 FG
+(#) S
+(include) S
+0.545 0.133 0.322 FG
+(<math.h>) S
+0.000 0.000 0.000 FG
+LHL
+0.282 0.239 0.545 FG
+(#) S
+(include) S
+0.545 0.133 0.322 FG
+(<time.h>) S
+0.000 0.000 0.000 FG
+LHL
+0.698 0.133 0.133 FG
+(/) S
+(/) S
+(#include<complex.h>) S
+PHL
+0.000 0.000 0.000 FG
+LHL
+0.282 0.239 0.545 FG
+(#) S
+(include) S
+0.545 0.133 0.322 FG
+(<fftw3.h>) S
+0.000 0.000 0.000 FG
+LHL
+0.282 0.239 0.545 FG
+(#) S
+(include) S
+0.545 0.133 0.322 FG
+("rsf.h") S
+0.000 0.000 0.000 FG
+LHL
+0.282 0.239 0.545 FG
+(#) S
+(include) S
+0.545 0.133 0.322 FG
+("myradon2.h") S
+0.000 0.000 0.000 FG
+PHL
+LHL
+0.698 0.133 0.133 FG
+(/) S
+(*) S
+(PATHS: /home/xibelly/Madagascar/rsfsrc/user/pyang myradon2.c) S
+LHL
+(PATHS: /home/xibelly/Madagascar/rsfsrc/system/seismic/Mradon.c radon.c) S
+LHL
+(PATHS: /home/xibelly/Madagascar/include ) S
+(*/) S
+0.000 0.000 0.000 FG
+PHL
+PHL
+LHL
+0.698 0.133 0.133 FG
+(/*) S
+(LIBRARY PATHS) S
+PHL
+LHL
+(  /home/xibelly/Madagascar/rsf/include -> source rsf.h) S
+PHL
+LHL
+(  /home/xibelly/Madagascar/rsf/lib    -> file.o of rsf.h) S
+PHL
+LHL
+(  /home/xibelly/Madagascar/rsfsrc/build/api/c  -> file.o of rsf.h) S
+PHL
+LHL
+(*/) S
+0.000 0.000 0.000 FG
+EndPage
+EndDSCPage
+EndSheet
+
+%%Page: 2 2
+/Lines 470 def
+/PageCount 7 def
+1 BeginSheet
+BeginDSCPage
+/LineNumber 70 def
+/PageNumber 2 def
+/HeaderLinesLeft[
+ [/h0 (radon_rays_v2.c)]
+ [/h1 (~/Documentos/UdeA/Maestria_Fisi/SemestreII/InvestigacionII/Radon_implementation-master/)]
+]def
+/HeaderLinesRight[
+ [/h0 /pagenumberstring load]
+ [/h1 (17/10/16)]
+]def
+2 SetHeaderLines
+78 BeginPage
+/f0 F
+false BG
+0.000 0.000 0.000 FG
+LHL
+0.698 0.133 0.133 FG
+(/*) S
+(NOTA: el indicador sf_...  es para indicar el formato por defecto de MADAGASCAR -> rsf ) S
+(*/) S
+0.000 0.000 0.000 FG
+PHL
+LHL
+0.698 0.133 0.133 FG
+(///////////////////////) S
+(GLOBAL VARIABLES////////////////////) S
+PHL
+0.000 0.000 0.000 FG
+LHL
+0.133 0.545 0.133 FG
+(i) S
+(n) S
+(t) S
+0.000 0.000 0.000 FG
+( ) S
+0.627 0.322 0.176 FG
+(N) S
+0.000 0.000 0.000 FG
+(;) S
+LHL
+0.133 0.545 0.133 FG
+(cha) S
+(r) S
+0.000 0.000 0.000 FG
+( *) S
+0.627 0.322 0.176 FG
+(in_file_ray) S
+0.000 0.000 0.000 FG
+(,) S
+( *) S
+0.627 0.322 0.176 FG
+(in_file_ttime) S
+0.000 0.000 0.000 FG
+(,) S
+( *) S
+0.627 0.322 0.176 FG
+(out_file) S
+0.000 0.000 0.000 FG
+(;) S
+LHL
+0.133 0.545 0.133 FG
+(clock_) S
+(t) S
+0.000 0.000 0.000 FG
+( ) S
+0.627 0.322 0.176 FG
+(tini) S
+0.000 0.000 0.000 FG
+(,) S
+( ) S
+0.627 0.322 0.176 FG
+(tend) S
+0.000 0.000 0.000 FG
+(,) S
+( ) S
+0.627 0.322 0.176 FG
+(tacum) S
+0.000 0.000 0.000 FG
+(;) S
+LHL
+0.133 0.545 0.133 FG
+(doubl) S
+(e) S
+0.000 0.000 0.000 FG
+( ) S
+0.627 0.322 0.176 FG
+(cpu_time_used) S
+0.000 0.000 0.000 FG
+(;) S
+PHL
+PHL
+PHL
+PHL
+LHL
+0.698 0.133 0.133 FG
+(/) S
+(/////////////////////////) S
+(STRUCTURES//////////////////////////) S
+PHL
+0.000 0.000 0.000 FG
+LHL
+0.627 0.125 0.941 FG
+(s) S
+(truc) S
+(t) S
+0.000 0.000 0.000 FG
+( ) S
+0.133 0.545 0.133 FG
+(ray) S
+0.000 0.000 0.000 FG
+( {) S
+PHL
+(  ) S
+LHL
+(  ) S
+0.133 0.545 0.133 FG
+(doubl) S
+(e) S
+0.000 0.000 0.000 FG
+( *) S
+0.627 0.322 0.176 FG
+(t_time) S
+0.000 0.000 0.000 FG
+(;) S
+LHL
+(  ) S
+0.133 0.545 0.133 FG
+(doubl) S
+(e) S
+0.000 0.000 0.000 FG
+( *) S
+0.627 0.322 0.176 FG
+(path) S
+0.000 0.000 0.000 FG
+(;) S
+PHL
+LHL
+(};) S
+PHL
+LHL
+0.627 0.125 0.941 FG
+(struct) S
+0.000 0.000 0.000 FG
+( ) S
+0.133 0.545 0.133 FG
+(ra) S
+(y) S
+0.000 0.000 0.000 FG
+( ) S
+0.627 0.322 0.176 FG
+(RAY) S
+0.000 0.000 0.000 FG
+(;) S
+PHL
+PHL
+PHL
+LHL
+0.698 0.133 0.133 FG
+(/) S
+(//////////////////////) S
+(FUNCTIONS/////////////////////////////) S
+LHL
+0.133 0.545 0.133 FG
+(v) S
+(oi) S
+(d) S
+0.000 0.000 0.000 FG
+( ) S
+0.000 0.000 1.000 FG
+(matrix_transpose) S
+0.000 0.000 0.000 FG
+(\() S
+0.133 0.545 0.133 FG
+(sf_complex) S
+0.000 0.000 0.000 FG
+( *) S
+0.627 0.322 0.176 FG
+(matrix) S
+0.000 0.000 0.000 FG
+(,) S
+( ) S
+0.133 0.545 0.133 FG
+(int) S
+0.000 0.000 0.000 FG
+( ) S
+0.627 0.322 0.176 FG
+(nx) S
+0.000 0.000 0.000 FG
+(,) S
+( ) S
+0.133 0.545 0.133 FG
+(int) S
+0.000 0.000 0.000 FG
+( ) S
+0.627 0.322 0.176 FG
+(nz) S
+0.000 0.000 0.000 FG
+(\)) S
+LHL
+({) S
+LHL
+(  ) S
+0.133 0.545 0.133 FG
+(in) S
+(t) S
+0.000 0.000 0.000 FG
+( ) S
+0.627 0.322 0.176 FG
+(ix) S
+0.000 0.000 0.000 FG
+(,) S
+( ) S
+0.627 0.322 0.176 FG
+(iz) S
+0.000 0.000 0.000 FG
+(;) S
+LHL
+(  ) S
+0.133 0.545 0.133 FG
+(sf_comple) S
+(x) S
+0.000 0.000 0.000 FG
+( *) S
+0.627 0.322 0.176 FG
+(tmp) S
+0.000 0.000 0.000 FG
+(=\() S
+0.133 0.545 0.133 FG
+(sf_complex) S
+0.000 0.000 0.000 FG
+(*\)malloc\(nx*nz*) S
+0.627 0.125 0.941 FG
+(sizeof) S
+0.000 0.000 0.000 FG
+(\(sf_complex\)\);) S
+LHL
+(  ) S
+0.627 0.125 0.941 FG
+(if) S
+0.000 0.000 0.000 FG
+( \(tmp==) S
+0.000 0.545 0.545 FG
+(NULL) S
+0.000 0.000 0.000 FG
+(\) {printf\() S
+0.545 0.133 0.322 FG
+("out of memory!\\n") S
+0.000 0.000 0.000 FG
+(\); exit\(1\);}) S
+LHL
+(  ) S
+0.627 0.125 0.941 FG
+(for) S
+0.000 0.000 0.000 FG
+(\(iz=0; iz<nz; iz++\)) S
+LHL
+(    ) S
+0.627 0.125 0.941 FG
+(for) S
+0.000 0.000 0.000 FG
+(\(ix=0; ix<nx; ix++\)) S
+LHL
+(      tmp[iz+nz*ix]=matrix[ix+nx*iz];) S
+PHL
+(  ) S
+LHL
+(  memcpy\(matrix, tmp, nx*nz*) S
+0.627 0.125 0.941 FG
+(sizeof) S
+0.000 0.000 0.000 FG
+(\(sf_complex\)\);) S
+LHL
+(  free\(tmp\);) S
+LHL
+(}) S
+PHL
+LHL
+0.698 0.133 0.133 FG
+(/) S
+(*) S
+(Computes the LRT or PRT to the load data -rays- ) S
+(*/) S
+0.000 0.000 0.000 FG
+PHL
+LHL
+0.133 0.545 0.133 FG
+(i) S
+(n) S
+(t) S
+0.000 0.000 0.000 FG
+( ) S
+0.000 0.000 1.000 FG
+(radon) S
+0.000 0.000 0.000 FG
+(\() S
+0.133 0.545 0.133 FG
+(char) S
+0.000 0.000 0.000 FG
+( *) S
+0.627 0.322 0.176 FG
+(in_file_ray) S
+0.000 0.000 0.000 FG
+(,) S
+( ) S
+0.133 0.545 0.133 FG
+(char) S
+0.000 0.000 0.000 FG
+( *) S
+0.627 0.322 0.176 FG
+(in_file_ttime) S
+0.000 0.000 0.000 FG
+(,) S
+( ) S
+0.133 0.545 0.133 FG
+(char) S
+0.000 0.000 0.000 FG
+( *) S
+0.627 0.322 0.176 FG
+(out_file) S
+0.000 0.000 0.000 FG
+(\)) S
+LHL
+({) S
+LHL
+(  ) S
+0.133 0.545 0.133 FG
+(sf_fil) S
+(e) S
+0.000 0.000 0.000 FG
+( ) S
+0.627 0.322 0.176 FG
+(in) S
+0.000 0.000 0.000 FG
+(,) S
+( ) S
+0.627 0.322 0.176 FG
+(in2) S
+0.000 0.000 0.000 FG
+(,) S
+( ) S
+0.627 0.322 0.176 FG
+(out) S
+0.000 0.000 0.000 FG
+(;) S
+PHL
+(  ) S
+LHL
+(  in = sf_input\() S
+0.545 0.133 0.322 FG
+("in_file_ray") S
+0.000 0.000 0.000 FG
+(\);) S
+5 W
+0.698 0.133 0.133 FG
+(/) S
+(* ) S
+(input data -> ray trajectory  ) S
+(*/) S
+0.000 0.000 0.000 FG
+LHL
+(  ) S
+(i) S
+(n2 = sf_input\() S
+0.545 0.133 0.322 FG
+("in_file_ttime") S
+0.000 0.000 0.000 FG
+(\);) S
+(  ) S
+0.698 0.133 0.133 FG
+(/) S
+(* ) S
+(input data -> travel time ) S
+(*/) S
+0.000 0.000 0.000 FG
+LHL
+(  ) S
+(o) S
+(ut = sf_output\() S
+0.545 0.133 0.322 FG
+("out_file") S
+0.000 0.000 0.000 FG
+(\);) S
+(      ) S
+0.698 0.133 0.133 FG
+(/) S
+(* ) S
+(output radon ) S
+(*/) S
+0.000 0.000 0.000 FG
+PHL
+(  ) S
+PHL
+(  ) S
+LHL
+(  ) S
+0.133 0.545 0.133 FG
+(b) S
+(oo) S
+(l) S
+0.000 0.000 0.000 FG
+( ) S
+0.627 0.322 0.176 FG
+(adj) S
+0.000 0.000 0.000 FG
+(,) S
+( ) S
+0.627 0.322 0.176 FG
+(inv) S
+0.000 0.000 0.000 FG
+(,) S
+( ) S
+0.627 0.322 0.176 FG
+(par) S
+0.000 0.000 0.000 FG
+(;) S
+LHL
+(  ) S
+0.133 0.545 0.133 FG
+(cha) S
+(r) S
+0.000 0.000 0.000 FG
+( *) S
+0.627 0.322 0.176 FG
+(invmode) S
+0.000 0.000 0.000 FG
+(;) S
+LHL
+(  ) S
+0.133 0.545 0.133 FG
+(in) S
+(t) S
+0.000 0.000 0.000 FG
+( ) S
+0.627 0.322 0.176 FG
+(iw) S
+0.000 0.000 0.000 FG
+(,) S
+( ) S
+0.627 0.322 0.176 FG
+(ip) S
+0.000 0.000 0.000 FG
+(,) S
+( ) S
+0.627 0.322 0.176 FG
+(ix) S
+0.000 0.000 0.000 FG
+(,) S
+( ) S
+0.627 0.322 0.176 FG
+(np) S
+0.000 0.000 0.000 FG
+(,) S
+( ) S
+0.627 0.322 0.176 FG
+(nt) S
+0.000 0.000 0.000 FG
+(,) S
+( ) S
+0.627 0.322 0.176 FG
+(nfft) S
+0.000 0.000 0.000 FG
+(,) S
+( ) S
+0.627 0.322 0.176 FG
+(nw) S
+0.000 0.000 0.000 FG
+(,) S
+( ) S
+0.627 0.322 0.176 FG
+(nx) S
+0.000 0.000 0.000 FG
+(,) S
+( ) S
+0.627 0.322 0.176 FG
+(niter) S
+0.000 0.000 0.000 FG
+(;) S
+LHL
+(  ) S
+0.133 0.545 0.133 FG
+(floa) S
+(t) S
+0.000 0.000 0.000 FG
+( ) S
+0.627 0.322 0.176 FG
+(dp) S
+0.000 0.000 0.000 FG
+(,) S
+( ) S
+0.627 0.322 0.176 FG
+(p0) S
+0.000 0.000 0.000 FG
+(,) S
+( ) S
+0.627 0.322 0.176 FG
+(dt) S
+0.000 0.000 0.000 FG
+(,) S
+( ) S
+0.627 0.322 0.176 FG
+(t0) S
+0.000 0.000 0.000 FG
+(,) S
+( ) S
+0.627 0.322 0.176 FG
+(dx) S
+0.000 0.000 0.000 FG
+(,) S
+( ) S
+0.627 0.322 0.176 FG
+(ox) S
+0.000 0.000 0.000 FG
+(,) S
+( ) S
+0.627 0.322 0.176 FG
+(x0) S
+0.000 0.000 0.000 FG
+(,) S
+( ) S
+0.627 0.322 0.176 FG
+(w) S
+0.000 0.000 0.000 FG
+(,) S
+( ) S
+0.627 0.322 0.176 FG
+(eps) S
+0.000 0.000 0.000 FG
+(;) S
+LHL
+(  ) S
+0.133 0.545 0.133 FG
+(floa) S
+(t) S
+0.000 0.000 0.000 FG
+( *) S
+0.627 0.322 0.176 FG
+(p) S
+0.000 0.000 0.000 FG
+(,) S
+( *) S
+0.627 0.322 0.176 FG
+(xx) S
+0.000 0.000 0.000 FG
+(,) S
+( **) S
+0.627 0.322 0.176 FG
+(dd) S
+0.000 0.000 0.000 FG
+(,) S
+( **) S
+0.627 0.322 0.176 FG
+(mm) S
+0.000 0.000 0.000 FG
+(,) S
+( *) S
+0.627 0.322 0.176 FG
+(tmpr) S
+0.000 0.000 0.000 FG
+(;) S
+LHL
+(  ) S
+0.133 0.545 0.133 FG
+(sf_comple) S
+(x) S
+0.000 0.000 0.000 FG
+( *) S
+0.627 0.322 0.176 FG
+(cdd) S
+0.000 0.000 0.000 FG
+(,) S
+( *) S
+0.627 0.322 0.176 FG
+(cmm) S
+0.000 0.000 0.000 FG
+(;) S
+LHL
+(  ) S
+0.133 0.545 0.133 FG
+(fftwf_comple) S
+(x) S
+0.000 0.000 0.000 FG
+( *) S
+0.627 0.322 0.176 FG
+(tmpc) S
+0.000 0.000 0.000 FG
+(;) S
+LHL
+(  ) S
+0.133 0.545 0.133 FG
+(fftwf_pla) S
+(n) S
+0.000 0.000 0.000 FG
+( ) S
+0.627 0.322 0.176 FG
+(fft1) S
+0.000 0.000 0.000 FG
+(,) S
+( ) S
+0.627 0.322 0.176 FG
+(ifft1) S
+0.000 0.000 0.000 FG
+(;) S
+LHL
+(  ) S
+0.133 0.545 0.133 FG
+(sf_fil) S
+(e) S
+0.000 0.000 0.000 FG
+( ) S
+0.627 0.322 0.176 FG
+(offset) S
+0.000 0.000 0.000 FG
+(=) S
+0.000 0.545 0.545 FG
+(NULL) S
+0.000 0.000 0.000 FG
+(;) S
+PHL
+(  ) S
+LHL
+(  ) S
+0.698 0.133 0.133 FG
+(//) S
+(sf_init\(argc,argv\);) S
+PHL
+0.000 0.000 0.000 FG
+(   ) S
+LHL
+(  ) S
+0.627 0.125 0.941 FG
+(if) S
+0.000 0.000 0.000 FG
+( \() S
+(!) S
+(sf_getbool\() S
+0.545 0.133 0.322 FG
+("adj") S
+0.000 0.000 0.000 FG
+(,&adj\)\) adj=) S
+0.000 0.545 0.545 FG
+(true) S
+0.000 0.000 0.000 FG
+(;) S
+LHL
+(  ) S
+0.698 0.133 0.133 FG
+(/) S
+(* ) S
+(if y, perform adjoint operation ) S
+(*/) S
+0.000 0.000 0.000 FG
+LHL
+(  ) S
+0.627 0.125 0.941 FG
+(i) S
+(f) S
+0.000 0.000 0.000 FG
+( \() S
+(!) S
+(sf_getbool\() S
+0.545 0.133 0.322 FG
+("inv") S
+0.000 0.000 0.000 FG
+(,&inv\)\) inv=) S
+0.000 0.545 0.545 FG
+(false) S
+0.000 0.000 0.000 FG
+(; ) S
+LHL
+(  ) S
+0.698 0.133 0.133 FG
+(/) S
+(* ) S
+(if y, perform inverse operation ) S
+(*/) S
+0.000 0.000 0.000 FG
+PHL
+(  ) S
+LHL
+(  ) S
+0.698 0.133 0.133 FG
+(/* ) S
+(read input file parameters ) S
+(*/) S
+0.000 0.000 0.000 FG
+LHL
+(  ) S
+(n) S
+(t = N;) S
+LHL
+(  ) S
+0.698 0.133 0.133 FG
+(/) S
+(* ) S
+(number of samples in time axis ) S
+(*/) S
+0.000 0.000 0.000 FG
+PHL
+( ) S
+PHL
+(  ) S
+LHL
+(  ) S
+0.627 0.125 0.941 FG
+(i) S
+(f) S
+0.000 0.000 0.000 FG
+( \(adj||inv\){) S
+( ) S
+0.698 0.133 0.133 FG
+(/) S
+(* ) S
+(m\(tau,p\)=sum_{i=0}^{nx} d\(t=tau+p*x_i,x_i\) ) S
+(*/) S
+0.000 0.000 0.000 FG
+PHL
+(    ) S
+LHL
+(    ) S
+(n) S
+(x = N;) S
+LHL
+(    ) S
+0.698 0.133 0.133 FG
+(/) S
+(* ) S
+(number of offset if the input in the data domain ) S
+(*/) S
+0.000 0.000 0.000 FG
+PHL
+(    ) S
+EndPage
+EndDSCPage
+EndSheet
+
+%%Page: 3 3
+/Lines 470 def
+/PageCount 7 def
+1 BeginSheet
+BeginDSCPage
+/LineNumber 148 def
+/PageNumber 3 def
+/HeaderLinesLeft[
+ [/h0 (radon_rays_v2.c)]
+ [/h1 (~/Documentos/UdeA/Maestria_Fisi/SemestreII/InvestigacionII/Radon_implementation-master/)]
+]def
+/HeaderLinesRight[
+ [/h0 /pagenumberstring load]
+ [/h1 (17/10/16)]
+]def
+2 SetHeaderLines
+156 BeginPage
+/f0 F
+false BG
+0.000 0.000 0.000 FG
+(    ) S
+0.698 0.133 0.133 FG
+(/* ) S
+(specify slope axis ) S
+(*/) S
+0.000 0.000 0.000 FG
+LHL
+(    ) S
+(n) S
+(p = N;) S
+PHL
+(    ) S
+LHL
+(    ) S
+0.698 0.133 0.133 FG
+(/) S
+(* ) S
+(number of p values \(if adj=y\) ) S
+(*/) S
+0.000 0.000 0.000 FG
+LHL
+(    ) S
+(d) S
+(p = 0.001;) S
+PHL
+(    ) S
+LHL
+(    ) S
+0.698 0.133 0.133 FG
+(/) S
+(* ) S
+(p sampling \(if adj=y\) ) S
+(*/) S
+0.000 0.000 0.000 FG
+LHL
+(    ) S
+(p) S
+(0 = -0.2;) S
+PHL
+(      ) S
+LHL
+(    ) S
+0.698 0.133 0.133 FG
+(/) S
+(* ) S
+(p origin \(if adj=y\) ) S
+(*/) S
+0.000 0.000 0.000 FG
+PHL
+(    ) S
+LHL
+(    ) S
+0.627 0.125 0.941 FG
+(i) S
+(f) S
+0.000 0.000 0.000 FG
+(\(inv\){) S
+20 W
+LHL
+(      ) S
+0.627 0.125 0.941 FG
+(if) S
+0.000 0.000 0.000 FG
+( \( ) S
+(!) S
+(\(invmode=sf_getstring\() S
+0.545 0.133 0.322 FG
+("invmode") S
+0.000 0.000 0.000 FG
+(\)\) \) invmode=) S
+0.545 0.133 0.322 FG
+("toeplitz") S
+0.000 0.000 0.000 FG
+(;) S
+LHL
+(      ) S
+0.698 0.133 0.133 FG
+(/) S
+(* ) S
+(inverse method: 'ls' if least-squares; 'toeplitz' if use FFT ) S
+(*/) S
+0.000 0.000 0.000 FG
+22 W
+SL
+2 W
+LHL
+(      ) S
+0.627 0.125 0.941 FG
+(i) S
+(f) S
+0.000 0.000 0.000 FG
+( \(invmode[0]==) S
+0.545 0.133 0.322 FG
+('l') S
+0.000 0.000 0.000 FG
+( &&  niter=100\);) S
+( ) S
+0.698 0.133 0.133 FG
+(/) S
+(/) S
+(!sf_getint\("niter",&niter\)\)) S
+LHL
+0.000 0.000 0.000 FG
+(      ) S
+0.698 0.133 0.133 FG
+(/* ) S
+(number of CGLS iterations ) S
+(*/) S
+0.000 0.000 0.000 FG
+LHL
+(      ) S
+0.627 0.125 0.941 FG
+(i) S
+(f) S
+0.000 0.000 0.000 FG
+( \(eps=0.01\) ;  ) S
+0.698 0.133 0.133 FG
+(//) S
+(!sf_getfloat\("eps",&eps\)) S
+LHL
+0.000 0.000 0.000 FG
+(      ) S
+0.698 0.133 0.133 FG
+(/* ) S
+(regularization parameter ) S
+(*/) S
+0.000 0.000 0.000 FG
+LHL
+(    } ) S
+0.627 0.125 0.941 FG
+(else) S
+0.000 0.000 0.000 FG
+( {) S
+LHL
+(      invmode=) S
+0.000 0.545 0.545 FG
+(NULL) S
+0.000 0.000 0.000 FG
+(;) S
+LHL
+(    }) S
+PHL
+(    ) S
+PHL
+(   ) S
+LHL
+(  }) S
+PHL
+(  ) S
+LHL
+(  ) S
+0.698 0.133 0.133 FG
+(/) S
+(/) S
+(invmode = NULL;) S
+PHL
+0.000 0.000 0.000 FG
+PHL
+(  ) S
+LHL
+(  ) S
+(n) S
+(fft=2*kiss_fft_next_fast_size\(nt\);) S
+LHL
+(  nw=nfft/2+1;) S
+LHL
+(  p=sf_floatalloc\(np\);) S
+LHL
+(  xx=sf_floatalloc\(nx\);) S
+LHL
+(  dd=sf_floatalloc2\(nt, nx\);) S
+LHL
+(  mm=sf_floatalloc2\(nt, np\);) S
+LHL
+(  cdd=\() S
+0.133 0.545 0.133 FG
+(sf_complex) S
+0.000 0.000 0.000 FG
+(*\)malloc\(nw*nx*) S
+0.627 0.125 0.941 FG
+(sizeof) S
+0.000 0.000 0.000 FG
+(\(sf_complex\)\);) S
+LHL
+(  cmm=\() S
+0.133 0.545 0.133 FG
+(sf_complex) S
+0.000 0.000 0.000 FG
+(*\)malloc\(nw*np*) S
+0.627 0.125 0.941 FG
+(sizeof) S
+0.000 0.000 0.000 FG
+(\(sf_complex\)\);) S
+LHL
+(  tmpr=\() S
+0.133 0.545 0.133 FG
+(float) S
+0.000 0.000 0.000 FG
+(*\)fftwf_malloc\(nfft*) S
+0.627 0.125 0.941 FG
+(sizeof) S
+0.000 0.000 0.000 FG
+(\() S
+0.133 0.545 0.133 FG
+(float) S
+0.000 0.000 0.000 FG
+(\)\);) S
+LHL
+(  tmpc=\() S
+0.133 0.545 0.133 FG
+(fftwf_complex) S
+0.000 0.000 0.000 FG
+(*\)fftwf_malloc\(nw*) S
+0.627 0.125 0.941 FG
+(sizeof) S
+0.000 0.000 0.000 FG
+(\(fftwf_complex\)\);) S
+LHL
+(  fft1=fftwf_plan_dft_r2c_1d\(nfft,tmpr,tmpc,FFTW_MEASURE\);) S
+6 W
+LHL
+(  ifft1=fftwf_plan_dft_c2r_1d\(nfft,tmpc,tmpr,FFTW_MEASURE\);) S
+PHL
+(  ) S
+LHL
+(  ) S
+0.627 0.125 0.941 FG
+(for) S
+0.000 0.000 0.000 FG
+(\(ip=0; ip<np; ip++\) p[ip]=p0+ip*dp;) S
+8 W
+LHL
+(  ) S
+0.627 0.125 0.941 FG
+(if) S
+0.000 0.000 0.000 FG
+( \(adj||inv\) {) S
+0.698 0.133 0.133 FG
+(/) S
+(* ) S
+(m\(tau,p\)=sum_{i=0}^{nx} d\(t=tau+p*x_i,x_i\) ) S
+(*/) S
+0.000 0.000 0.000 FG
+LHL
+(    ) S
+(s) S
+(f_floatread\(dd[0], nt*nx, in\);  /) S
+PHL
+LHL
+(    ox = 0.0;) S
+LHL
+(    ) S
+0.698 0.133 0.133 FG
+(/) S
+(* ) S
+(data origin in x ) S
+(*/) S
+0.000 0.000 0.000 FG
+LHL
+(    ) S
+(d) S
+(x = 0.025;) S
+PHL
+LHL
+(    sf_floatread\(mm[0], nt*np, in2\);) S
+PHL
+(  ) S
+PHL
+(    ) S
+LHL
+(  }) S
+PHL
+(  ) S
+LHL
+(  ) S
+0.627 0.125 0.941 FG
+(if) S
+0.000 0.000 0.000 FG
+( \() S
+0.000 0.545 0.545 FG
+(NULL) S
+0.000 0.000 0.000 FG
+( != offset\) {) S
+LHL
+(    sf_floatread\(xx,nx,offset\);) S
+LHL
+(    sf_fileclose\(offset\);) S
+LHL
+(  } ) S
+0.627 0.125 0.941 FG
+(else) S
+0.000 0.000 0.000 FG
+( {) S
+LHL
+(    ) S
+0.627 0.125 0.941 FG
+(for) S
+0.000 0.000 0.000 FG
+(\(ix=0; ix<nx; ix++\) xx[ix]=ox+ix*dx;) S
+LHL
+(  }) S
+PHL
+(  ) S
+LHL
+(  ) S
+0.627 0.125 0.941 FG
+(if) S
+0.000 0.000 0.000 FG
+( \() S
+(!) S
+(sf_getbool\() S
+0.545 0.133 0.322 FG
+("parab") S
+0.000 0.000 0.000 FG
+(,&par\)\) par=) S
+0.000 0.545 0.545 FG
+(true) S
+0.000 0.000 0.000 FG
+(;) S
+( ) S
+0.698 0.133 0.133 FG
+(/) S
+(/) S
+(par=false;) S
+LHL
+0.000 0.000 0.000 FG
+(  ) S
+0.698 0.133 0.133 FG
+(/* ) S
+(if y, parabolic Radon transform ) S
+(*/) S
+0.000 0.000 0.000 FG
+LHL
+(  ) S
+0.627 0.125 0.941 FG
+(i) S
+(f) S
+0.000 0.000 0.000 FG
+( \(x0=1.\) ;   ) S
+LHL
+(  ) S
+0.698 0.133 0.133 FG
+(/) S
+(* ) S
+(reference offset ) S
+(*/) S
+0.000 0.000 0.000 FG
+PHL
+8 W
+LHL
+8 W
+0.627 0.125 0.941 FG
+(f) S
+(or) S
+0.000 0.000 0.000 FG
+( \(ix=0; ix < nx; ix++\)) S
+0.698 0.133 0.133 FG
+(/) S
+(* ) S
+(normalize offsets ) S
+(*/) S
+0.000 0.000 0.000 FG
+LHL
+10 W
+({) S
+LHL
+12 W
+0.627 0.125 0.941 FG
+(if) S
+0.000 0.000 0.000 FG
+( \(par\) xx[ix] *= xx[ix]/\(x0*x0\);) S
+LHL
+12 W
+0.698 0.133 0.133 FG
+(//) S
+(else if \(x0!=1.\) xx[ix] /= x0;) S
+LHL
+0.000 0.000 0.000 FG
+10 W
+(}) S
+PHL
+8 W
+LHL
+8 W
+0.627 0.125 0.941 FG
+(if) S
+0.000 0.000 0.000 FG
+(\(adj||inv\){) S
+0.698 0.133 0.133 FG
+(/) S
+(* ) S
+(m\(tau,p\)=sum_{i=0}^{nx} d\(t=tau+p*x_i,x_i\) ) S
+(*/) S
+0.000 0.000 0.000 FG
+LHL
+10 W
+0.627 0.125 0.941 FG
+(f) S
+(or) S
+0.000 0.000 0.000 FG
+(\(ix=0; ix<nx; ix++\)) S
+( ) S
+0.698 0.133 0.133 FG
+(/) S
+(* ) S
+(loop over offsets ) S
+(*/) S
+0.000 0.000 0.000 FG
+LHL
+12 W
+({) S
+LHL
+14 W
+(memset\(tmpr, 0, nfft*) S
+0.627 0.125 0.941 FG
+(sizeof) S
+0.000 0.000 0.000 FG
+(\() S
+0.133 0.545 0.133 FG
+(float) S
+0.000 0.000 0.000 FG
+(\)\);) S
+LHL
+14 W
+(memcpy\(tmpr, dd[ix], nt*) S
+0.627 0.125 0.941 FG
+(sizeof) S
+0.000 0.000 0.000 FG
+(\() S
+0.133 0.545 0.133 FG
+(float) S
+0.000 0.000 0.000 FG
+(\)\);) S
+EndPage
+EndDSCPage
+EndSheet
+
+%%Page: 4 4
+/Lines 470 def
+/PageCount 7 def
+1 BeginSheet
+BeginDSCPage
+/LineNumber 225 def
+/PageNumber 4 def
+/HeaderLinesLeft[
+ [/h0 (radon_rays_v2.c)]
+ [/h1 (~/Documentos/UdeA/Maestria_Fisi/SemestreII/InvestigacionII/Radon_implementation-master/)]
+]def
+/HeaderLinesRight[
+ [/h0 /pagenumberstring load]
+ [/h1 (17/10/16)]
+]def
+2 SetHeaderLines
+234 BeginPage
+/f0 F
+false BG
+0.000 0.000 0.000 FG
+14 W
+(fftwf_execute\(fft1\);) S
+0.698 0.133 0.133 FG
+(/) S
+(* ) S
+(FFT: dd-->cdd ) S
+(*/) S
+0.000 0.000 0.000 FG
+LHL
+14 W
+(m) S
+(emcpy\(&cdd[ix*nw], tmpc, nw*) S
+0.627 0.125 0.941 FG
+(sizeof) S
+0.000 0.000 0.000 FG
+(\(sf_complex\)\);) S
+LHL
+12 W
+(}) S
+LHL
+10 W
+(matrix_transpose\(cdd, nw, nx\);) S
+PHL
+10 W
+LHL
+10 W
+0.627 0.125 0.941 FG
+(for) S
+0.000 0.000 0.000 FG
+(\(ip=0; ip<np; ip++\)) S
+( ) S
+0.698 0.133 0.133 FG
+(/) S
+(* ) S
+(loop over slopes ) S
+(*/) S
+0.000 0.000 0.000 FG
+LHL
+12 W
+({) S
+LHL
+14 W
+(memset\(tmpr, 0, nfft*) S
+0.627 0.125 0.941 FG
+(sizeof) S
+0.000 0.000 0.000 FG
+(\() S
+0.133 0.545 0.133 FG
+(float) S
+0.000 0.000 0.000 FG
+(\)\);) S
+LHL
+14 W
+(memcpy\(tmpr, mm[ip], nt*) S
+0.627 0.125 0.941 FG
+(sizeof) S
+0.000 0.000 0.000 FG
+(\() S
+0.133 0.545 0.133 FG
+(float) S
+0.000 0.000 0.000 FG
+(\)\);) S
+LHL
+14 W
+(fftwf_execute\(fft1\);) S
+0.698 0.133 0.133 FG
+(/) S
+(* ) S
+(FFT: mm-->cmm ) S
+(*/) S
+0.000 0.000 0.000 FG
+LHL
+14 W
+(m) S
+(emcpy\(&cmm[ip*nw], tmpc, nw*) S
+0.627 0.125 0.941 FG
+(sizeof) S
+0.000 0.000 0.000 FG
+(\() S
+0.133 0.545 0.133 FG
+(float) S
+0.000 0.000 0.000 FG
+(\)\);) S
+PHL
+32 W
+LHL
+12 W
+(}) S
+LHL
+10 W
+(matrix_transpose\(cmm, nw, np\);) S
+LHL
+8 W
+(}) S
+PHL
+8 W
+PHL
+LHL
+8 W
+(myradon2_init\(np, nx, dp, p, xx\);) S
+LHL
+8 W
+0.627 0.125 0.941 FG
+(for) S
+0.000 0.000 0.000 FG
+(\(iw=0; iw<nw; iw++\) ) S
+LHL
+10 W
+({) S
+LHL
+12 W
+(w=2.*SF_PI*iw/\(nfft*dt\);) S
+LHL
+12 W
+(myradon2_set\(w\);) S
+LHL
+12 W
+(myradon2_lop\(adj, ) S
+0.000 0.545 0.545 FG
+(false) S
+0.000 0.000 0.000 FG
+(, np, nx, &cmm[iw*np], &cdd[iw*nx]\);) S
+0.698 0.133 0.133 FG
+(/) S
+(/) S
+(Linear operator RT) S
+LHL
+0.000 0.000 0.000 FG
+12 W
+0.627 0.125 0.941 FG
+(i) S
+(f) S
+0.000 0.000 0.000 FG
+(\(adj&&inv\){) S
+LHL
+24 W
+0.627 0.125 0.941 FG
+(if) S
+0.000 0.000 0.000 FG
+( \(invmode[0]==) S
+0.545 0.133 0.322 FG
+('t') S
+0.000 0.000 0.000 FG
+( \)) S
+LHL
+26 W
+(myradon2_inv\(&cmm[iw*np], &cmm[iw*np], eps\);) S
+LHL
+24 W
+0.627 0.125 0.941 FG
+(else) S
+0.000 0.000 0.000 FG
+LHL
+26 W
+(sf_csolver_reg\(myradon2_lop, sf_ccgstep, sf_ccopy_lop, np, ) S
+LHL
+41 W
+(np, nx, &cmm[iw*np], &cdd[iw*nx], niter,eps,) S
+0.545 0.133 0.322 FG
+("end") S
+0.000 0.000 0.000 FG
+(\);) S
+LHL
+12 W
+(}) S
+LHL
+10 W
+(}) S
+PHL
+8 W
+PHL
+8 W
+LHL
+8 W
+0.627 0.125 0.941 FG
+(if) S
+0.000 0.000 0.000 FG
+(\(adj||inv\){) S
+0.698 0.133 0.133 FG
+(/) S
+(/ ) S
+(m\(tau,p\)=sum_{i=0}^{nx} d\(t=tau+p*x_i,x_i\) ) S
+LHL
+0.000 0.000 0.000 FG
+10 W
+(m) S
+(atrix_transpose\(cmm, np, nw\);) S
+LHL
+10 W
+0.627 0.125 0.941 FG
+(for) S
+0.000 0.000 0.000 FG
+(\(ip=0; ip<np; ip++\)) S
+( ) S
+0.698 0.133 0.133 FG
+(/) S
+(/ ) S
+(loop over slopes // ) S
+LHL
+0.000 0.000 0.000 FG
+12 W
+({) S
+19 W
+LHL
+14 W
+(memcpy\(tmpc, &cmm[ip*nw], nw*) S
+0.627 0.125 0.941 FG
+(sizeof) S
+0.000 0.000 0.000 FG
+(\(sf_complex\)\);) S
+LHL
+14 W
+(fftwf_execute\(ifft1\);) S
+( ) S
+0.698 0.133 0.133 FG
+(/) S
+(/ ) S
+(IFFT: cmm-->mm //) S
+LHL
+0.000 0.000 0.000 FG
+14 W
+0.627 0.125 0.941 FG
+(f) S
+(or) S
+0.000 0.000 0.000 FG
+(\(iw=0; iw<nt; iw++\) mm[ip][iw]=tmpr[iw]/nfft; ) S
+0.698 0.133 0.133 FG
+(//) S
+(mm[ip][iw]=tmpr[iw]/nfft;) S
+LHL
+0.000 0.000 0.000 FG
+12 W
+(}) S
+PHL
+10 W
+LHL
+10 W
+(sf_floatwrite\(mm[0], nt*np, out\);) S
+LHL
+8 W
+(}) S
+PHL
+PHL
+8 W
+PHL
+8 W
+LHL
+8 W
+(free\(p\);) S
+LHL
+8 W
+(free\(xx\);) S
+LHL
+8 W
+(free\(*dd\); free\(dd\);) S
+LHL
+8 W
+(free\(*mm\); free\(mm\);) S
+LHL
+8 W
+(free\(cdd\); ) S
+LHL
+8 W
+(free\(cmm\); ) S
+LHL
+8 W
+(fftwf_free\(tmpr\);) S
+LHL
+8 W
+(fftwf_free\(tmpc\);) S
+LHL
+8 W
+(fftwf_destroy_plan\(fft1\);) S
+LHL
+(    ) S
+4 W
+(fftwf_destroy_plan\(ifft1\);) S
+PHL
+8 W
+LHL
+(    ) S
+4 W
+(exit\(0\);) S
+LHL
+(}) S
+PHL
+LHL
+0.698 0.133 0.133 FG
+(/) S
+(*) S
+(Reads out_file  -the RT data- and computes the 1D FT-. To obtain the wave velocity a 2D IFT ) S
+SL
+(is applied to before step) S
+(*/) S
+0.000 0.000 0.000 FG
+PHL
+LHL
+0.133 0.545 0.133 FG
+(i) S
+(n) S
+(t) S
+0.000 0.000 0.000 FG
+( ) S
+0.000 0.000 1.000 FG
+(fourier) S
+0.000 0.000 0.000 FG
+(\() S
+0.133 0.545 0.133 FG
+(char) S
+0.000 0.000 0.000 FG
+( *) S
+0.627 0.322 0.176 FG
+(out_file) S
+0.000 0.000 0.000 FG
+(\)) S
+LHL
+({) S
+LHL
+(  ) S
+0.133 0.545 0.133 FG
+(FIL) S
+(E) S
+0.000 0.000 0.000 FG
+( *) S
+0.627 0.322 0.176 FG
+(read) S
+0.000 0.000 0.000 FG
+( = ) S
+0.000 0.545 0.545 FG
+(NULL) S
+0.000 0.000 0.000 FG
+(;) S
+LHL
+(  ) S
+0.133 0.545 0.133 FG
+(FIL) S
+(E) S
+0.000 0.000 0.000 FG
+( *) S
+0.627 0.322 0.176 FG
+(read2) S
+0.000 0.000 0.000 FG
+( = ) S
+0.000 0.545 0.545 FG
+(NULL) S
+0.000 0.000 0.000 FG
+(;) S
+3 W
+LHL
+(  ) S
+0.133 0.545 0.133 FG
+(FIL) S
+(E) S
+0.000 0.000 0.000 FG
+( *) S
+0.627 0.322 0.176 FG
+(out_wave) S
+0.000 0.000 0.000 FG
+( = ) S
+0.000 0.545 0.545 FG
+(NULL) S
+0.000 0.000 0.000 FG
+(;) S
+LHL
+(  ) S
+0.133 0.545 0.133 FG
+(FIL) S
+(E) S
+0.000 0.000 0.000 FG
+( *) S
+0.627 0.322 0.176 FG
+(out_wave1) S
+0.000 0.000 0.000 FG
+( = ) S
+0.000 0.545 0.545 FG
+(NULL) S
+0.000 0.000 0.000 FG
+(;) S
+LHL
+(  ) S
+0.133 0.545 0.133 FG
+(FIL) S
+(E) S
+0.000 0.000 0.000 FG
+( *) S
+0.627 0.322 0.176 FG
+(out_wave2D) S
+0.000 0.000 0.000 FG
+( = ) S
+0.000 0.545 0.545 FG
+(NULL) S
+0.000 0.000 0.000 FG
+(;) S
+PHL
+(  ) S
+LHL
+(  ) S
+0.133 0.545 0.133 FG
+(in) S
+(t) S
+0.000 0.000 0.000 FG
+( ) S
+0.627 0.322 0.176 FG
+(i) S
+0.000 0.000 0.000 FG
+(,) S
+( ) S
+0.627 0.322 0.176 FG
+(j) S
+0.000 0.000 0.000 FG
+(,) S
+( ) S
+0.627 0.322 0.176 FG
+(nread) S
+0.000 0.000 0.000 FG
+(;) S
+PHL
+( ) S
+PHL
+(  ) S
+LHL
+(  ) S
+0.627 0.125 0.941 FG
+(static) S
+0.000 0.000 0.000 FG
+( ) S
+0.133 0.545 0.133 FG
+(sf_comple) S
+(x) S
+0.000 0.000 0.000 FG
+( *) S
+0.627 0.322 0.176 FG
+(dc) S
+0.000 0.000 0.000 FG
+(;) S
+PHL
+LHL
+(  ) S
+0.133 0.545 0.133 FG
+(fftw_pla) S
+(n) S
+0.000 0.000 0.000 FG
+( ) S
+0.627 0.322 0.176 FG
+(my_plan1) S
+0.000 0.000 0.000 FG
+(,) S
+( ) S
+0.627 0.322 0.176 FG
+(my_plan2) S
+0.000 0.000 0.000 FG
+(,) S
+( ) S
+0.627 0.322 0.176 FG
+(my_plan3) S
+0.000 0.000 0.000 FG
+(;) S
+EndPage
+EndDSCPage
+EndSheet
+
+%%Page: 5 5
+/Lines 470 def
+/PageCount 7 def
+1 BeginSheet
+BeginDSCPage
+/LineNumber 302 def
+/PageNumber 5 def
+/HeaderLinesLeft[
+ [/h0 (radon_rays_v2.c)]
+ [/h1 (~/Documentos/UdeA/Maestria_Fisi/SemestreII/InvestigacionII/Radon_implementation-master/)]
+]def
+/HeaderLinesRight[
+ [/h0 /pagenumberstring load]
+ [/h1 (17/10/16)]
+]def
+2 SetHeaderLines
+312 BeginPage
+/f0 F
+false BG
+0.000 0.000 0.000 FG
+(  ) S
+0.133 0.545 0.133 FG
+(fftw_comple) S
+(x) S
+0.000 0.000 0.000 FG
+( *) S
+0.627 0.322 0.176 FG
+(in_radon) S
+0.000 0.000 0.000 FG
+(,) S
+( *) S
+0.627 0.322 0.176 FG
+(in) S
+0.000 0.000 0.000 FG
+(,) S
+(*) S
+0.627 0.322 0.176 FG
+(out_origin) S
+0.000 0.000 0.000 FG
+(,) S
+( *) S
+0.627 0.322 0.176 FG
+(in_fourier) S
+0.000 0.000 0.000 FG
+(,) S
+(*) S
+0.627 0.322 0.176 FG
+(out_fourier1D) S
+0.000 0.000 0.000 FG
+(,) S
+( *) S
+0.627 0.322 0.176 FG
+(out_fourier2D) S
+0.000 0.000 0.000 FG
+(,) S
+( *) S
+0.627 0.322 0.176 FG
+(FT_RT) S
+0.000 0.000 0.000 FG
+(;) S
+PHL
+LHL
+(  in = \() S
+0.133 0.545 0.133 FG
+(fftw_complex) S
+0.000 0.000 0.000 FG
+(*\) fftw_malloc\() S
+0.627 0.125 0.941 FG
+(sizeof) S
+0.000 0.000 0.000 FG
+(\(fftw_complex\)*N\);) S
+LHL
+(  in_radon = \() S
+0.133 0.545 0.133 FG
+(fftw_complex) S
+0.000 0.000 0.000 FG
+(*\) fftw_malloc\() S
+0.627 0.125 0.941 FG
+(sizeof) S
+0.000 0.000 0.000 FG
+(\(fftw_complex\)*N\);) S
+LHL
+(  out_origin = \() S
+0.133 0.545 0.133 FG
+(fftw_complex) S
+0.000 0.000 0.000 FG
+(*\) fftw_malloc\() S
+0.627 0.125 0.941 FG
+(sizeof) S
+0.000 0.000 0.000 FG
+(\(fftw_complex\)*N\);) S
+LHL
+(  out_fourier1D = \() S
+0.133 0.545 0.133 FG
+(fftw_complex) S
+0.000 0.000 0.000 FG
+(*\) fftw_malloc\() S
+0.627 0.125 0.941 FG
+(sizeof) S
+0.000 0.000 0.000 FG
+(\(fftw_complex\)*N\);) S
+LHL
+(  out_fourier2D = \() S
+0.133 0.545 0.133 FG
+(fftw_complex) S
+0.000 0.000 0.000 FG
+(*\) fftw_malloc\() S
+0.627 0.125 0.941 FG
+(sizeof) S
+0.000 0.000 0.000 FG
+(\(fftw_complex\)*N*N\);) S
+LHL
+(  FT_RT = \() S
+0.133 0.545 0.133 FG
+(fftw_complex) S
+0.000 0.000 0.000 FG
+(*\) fftw_malloc\() S
+0.627 0.125 0.941 FG
+(sizeof) S
+0.000 0.000 0.000 FG
+(\(fftw_complex\)*N\);) S
+PHL
+LHL
+(  ) S
+0.698 0.133 0.133 FG
+(/) S
+(/) S
+(FT_RT = \(double *\) malloc\(N* sizeof\(double *\)\);) S
+PHL
+0.000 0.000 0.000 FG
+PHL
+LHL
+(  ) S
+0.698 0.133 0.133 FG
+(///////////////////////////////////) S
+(READING THE RADON DATA/////////////////////////) S
+PHL
+0.000 0.000 0.000 FG
+(  ) S
+LHL
+(  ) S
+(r) S
+(ead = fopen\(out_file,) S
+0.545 0.133 0.322 FG
+("r") S
+0.000 0.000 0.000 FG
+(\);) S
+PHL
+LHL
+(  tini = clock\(\);) S
+PHL
+(      ) S
+LHL
+(  ) S
+0.627 0.125 0.941 FG
+(for) S
+0.000 0.000 0.000 FG
+(\(i=0; i<=N; i++\)) S
+LHL
+(    {) S
+LHL
+(      nread = fscanf\(read,) S
+0.545 0.133 0.322 FG
+("%lf") S
+0.000 0.000 0.000 FG
+(,&RAY.path[i]\);) S
+PHL
+LHL
+(      in_radon[i][0] = RAY.ttime[i];) S
+(  ) S
+0.698 0.133 0.133 FG
+(/) S
+(/) S
+(REAL PART) S
+PHL
+0.000 0.000 0.000 FG
+LHL
+(      ) S
+(i) S
+(n_radon[i][1] = 0.0;          ) S
+0.698 0.133 0.133 FG
+(//) S
+(IMAGINARY PART ) S
+PHL
+0.000 0.000 0.000 FG
+(      ) S
+LHL
+(    }) S
+PHL
+LHL
+(  ) S
+0.698 0.133 0.133 FG
+(/) S
+(///////////////////////////////) S
+(Calculating 1D FFT OF RT-DATA /////////////////////////) S
+PHL
+0.000 0.000 0.000 FG
+(  ) S
+LHL
+(  ) S
+(m) S
+(y_plan1 = fftw_plan_dft_1d\(N, in_radon, out_fourier1D, FFTW_FORWARD, FFTW_ESTIMATE\);) S
+PHL
+(   ) S
+LHL
+(  fftw_execute\(my_plan1\);) S
+PHL
+LHL
+(  out_wave = fopen\() S
+0.545 0.133 0.322 FG
+("1DFT_of_RT.dat") S
+0.000 0.000 0.000 FG
+(,) S
+0.545 0.133 0.322 FG
+("w") S
+0.000 0.000 0.000 FG
+(\);) S
+PHL
+LHL
+(  ) S
+0.627 0.125 0.941 FG
+(for) S
+0.000 0.000 0.000 FG
+(\(i=0; i<=N; i++\)) S
+LHL
+(    {) S
+LHL
+(      fprintf\(out_wave,) S
+0.545 0.133 0.322 FG
+("%lf %lf\\n") S
+0.000 0.000 0.000 FG
+(, out_fourier1D[i][0], out_fourier1D[i][1]\);) S
+LHL
+(    }) S
+PHL
+PHL
+LHL
+( ) S
+0.698 0.133 0.133 FG
+(/) S
+(///////////////////////////////) S
+(Calculating 2D FFT OF THE ORIGINAL DATA ///////////////////) S
+PHL
+0.000 0.000 0.000 FG
+LHL
+(  ) S
+(r) S
+(ead2 = fopen\(in_file_ray,) S
+0.545 0.133 0.322 FG
+("r") S
+0.000 0.000 0.000 FG
+(\);) S
+PHL
+8 W
+LHL
+(  ) S
+0.627 0.125 0.941 FG
+(for) S
+0.000 0.000 0.000 FG
+(\(i=0; i<=N; i++\)) S
+LHL
+(    {) S
+LHL
+(      nread = fscanf\(read2,) S
+0.545 0.133 0.322 FG
+("%lf") S
+0.000 0.000 0.000 FG
+(,&RAY.path[i]\);) S
+PHL
+LHL
+(      in[i][0] = RAY.path[i];) S
+(  ) S
+0.698 0.133 0.133 FG
+(/) S
+(/) S
+(REAL PART) S
+PHL
+0.000 0.000 0.000 FG
+LHL
+(      ) S
+(i) S
+(n[i][1] = 0.0;          ) S
+0.698 0.133 0.133 FG
+(//) S
+(IMAGINARY PART ) S
+PHL
+0.000 0.000 0.000 FG
+(      ) S
+LHL
+(    }) S
+PHL
+8 W
+PHL
+8 W
+LHL
+(  my_plan2 = fftw_plan_dft_2d\(N, N, in, out_origin, FFTW_FORWARD, FFTW_ESTIMATE\);) S
+PHL
+(   ) S
+LHL
+(  fftw_execute\(my_plan2\);) S
+PHL
+LHL
+(  out_wave1 = fopen\() S
+0.545 0.133 0.322 FG
+("2DFT_ORIGINAL_DATA.dat") S
+0.000 0.000 0.000 FG
+(,) S
+0.545 0.133 0.322 FG
+("w") S
+0.000 0.000 0.000 FG
+(\);) S
+PHL
+LHL
+(  ) S
+0.627 0.125 0.941 FG
+(for) S
+0.000 0.000 0.000 FG
+(\(i=0; i<=N; i++\)) S
+LHL
+(    {) S
+PHL
+(      ) S
+LHL
+(      fprintf\(out_wave1,) S
+0.545 0.133 0.322 FG
+("%lf %lf\\n") S
+0.000 0.000 0.000 FG
+(, out_origin[i][0]/N*N, out_origin[i][1]/N*N\);) S
+LHL
+(    }) S
+PHL
+PHL
+PHL
+(  ) S
+LHL
+0.698 0.133 0.133 FG
+(/) S
+(///////////////////////////////) S
+(Calculating 2D IFFT OF 1DFT_RT-DATA /////////////////////////) S
+LHL
+(//) S
+(HERE WE OBTAIN THE SLOWNESS//) S
+PHL
+0.000 0.000 0.000 FG
+PHL
+(  ) S
+LHL
+(  ) S
+0.627 0.125 0.941 FG
+(f) S
+(or) S
+0.000 0.000 0.000 FG
+(\(i=0; i<=N; i++\)) S
+LHL
+(    {) S
+LHL
+(      FT_RT[i][0] =  out_fourier1D[i][0];) S
+EndPage
+EndDSCPage
+EndSheet
+
+%%Page: 6 6
+/Lines 470 def
+/PageCount 7 def
+1 BeginSheet
+BeginDSCPage
+/LineNumber 380 def
+/PageNumber 6 def
+/HeaderLinesLeft[
+ [/h0 (radon_rays_v2.c)]
+ [/h1 (~/Documentos/UdeA/Maestria_Fisi/SemestreII/InvestigacionII/Radon_implementation-master/)]
+]def
+/HeaderLinesRight[
+ [/h0 /pagenumberstring load]
+ [/h1 (17/10/16)]
+]def
+2 SetHeaderLines
+390 BeginPage
+/f0 F
+false BG
+0.000 0.000 0.000 FG
+(      ) S
+LHL
+(    }) S
+PHL
+PHL
+(  ) S
+PHL
+(  ) S
+LHL
+(  my_plan3 = fftw_plan_dft_2d\(N, N, FT_RT, out_fourier2D, FFTW_BACKWARD, FFTW_ESTIMATE\);) S
+PHL
+PHL
+(   ) S
+LHL
+(  fftw_execute\(my_plan3\);) S
+PHL
+LHL
+(  out_wave2D = fopen\() S
+0.545 0.133 0.322 FG
+("2DIFT_of_1DFT_RT.dat") S
+0.000 0.000 0.000 FG
+(,) S
+0.545 0.133 0.322 FG
+("w") S
+0.000 0.000 0.000 FG
+(\);) S
+PHL
+LHL
+(  ) S
+0.627 0.125 0.941 FG
+(for) S
+0.000 0.000 0.000 FG
+(\(i=0; i<=N; i++\)) S
+LHL
+(    {) S
+LHL
+(      fprintf\(out_wave2D,) S
+0.545 0.133 0.322 FG
+("%lf %lf\\n") S
+0.000 0.000 0.000 FG
+(, out_fourier2D[i][0]/N*N, out_fourier2D[i][1]/N*N\);) S
+PHL
+(      ) S
+LHL
+(    }) S
+PHL
+PHL
+PHL
+(   ) S
+LHL
+(  tend = clock\(\);) S
+PHL
+(  ) S
+LHL
+(  cpu_time_used = \(\() S
+0.133 0.545 0.133 FG
+(double) S
+0.000 0.000 0.000 FG
+(\) \(tend - tini\)\) / CLOCKS_PER_SEC;) S
+PHL
+(  ) S
+LHL
+(  printf\() S
+0.545 0.133 0.322 FG
+("CPU TIME USED: %16.8lf\\n") S
+0.000 0.000 0.000 FG
+(,cpu_time_used\);) S
+PHL
+(  ) S
+PHL
+(  ) S
+LHL
+(  fclose\(read\);) S
+LHL
+(  fclose\(read2\);) S
+8 W
+LHL
+(  fclose\(out_wave\);) S
+LHL
+(  fclose\(out_wave2D\);) S
+PHL
+PHL
+LHL
+(  fftw_destroy_plan\(my_plan1\);) S
+LHL
+(  fftw_destroy_plan\(my_plan2\);) S
+LHL
+(  fftw_destroy_plan\(my_plan3\);) S
+PHL
+LHL
+(  fftw_free\(in_radon\);) S
+LHL
+(  fftw_free\(out_wave\);) S
+LHL
+(  fftw_free\(out_wave1\);) S
+LHL
+(  fftw_free\(out_wave2D\);) S
+PHL
+LHL
+(  ) S
+0.627 0.125 0.941 FG
+(return) S
+0.000 0.000 0.000 FG
+( 0;) S
+LHL
+(}) S
+PHL
+PHL
+LHL
+0.698 0.133 0.133 FG
+(/) S
+(/////////////////////////////////) S
+(MAIN PROGRAM/////////////////////) S
+LHL
+0.133 0.545 0.133 FG
+(i) S
+(n) S
+(t) S
+0.000 0.000 0.000 FG
+( ) S
+0.000 0.000 1.000 FG
+(main) S
+0.000 0.000 0.000 FG
+(\() S
+0.133 0.545 0.133 FG
+(int) S
+0.000 0.000 0.000 FG
+( ) S
+0.627 0.322 0.176 FG
+(argc) S
+0.000 0.000 0.000 FG
+(,) S
+( ) S
+0.133 0.545 0.133 FG
+(char) S
+0.000 0.000 0.000 FG
+( **) S
+0.627 0.322 0.176 FG
+(argv) S
+0.000 0.000 0.000 FG
+(\){) S
+PHL
+PHL
+( ) S
+LHL
+(  printf\() S
+0.545 0.133 0.322 FG
+("%d\\n") S
+0.000 0.000 0.000 FG
+(,argc\);) S
+PHL
+LHL
+(  ) S
+0.627 0.125 0.941 FG
+(if) S
+0.000 0.000 0.000 FG
+(\(argc != 5\)) S
+LHL
+(    {) S
+LHL
+(      printf\() S
+0.545 0.133 0.322 FG
+("ERROR--> use as:\\n") S
+0.000 0.000 0.000 FG
+(\);) S
+LHL
+(      printf\() S
+0.545 0.133 0.322 FG
+("%s #iterations input_file_ray input_file_ttime  output_file\\n") S
+0.000 0.000 0.000 FG
+(,argv[0]\);) S
+LHL
+(      exit\(0\);  ) S
+LHL
+(    }) S
+PHL
+(  ) S
+LHL
+(  N   = atoi\(argv[1]\);) S
+LHL
+(  in_file_ray  = argv[2];) S
+LHL
+(  in_file_ttime  = argv[3];) S
+LHL
+(  out_file  = argv[2];) S
+PHL
+LHL
+(  printf\() S
+0.545 0.133 0.322 FG
+("%s %d %s %s %s\\n") S
+0.000 0.000 0.000 FG
+(,argv[0], N, in_file_ray, in_file_ttime, out_file\);) S
+PHL
+LHL
+(  RAY.path = \() S
+0.133 0.545 0.133 FG
+(double) S
+0.000 0.000 0.000 FG
+( *\) malloc\(N* ) S
+0.627 0.125 0.941 FG
+(sizeof) S
+0.000 0.000 0.000 FG
+(\() S
+0.133 0.545 0.133 FG
+(double) S
+0.000 0.000 0.000 FG
+( *\)\);) S
+LHL
+(  RAY.ttime = \() S
+0.133 0.545 0.133 FG
+(double) S
+0.000 0.000 0.000 FG
+( *\) malloc\(N* ) S
+0.627 0.125 0.941 FG
+(sizeof) S
+0.000 0.000 0.000 FG
+(\() S
+0.133 0.545 0.133 FG
+(double) S
+0.000 0.000 0.000 FG
+( *\)\);) S
+PHL
+LHL
+(  ) S
+0.698 0.133 0.133 FG
+(/) S
+(*) S
+(Calculate the Radon Transform to rays ) S
+(*/) S
+0.000 0.000 0.000 FG
+PHL
+LHL
+(  ) S
+(r) S
+(adon\(in_file_ray, in_file_ttime, out_file\);) S
+PHL
+LHL
+(  ) S
+0.698 0.133 0.133 FG
+(/) S
+(*) S
+(Calculate the 1D FT of RT and the 2D IFT of FT_RT -> COMPUTES CST: Central Slice Theorem) S
+(*/) S
+0.000 0.000 0.000 FG
+PHL
+(  ) S
+LHL
+(  ) S
+(f) S
+(ourier\(out_file\);) S
+PHL
+(         ) S
+LHL
+(  ) S
+0.627 0.125 0.941 FG
+(return) S
+0.000 0.000 0.000 FG
+( 0;) S
+EndPage
+EndDSCPage
+EndSheet
+
+%%Page: 7 7
+/Lines 470 def
+/PageCount 7 def
+1 BeginSheet
+BeginDSCPage
+/LineNumber 458 def
+/PageNumber 7 def
+/HeaderLinesLeft[
+ [/h0 (radon_rays_v2.c)]
+ [/h1 (~/Documentos/UdeA/Maestria_Fisi/SemestreII/InvestigacionII/Radon_implementation-master/)]
+]def
+/HeaderLinesRight[
+ [/h0 /pagenumberstring load]
+ [/h1 (17/10/16)]
+]def
+2 SetHeaderLines
+468 BeginPage
+/f0 F
+false BG
+0.000 0.000 0.000 FG
+(  ) S
+LHL
+(}) S
+PHL
+PHL
+PHL
+PHL
+PHL
+PHL
+PHL
+PHL
+PHL
+PHL
+PHL
+EndPage
+EndDSCPage
+EndSheet
+
+%%Trailer
+%%Pages: 7
+
+EndDoc
+
+%%EOF
