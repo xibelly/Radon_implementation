@@ -316,7 +316,7 @@ int fourier(char *out_file)
       
   for(i=0; i<=N; i++)
     {
-      nread = fscanf(read,"%lf",&RAY.path[i]);
+      nread = fscanf(read,"%lf",&RAY.ttime[i]);
 
       in_radon[i][0] = RAY.ttime[i];  //REAL PART
 
