@@ -84,7 +84,7 @@ double cpu_time_used;
 
 struct ray {
   
-  double t_time;
+  double *t_time;
   double *path;
 
 };
@@ -288,6 +288,7 @@ int radon(char *in_file_ray, char *in_file_ttime, char *out_file)
 int fourier(char *out_file)
 {
   FILE *read = NULL;
+  FILE *read2 = NULL;	
   FILE *out_wave = NULL;
   FILE *out_wave1 = NULL;
   FILE *out_wave2D = NULL;
@@ -298,8 +299,9 @@ int fourier(char *out_file)
   static sf_complex *dc;
 
   fftw_plan my_plan1, my_plan2, my_plan3;
-  fftw_complex *in_radon, *out_origin, *in_fourier,*out_fourier1D, *out_fourier2D, *FT_RT;
+  fftw_complex *in_radon, *in,*out_origin, *in_fourier,*out_fourier1D, *out_fourier2D, *FT_RT;
 
+  in = (fftw_complex*) fftw_malloc(sizeof(fftw_complex)*N);
   in_radon = (fftw_complex*) fftw_malloc(sizeof(fftw_complex)*N);
   out_origin = (fftw_complex*) fftw_malloc(sizeof(fftw_complex)*N);
   out_fourier1D = (fftw_complex*) fftw_malloc(sizeof(fftw_complex)*N);
@@ -319,7 +321,7 @@ int fourier(char *out_file)
     {
       nread = fscanf(read,"%lf",&RAY.path[i]);
 
-      in_radon[i][0] = RAY.path[i];  //REAL PART
+      in_radon[i][0] = RAY.ttime[i];  //REAL PART
 
       in_radon[i][1] = 0.0;          //IMAGINARY PART 
       
@@ -341,7 +343,20 @@ int fourier(char *out_file)
 
  ////////////////////////////////Calculating 2D FFT OF THE ORIGINAL DATA ///////////////////
 
-  my_plan2 = fftw_plan_dft_2d(N, N, in_radon, out_origin, FFTW_FORWARD, FFTW_ESTIMATE);
+  read2 = fopen(in_file_ray,"r");
+	
+  for(i=0; i<=N; i++)
+    {
+      nread = fscanf(read2,"%lf",&RAY.path[i]);
+
+      in[i][0] = RAY.path[i];  //REAL PART
+
+      in[i][1] = 0.0;          //IMAGINARY PART 
+      
+    }
+	
+	
+  my_plan2 = fftw_plan_dft_2d(N, N, in, out_origin, FFTW_FORWARD, FFTW_ESTIMATE);
    
   fftw_execute(my_plan2);
 
@@ -390,6 +405,7 @@ int fourier(char *out_file)
   
   
   fclose(read);
+  fclose(read2);	
   fclose(out_wave);
   fclose(out_wave2D);
 
@@ -428,11 +444,11 @@ int main(int argc, char **argv){
   printf("%s %d %s %s %s\n",argv[0], N, in_file_ray, in_file_ttime, out_file);
 
   RAY.path = (double *) malloc(N* sizeof(double *));
-  
+  RAY.ttime = (double *) malloc(N* sizeof(double *));
 
   /*Calculate the Radon Transform to rays */
 
-  radon(in_file, out_file);
+  radon(in_file_ray, in_file_ttime, out_file);
 
   /*Calculate the 1D FT of RT and the 2D IFT of FT_RT -> COMPUTES CST: Central Slice Theorem*/
   
