@@ -128,8 +128,7 @@ int radon(char *in_file_ray, char *in_file_ttime, char *out_file)
   fftwf_plan fft1, ifft1;
   sf_file offset=NULL;
   
-  //sf_init(argc,argv);
-   
+    
   if (!sf_getbool("adj",&adj)) adj=true;
   /* if y, perform adjoint operation */
   if (!sf_getbool("inv",&inv)) inv=false; 
