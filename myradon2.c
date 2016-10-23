@@ -32,7 +32,7 @@
   Vol. 23. Siam, 2002.	[Chapter 5.2.]
 */
 
-#include "rsf.h"
+#include <rsf.h>
 #include <time.h>
 
 #ifdef _OPENMP
@@ -74,7 +74,7 @@ void myradon2_lop(bool adj, bool add, int nm, int nd, sf_complex *mm, sf_complex
     if(adj){/* mm(p,w)=sum_{ix=0}^{nx} dd(xx[ix],w)*exp(i*w*p*xx[ix]) */
 	for(ip=0; ip<np; ip++) /* loop over slopes */
 	{
-	    sumc=sf_cmplx(0,0);
+	    sumc=sf_complx(0,0);
 	    for(ix=0; ix<nx; ix++) {
 #ifdef SF_HAS_COMPLEX_H
 		sumc+=cexpf(sf_cmplx(0.0f,w*p[ip]*xx[ix]))*dd[ix];

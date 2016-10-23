@@ -128,7 +128,8 @@ int radon(char *in_file_ray, char *in_file_ttime, char *out_file)
   fftwf_plan fft1, ifft1;
   sf_file offset=NULL;
   
-    
+  //sf_init(argc,argv);
+   
   if (!sf_getbool("adj",&adj)) adj=true;
   /* if y, perform adjoint operation */
   if (!sf_getbool("inv",&inv)) inv=false; 
@@ -316,7 +317,7 @@ int fourier(char *out_file)
       
   for(i=0; i<=N; i++)
     {
-      nread = fscanf(read,"%lf",&RAY.ttime[i]);
+      nread = fscanf(read,"%lf",&RAY.path[i]);
 
       in_radon[i][0] = RAY.ttime[i];  //REAL PART
 
