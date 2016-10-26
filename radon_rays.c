@@ -52,10 +52,11 @@ CONTROL TESTS
 
 #include<stdio.h>
 #include<stdlib.h>
+#include<string.h>
 #include<math.h>
 #include<time.h>
 #include<fftw3.h>
-#include <stdbool.h>
+#include<stdbool.h>
 #include<complex.h>
 
 #include"myradon2.c"
@@ -134,11 +135,11 @@ void matrix_transpose(complex *matrix, int nx, int nz)
   free(tmp);
 }
 
-/*Computes the LRT or PRT to the load data -rays- */
+/*Computes the PRT to the load data -rays- */
 
 int radon(char *out_file, int N)
 {
-    
+  
   bool adj, inv, par;
   char *invmode;
   int iw, ip, ix, np, nt, nfft, nw, nx, niter;
@@ -147,11 +148,11 @@ int radon(char *out_file, int N)
   complex *cdd, *cmm; 
   fftw_complex *tmpc;
   fftw_plan fft1, ifft1;
-
-    
+  
+  
   adj=true;
   /* if y, perform adjoint operation */
-  inv=false;
+  inv=true;
   /* if y, perform inverse operation */
   
   /* parameters */
@@ -159,33 +160,36 @@ int radon(char *out_file, int N)
   /* number of samples in time axis */
  
   
-  if (adj||inv){ /* m(tau,p)=sum_{i=0}^{nx} d(t=tau+p*x_i,x_i) */
-    
-    nx = N;
-    /* number of offset if the input in the data domain */
-    
-    /* specify slope axis */
-    np = N;
-    
-    /* number of p values (if adj=y) */
-    dp = 0.001;
-    
-    /* p sampling (if adj=y) */
-    p0 = -0.2;
+  if (adj||inv)
+    { /* m(tau,p)=sum_{i=0}^{nx} d(t=tau+p*x_i,x_i) */
       
-    /* p origin (if adj=y) */
+      nx = N;
+      /* number of offset if the input in the data domain */
     
-    if(inv){			
-      invmode="toeplitz";
-      /* inverse method: 'ls' if least-squares; 'toeplitz' -> 't' if use FFT */			
-      eps=0.01;  
+      /* specify slope axis */
+      np = N;
+      
+      /* number of p values (if adj=y) */
+      dp = 0.001;
+    
+      /* p sampling (if adj=y) */
+      p0 = -0.2;
+      
+      /* p origin (if adj=y) */
+      
+      if(inv)
+	{			
+	  invmode="toeplitz";
+	  /* inverse method: 'ls' if least-squares; 'toeplitz' -> 't' if use FFT */			
+	  eps=0.01;  
       /* regularization parameter */
-    } else {
-      invmode=NULL;
+	}
+      else
+	{
+	  invmode=NULL;
+	}
+      
     }
-    
-   
-  }
   
     
   nfft=2*fft_next_fast_size(nt);
@@ -214,33 +218,34 @@ int radon(char *out_file, int N)
   /* if y, parabolic Radon transform */
   x0=1.0;   
   /* reference offset */
-	
+  
   for (ix=0; ix < nx; ix++)/* normalize offsets */
     {
       if (par) xx[ix] *= xx[ix]/(x0*x0);
       
     }
   
-  if(adj||inv){/* m(tau,p)=sum_{i=0}^{nx} d(t=tau+p*x_i,x_i) */
-    for(ix=0; ix<nx; ix++) /* loop over offsets */
-      {
-	memset(tmpr, 0, nfft*sizeof(double));
-	tmpr[ix] = data.dd[ix];	
-	fftw_execute(fft1);/* FFT: dd-->cdd */
-	memcpy(&cdd[ix*nw], tmpc, nw*sizeof(complex));
-      }
-    matrix_transpose(cdd, nw, nx);
-    
-    for(ip=0; ip<np; ip++) /* loop over slopes */
-      {
-	memset(tmpr, 0, nfft*sizeof(double));
-	tmpr[ip] = data.mm[ip];
-	fftw_execute(fft1);/* FFT: mm-->cmm */
-	memcpy(&cmm[ip*nw], tmpc, nw*sizeof(double));
-	
-      }
-    matrix_transpose(cmm, nw, np);
-  }
+  if(adj||inv)
+    {/* m(tau,p)=sum_{i=0}^{nx} d(t=tau+p*x_i,x_i) */
+      for(ix=0; ix<nx; ix++) /* loop over offsets */
+	{
+	  memset(tmpr, 0, nfft*sizeof(double));
+	  tmpr[ix] = data.dd[ix];	
+	  fftw_execute(fft1);/* FFT: dd-->cdd */
+	  memcpy(&cdd[ix*nw], tmpc, nw*sizeof(complex));
+	}
+      matrix_transpose(cdd, nw, nx);
+      
+      for(ip=0; ip<np; ip++) /* loop over slopes */
+	{
+	  memset(tmpr, 0, nfft*sizeof(double));
+	  tmpr[ip] = data.mm[ip];
+	  fftw_execute(fft1);/* FFT: mm-->cmm */
+	  memcpy(&cmm[ip*nw], tmpc, nw*sizeof(double));
+	  
+	}
+      matrix_transpose(cmm, nw, np);
+    }
   
   
   myradon2_init(np, nx, dp, p, xx);
@@ -248,22 +253,23 @@ int radon(char *out_file, int N)
     {
       w=2.*M_PI*iw/(nfft*dt);
       myradon2_set(w);
-      myradon2_lop(adj, false, np, nx, &cmm[iw*np], &cdd[iw*nx]);//Linear operator RT
-      /*if(adj&&inv){
-	if (invmode[0]=='t')
-	  myradon2_inv(&cmm[iw*np], &cmm[iw*np], eps);
-	
-	  }*/
+      myradon2_lop(adj, true, np, nx, &cmm[iw*np], &cdd[iw*nx]);//Linear operator RT
+      if(adj&&inv)
+	{
+	  if (invmode[0]=='t')
+	    myradon2_inv(&cmm[iw*np], &cmm[iw*np], eps);//Inverts the model
+	  
+	}
     }
   
-  if(adj||inv){// m(tau,p)=sum_{i=0}^{nx} d(t=tau+p*x_i,x_i) 
-    matrix_transpose(cmm, np, nw);
+  //if(adj||inv){// m(tau,p)=sum_{i=0}^{nx} d(t=tau+p*x_i,x_i) 
+  //matrix_transpose(cmm, np, nw);
     for(ip=0; ip<np; ip++) // loop over slopes // 
       {			
 	memcpy(tmpc, &cmm[ip*nw], nw*sizeof(complex));
 	fftw_execute(ifft1); // IFFT: cmm-->mm //
 	data.mm[ip]=tmpr[ip]/nfft;
-	//for(iw=0; iw<nt; iw++) data.mm[ip][iw]=tmpr[iw]/nfft; //mm[ip][iw]=tmpr[iw]/nfft;
+	
       }
    
     //wrting in disk the output ->the PRT
@@ -288,7 +294,7 @@ int radon(char *out_file, int N)
   fftw_destroy_plan(ifft1);
   
   exit(0);
-}
+} 
 
 /*Reads output  -the RT data- and computes the 1D FT-. To obtain the wave velocity a 2D IFT is applied to before step*/
 
@@ -428,7 +434,7 @@ int main(int argc, char **argv){
 
  
   printf("%d\n",argc);
-
+  
   if(argc != 4)
     {
       printf("ERROR--> use as:\n");
@@ -439,32 +445,32 @@ int main(int argc, char **argv){
   N   = atoi(argv[1]);
   in_file_ray_ttime  = argv[2];
   out_file  = argv[3];
-
+  
   printf("%s %d %s %s \n",argv[0], N, in_file_ray_ttime, out_file);
-
-
+  
+  
   data.dd = (double *) malloc(N* sizeof(double));
   data.mm = (double *) malloc(N* sizeof(double)); 
-
   
-
+  
+  
   /*Reading the file data*/
-
+  
   read_file(in_file_ray_ttime, N);
-
- 
+  
+  
   /*Calculate the Radon Transform to rays */
-
+  
   radon(out_file, N);
-
+  
   /*Calculate the 1D FT of RT and the 2D IFT of FT_RT -> COMPUTES CST: Central Slice Theorem*/
   
   fourier(N);
-         
+  
   return 0;
   
 }
-
+ 
 
 
 

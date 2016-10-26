@@ -24,20 +24,18 @@
   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
 
-
-
-#include <stdio.h>
-#include <math.h>
-#include <fftw3.h>
+#include "rsf.h"
 
 #include "ctoeplitz_reg.h"
 
-fftw_complex *tmp;
-fftw_plan fft1, ifft1;/* execute plan for FFT and IFFT */
+#ifdef SF_HAS_FFTW
+#include <fftw3.h>
 
 
+fftwf_plan fft1, ifft1;/* execute plan for FFT and IFFT */
+fftwf_complex *tmp;
 
-void ctoeplitz_inv(int n, double mu, complex *c, complex *mm, complex *dd)
+void ctoeplitz_inv(int n, float mu, sf_complex *c, sf_complex *mm, sf_complex *dd)
 /*< linear equation solver with FFT based on Toeplitz structure
   C*mm=dd, C=circulant(c): mm=C^{-1}dd 
   C=F^* diag(c) F 
@@ -47,21 +45,21 @@ void ctoeplitz_inv(int n, double mu, complex *c, complex *mm, complex *dd)
   >*/
 {
   int i;
-  double a;
+  float a;
 
-  tmp=(fftw_complex*)fftw_malloc(sizeof(fftw_complex)*n);
-  fft1=fftw_plan_dft_1d(n,tmp,tmp,FFTW_FORWARD,FFTW_MEASURE);	
-  ifft1=fftw_plan_dft_1d(n,tmp,tmp,FFTW_BACKWARD,FFTW_MEASURE);
+  tmp=(fftwf_complex*)fftwf_malloc(sizeof(fftwf_complex)*n);
+  fft1=fftwf_plan_dft_1d(n,tmp,tmp,FFTW_FORWARD,FFTW_MEASURE);	
+  ifft1=fftwf_plan_dft_1d(n,tmp,tmp,FFTW_BACKWARD,FFTW_MEASURE);
 	
   /* dd-->F {dd}*/
-  memcpy(tmp, dd, n*sizeof(complex));
-  fftw_execute(fft1);
-  memcpy(dd, tmp, n*sizeof(complex));
+  memcpy(tmp, dd, n*sizeof(sf_complex));
+  fftwf_execute(fft1);
+  memcpy(dd, tmp, n*sizeof(sf_complex));
 
   /* c-->FFT{c}*/
-  memcpy(tmp, c, n*sizeof(complex));
-  fftw_execute(fft1);
-  memcpy(c, tmp, n*sizeof(complex));
+  memcpy(tmp, c, n*sizeof(sf_complex));
+  fftwf_execute(fft1);
+  memcpy(c, tmp, n*sizeof(sf_complex));
 
   /*multiplication in Fourier domain: diag(conj(c)./(c*conj(c)+mu)) F dd*/
   for(i=0; i<n; i++)
@@ -72,14 +70,10 @@ void ctoeplitz_inv(int n, double mu, complex *c, complex *mm, complex *dd)
     }
 
   /* IFFT{FFT{c}.*FFT{dd}/sqrtf(n)}/sqrtf(n)*/
-  memcpy(tmp, dd, n*sizeof(complex));
-  fftw_execute(ifft1);
-  for(i=0; i<n; i++)
-    {
-      mm[i]=tmp[i][0];
-
-      mm[i]=mm[i]/n;
-    }
+  memcpy(tmp, dd, n*sizeof(sf_complex));
+  fftwf_execute(ifft1);
+  for(i=0; i<n; i++) mm[i]=tmp[i]/n;
+	
 }
 
-
+#endif

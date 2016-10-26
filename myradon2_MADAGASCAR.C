@@ -32,22 +32,20 @@
   Vol. 23. Siam, 2002.	[Chapter 5.2.]
 */
 
-#include <stdlib.h>
+#include <rsf.h>
 #include <time.h>
-#include <complex.h>
-#include <stdbool.h>
 
 #ifdef _OPENMP
 #include <omp.h>
 #endif
 
 #include "myradon2.h"
-#include "ctoeplitz_reg.c"
+#include "ctoeplitz_reg.h"
 
 static int np, nx;
-static double w, dp, *p, *xx;
+static float w, dp, *p, *xx;
 
-void myradon2_init(int np_, int nx_, double dp_, double *p_, double *xx_)
+void myradon2_init(int np_, int nx_, float dp_, float *p_, float *xx_)
 /*< initialization >*/
 {
     np=np_;
@@ -57,44 +55,56 @@ void myradon2_init(int np_, int nx_, double dp_, double *p_, double *xx_)
     xx=xx_;
 }
 
-void myradon2_set(double w_)
+void myradon2_set(float w_)
 /*< set up frequency w >*/
 {
     w=w_;
 }
 
-void myradon2_lop(bool adj, bool add, int nm, int nd, complex *mm, complex *dd)
+void myradon2_lop(bool adj, bool add, int nm, int nd, sf_complex *mm, sf_complex *dd)
 /*< radon linear operator >*/
 {
     int ix, ip;
-    complex sumc;
+    sf_complex sumc;
 
-    if (nm != np || nd != nx)
-      printf("mismatched data sizes\n");
+    if (nm != np || nd != nx) sf_error("%s: mismatched data sizes",__FILE__);
 	
-    
+    sf_cadjnull(adj, add, nm, nd, mm, dd);
+
     if(adj){/* mm(p,w)=sum_{ix=0}^{nx} dd(xx[ix],w)*exp(i*w*p*xx[ix]) */
 	for(ip=0; ip<np; ip++) /* loop over slopes */
 	{
-	  sumc= 0.0 + 0.0 *I;             
+	    sumc=sf_complx(0,0);
 	    for(ix=0; ix<nx; ix++) {
-
-	      sumc+=expf(w*p[ip]*xx[ix])*dd[ix];
-	     
-
+#ifdef SF_HAS_COMPLEX_H
+		sumc+=cexpf(sf_cmplx(0.0f,w*p[ip]*xx[ix]))*dd[ix];
+#else
+		sumc=sf_cadd(sumc,sf_cmul(cexpf(sf_cmplx(0.0f,w*p[ip]*xx[ix])),dd[ix]));
+#endif
 	    }
 	    mm[ip]=sumc;
 	}
+    }else{/* dd(xx,w)=sum_{ip=0}^{np} mm(p[ip],w)*exp(-i*w*p[ip]*xx) */
+	for(ix=0; ix<nx; ix++) 
+	{
+	    sumc=sf_cmplx(0,0);
+	    for(ip=0; ip<np; ip++) {
+#ifdef SF_HAS_COMPLEX_H
+		sumc+=cexpf(sf_cmplx(0.0,-w*p[ip]*xx[ix]))*mm[ip];
+#else
+		sumc=sf_cadd(sumc,sf_cmul(cexpf(sf_cmplx(0.0,-w*p[ip]*xx[ix])),mm[ip]));
+#endif
+	    }
+	    dd[ix]=sumc;
+	}
     }
-
-    
 }
 
 
 static bool allocated=false;
-static complex *c;
+static sf_complex *c;
 
-void myradon2_inv(complex *mm, complex *adj_dd, double eps)
+void myradon2_inv(sf_complex *mm, sf_complex *adj_dd, float eps)
 /*< fast Toeplitz matrix inversion for radon transform 
   mm: model to be inverted
   adj_dd: adjoint radon of data
@@ -102,19 +112,21 @@ void myradon2_inv(complex *mm, complex *adj_dd, double eps)
   >*/
 {
     int ip, ix;
-    complex sumc;
+    sf_complex sumc;
     if (!allocated){
-      c = (complex*)malloc(np*sizeof(complex));
-      allocated=true;
+	c=sf_complexalloc(np);
+	allocated=true;
     }
 	
     for(ip=0; ip<np; ip++) 
     {
-      sumc= 0.0 + 0.0 *I;
-      for(ix=0; ix<nx; ix++) {
-
-	    sumc+=expf(w*ip*dp*xx[ix]);
-
+	sumc=sf_cmplx(0,0);
+	for(ix=0; ix<nx; ix++) {
+#ifdef SF_HAS_COMPLEX_H
+	    sumc+=cexpf(sf_cmplx(0.0f,w*ip*dp*xx[ix]));
+#else
+	    sumc=sf_cadd(sumc,cexpf(sf_cmplx(0.0f,w*ip*dp*xx[ix])));
+#endif
 	}
 	c[ip]=sumc;
     }
