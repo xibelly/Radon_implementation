@@ -45,6 +45,18 @@ CONTROL TESTS
 
 */
 
+
+/*
+SET OF TESTS
+
+In oder to understand the CST, we will compare the 2D FT of the data -ds/c- 
+with the 1D FT of the  PRT of the data, is to say, the FT of the model -travel times- 
+obtained trough the PRT.
+
+
+ */
+
+
 /* IMPLEMENTATION -> PARABOLIC RADON TRANSFORM */
 
 /*Note: We are using the code Mmyradon2.c to implement the PRT in the ray approach*/
@@ -82,7 +94,7 @@ FILE *out =NULL;
 //////////////////////////STRUCTURES//////////////////////////
 struct read {
   
-  double *dd; /* input data -> model data -size nt*nx- */
+  double *dd; /* input data -> model data (ds/c) -size nt*nx- */
   double *mm; /* input data -> travel time -data size nt*np- */
   
   double *slowness; /*input data -> the initial model */
@@ -143,8 +155,8 @@ int radon(char *out_file, int N)
   complex *cdd, *cmm; 
   fftw_complex *tmpc;
   fftw_plan fft1, ifft1;
-  
-  
+
+    
   adj=true;
   /* if y, perform adjoint operation */
   inv=true;
@@ -165,6 +177,11 @@ int radon(char *out_file, int N)
       np = N;
       
       /* number of p values (if adj=y) */
+
+      dt = 1.0; 
+
+      /*interval of axis time*/
+
       dp = 0.001;
     
       /* p sampling (if adj=y) */
@@ -266,6 +283,9 @@ int radon(char *out_file, int N)
     }
   
   //wrting in disk the output ->the PRT
+
+  if(out==NULL)
+    printf("THE FILE CAN NOT BE CREATED\n");
   
   out = fopen(out_file,"w");
   for(ip=0; ip<np; ip++) 
@@ -283,6 +303,8 @@ int radon(char *out_file, int N)
   fftw_free(tmpc);
   fftw_destroy_plan(fft1);
   fftw_destroy_plan(ifft1);
+
+  printf("THE STATE OF THE PARABOLIC RADON TRANSFORM IS: SUCESS\n");
   
   exit(0);
 } 
@@ -330,6 +352,10 @@ int fourier(int N)
    
   fftw_execute(my_plan1);
 
+
+  if(out_wave1D==NULL)
+    printf("THE FILE CAN NOT BE CREATED\n");
+    
   out_wave1D = fopen("1DFT_of_RT.dat","w");
 
   for(i=0; i<=N; i++)
@@ -337,6 +363,7 @@ int fourier(int N)
       fprintf(out_wave1D,"%lf %lf\n", out_fourier1D[i][0], out_fourier1D[i][1]);
     }
 
+  printf("THE STATE OF 1D FT OVER RT IS: SUCESS\n");
 
  ////////////////////////////////Calculating 2D FFT OF THE ORIGINAL DATA ///////////////////
 
@@ -355,6 +382,10 @@ int fourier(int N)
    
   fftw_execute(my_plan2);
 
+  
+  if(out_wave1==NULL)
+    printf("THE FILE CAN NOT BE CREATED\n");
+    
   out_wave1 = fopen("2DFT_ORIGINAL_DATA.dat","w");
 
   for(i=0; i<=N; i++)
@@ -362,10 +393,11 @@ int fourier(int N)
       fprintf(out_wave1,"%lf %lf\n", out_origin[i][0], out_origin[i][1]);
     }
 
-
+  printf("THE STATE OF 2D FT OVER THE DATA ds/c IS: SUCESS\n");
   
 ////////////////////////////////Calculating 2D IFFT OF 1DFT_RT-DATA /////////////////////////
-//HERE WE OBTAIN THE SLOWNESS//
+  
+//HERE WE OBTAIN THE SLOWNESS RELATED TO THE TRAVEL TIMES AND RAY PATHS THAT ARE LOAD//
 
   
   for(i=0; i<=N; i++)
@@ -382,6 +414,10 @@ int fourier(int N)
    
   fftw_execute(my_plan3);
 
+
+  if(out_wave2D==NULL)
+    printf("THE FILE CAN NOT BE CREATED\n");
+  
   out_wave2D = fopen("2DIFT_of_1DFT_RT.dat","w");
 
   for(i=0; i<=N; i++)
@@ -390,8 +426,10 @@ int fourier(int N)
       
     }
 
+  printf("THE STATE OF 2D IFT OVER 1D FT OF RT IS: SUCESS\n");
 
-   
+  /////////////////////////////////////////////////////////////////////////////////////////
+  
   tend = clock();
   
   cpu_time_used = ((double) (tend - tini)) / CLOCKS_PER_SEC;

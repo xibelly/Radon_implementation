@@ -2,7 +2,7 @@
 %%Title: radon_rays.c
 %%Creator: ps-print v7.3.5
 %%For: Xibelly
-%%CreationDate: 10:36:32 nov 02 2016
+%%CreationDate: 11:35:18 nov 02 2016
 %%Orientation: Portrait
 %%DocumentNeededResources: font Times-Roman Times-Italic
 %%+ font Courier
@@ -1254,7 +1254,7 @@ BeginDoc
 %%EndSetup
 
 %%Page: 1 1
-/Lines 486 def
+/Lines 524 def
 /PageCount 7 def
 1 BeginSheet
 BeginDSCPage
@@ -1367,6 +1367,27 @@ LHL
 (*/) S
 0.000 0.000 0.000 FG
 PHL
+PHL
+LHL
+0.698 0.133 0.133 FG
+(/*) S
+LHL
+(SET OF TESTS) S
+PHL
+LHL
+(In oder to understand the CST, we will compare the 2D FT of the data -ds/c- ) S
+LHL
+(with the 1D FT of the  PRT of the data, is to say, the FT of the model -travel times- ) S
+LHL
+(obtained trough the PRT.) S
+PHL
+PHL
+LHL
+( ) S
+(*/) S
+0.000 0.000 0.000 FG
+PHL
+PHL
 LHL
 0.698 0.133 0.133 FG
 (/* ) S
@@ -1438,7 +1459,30 @@ LHL
 0.545 0.133 0.322 FG
 (<complex.h>) S
 0.000 0.000 0.000 FG
-PHL
+EndPage
+EndDSCPage
+EndSheet
+
+%%Page: 2 2
+/Lines 524 def
+/PageCount 7 def
+1 BeginSheet
+BeginDSCPage
+/LineNumber 73 def
+/PageNumber 2 def
+/HeaderLinesLeft[
+ [/h0 (radon_rays.c)]
+ [/h1 (~/Documentos/Maestria_Fisi/SemestreII/InvestigacionII/Radon_implementation/Codigo_radon_rays/)]
+]def
+/HeaderLinesRight[
+ [/h0 /pagenumberstring load]
+ [/h1 (02/11/16)]
+]def
+2 SetHeaderLines
+78 BeginPage
+/f0 F
+false BG
+0.000 0.000 0.000 FG
 LHL
 0.282 0.239 0.545 FG
 (#) S
@@ -1472,30 +1516,7 @@ LHL
 0.698 0.133 0.133 FG
 (///////////////////////) S
 (GLOBAL VARIABLES////////////////////) S
-EndPage
-EndDSCPage
-EndSheet
-
-%%Page: 2 2
-/Lines 486 def
-/PageCount 7 def
-1 BeginSheet
-BeginDSCPage
-/LineNumber 73 def
-/PageNumber 2 def
-/HeaderLinesLeft[
- [/h0 (radon_rays.c)]
- [/h1 (~/Documentos/Maestria_Fisi/SemestreII/InvestigacionII/Radon_implementation/Codigo_radon_rays/)]
-]def
-/HeaderLinesRight[
- [/h0 /pagenumberstring load]
- [/h1 (02/11/16)]
-]def
-2 SetHeaderLines
-78 BeginPage
-/f0 F
-false BG
-0.698 0.133 0.133 FG
+PHL
 0.000 0.000 0.000 FG
 LHL
 0.133 0.545 0.133 FG
@@ -1613,7 +1634,7 @@ LHL
 0.698 0.133 0.133 FG
 (/) S
 (* ) S
-(input data -> model data -size nt*nx- ) S
+(input data -> model data \(ds/c\) -size nt*nx- ) S
 (*/) S
 0.000 0.000 0.000 FG
 LHL
@@ -1993,7 +2014,30 @@ LHL
 (par) S
 0.000 0.000 0.000 FG
 (;) S
-LHL
+EndPage
+EndDSCPage
+EndSheet
+
+%%Page: 3 3
+/Lines 524 def
+/PageCount 7 def
+1 BeginSheet
+BeginDSCPage
+/LineNumber 151 def
+/PageNumber 3 def
+/HeaderLinesLeft[
+ [/h0 (radon_rays.c)]
+ [/h1 (~/Documentos/Maestria_Fisi/SemestreII/InvestigacionII/Radon_implementation/Codigo_radon_rays/)]
+]def
+/HeaderLinesRight[
+ [/h0 /pagenumberstring load]
+ [/h1 (02/11/16)]
+]def
+2 SetHeaderLines
+156 BeginPage
+/f0 F
+false BG
+0.000 0.000 0.000 FG
 (  ) S
 0.133 0.545 0.133 FG
 (cha) S
@@ -2178,9 +2222,8 @@ LHL
 0.000 0.000 0.000 FG
 (;) S
 PHL
-(  ) S
 PHL
-(  ) S
+(    ) S
 LHL
 (  adj=) S
 0.000 0.545 0.545 FG
@@ -2203,30 +2246,7 @@ LHL
 (true) S
 0.000 0.000 0.000 FG
 (;) S
-EndPage
-EndDSCPage
-EndSheet
-
-%%Page: 3 3
-/Lines 486 def
-/PageCount 7 def
-1 BeginSheet
-BeginDSCPage
-/LineNumber 151 def
-/PageNumber 3 def
-/HeaderLinesLeft[
- [/h0 (radon_rays.c)]
- [/h1 (~/Documentos/Maestria_Fisi/SemestreII/InvestigacionII/Radon_implementation/Codigo_radon_rays/)]
-]def
-/HeaderLinesRight[
- [/h0 /pagenumberstring load]
- [/h1 (02/11/16)]
-]def
-2 SetHeaderLines
-156 BeginPage
-/f0 F
-false BG
-0.000 0.000 0.000 FG
+LHL
 (  ) S
 0.698 0.133 0.133 FG
 (/) S
@@ -2312,9 +2332,25 @@ LHL
 (number of p values \(if adj=y\) ) S
 (*/) S
 0.000 0.000 0.000 FG
+PHL
+LHL
+(      dt = 1.0;) S
+( ) S
+PHL
+LHL
+(      ) S
+0.698 0.133 0.133 FG
+(/) S
+(*) S
+(interval of axis time) S
+(*/) S
+0.000 0.000 0.000 FG
+PHL
 LHL
 ( ) S
-(     dp = 0.001;) S
+(     ) S
+(d) S
+(p = 0.001;) S
 PHL
 (    ) S
 LHL
@@ -2546,7 +2582,30 @@ LHL
 (\(ix=0; ix<nx; ix++\) ) S
 LHL
 (    xx[ix]=ox+ix*dx;) S
-PHL
+EndPage
+EndDSCPage
+EndSheet
+
+%%Page: 4 4
+/Lines 524 def
+/PageCount 7 def
+1 BeginSheet
+BeginDSCPage
+/LineNumber 228 def
+/PageNumber 4 def
+/HeaderLinesLeft[
+ [/h0 (radon_rays.c)]
+ [/h1 (~/Documentos/Maestria_Fisi/SemestreII/InvestigacionII/Radon_implementation/Codigo_radon_rays/)]
+]def
+/HeaderLinesRight[
+ [/h0 /pagenumberstring load]
+ [/h1 (02/11/16)]
+]def
+2 SetHeaderLines
+234 BeginPage
+/f0 F
+false BG
+0.000 0.000 0.000 FG
 (  ) S
 LHL
 (  par=) S
@@ -2650,30 +2709,7 @@ LHL
 (double) S
 0.000 0.000 0.000 FG
 (\)\);) S
-EndPage
-EndDSCPage
-EndSheet
-
-%%Page: 4 4
-/Lines 486 def
-/PageCount 7 def
-1 BeginSheet
-BeginDSCPage
-/LineNumber 228 def
-/PageNumber 4 def
-/HeaderLinesLeft[
- [/h0 (radon_rays.c)]
- [/h1 (~/Documentos/Maestria_Fisi/SemestreII/InvestigacionII/Radon_implementation/Codigo_radon_rays/)]
-]def
-/HeaderLinesRight[
- [/h0 /pagenumberstring load]
- [/h1 (02/11/16)]
-]def
-2 SetHeaderLines
-234 BeginPage
-/f0 F
-false BG
-0.000 0.000 0.000 FG
+LHL
 10 W
 (tmpr[ix] = data.dd[ix];) S
 7 W
@@ -2894,8 +2930,24 @@ LHL
 (wrting in disk the output ->the PRT) S
 PHL
 0.000 0.000 0.000 FG
-( ) S
-( ) S
+LHL
+(  ) S
+0.627 0.125 0.941 FG
+(if) S
+0.000 0.000 0.000 FG
+(\(out==) S
+0.000 0.545 0.545 FG
+(NULL) S
+0.000 0.000 0.000 FG
+(\)) S
+LHL
+(    printf\() S
+0.545 0.133 0.322 FG
+("THE FILE CAN NOT BE CREATED\\n") S
+0.000 0.000 0.000 FG
+(\);) S
+PHL
+(  ) S
 LHL
 (  ) S
 (o) S
@@ -2943,6 +2995,36 @@ LHL
 (  fftw_destroy_plan\(fft1\);) S
 LHL
 (  fftw_destroy_plan\(ifft1\);) S
+EndPage
+EndDSCPage
+EndSheet
+
+%%Page: 5 5
+/Lines 524 def
+/PageCount 7 def
+1 BeginSheet
+BeginDSCPage
+/LineNumber 306 def
+/PageNumber 5 def
+/HeaderLinesLeft[
+ [/h0 (radon_rays.c)]
+ [/h1 (~/Documentos/Maestria_Fisi/SemestreII/InvestigacionII/Radon_implementation/Codigo_radon_rays/)]
+]def
+/HeaderLinesRight[
+ [/h0 /pagenumberstring load]
+ [/h1 (02/11/16)]
+]def
+2 SetHeaderLines
+312 BeginPage
+/f0 F
+false BG
+0.000 0.000 0.000 FG
+LHL
+(  printf\() S
+0.545 0.133 0.322 FG
+("THE STATE OF THE PARABOLIC RADON TRANSFORM IS: SUCESS\\n") S
+0.000 0.000 0.000 FG
+(\);) S
 PHL
 (  ) S
 LHL
@@ -3126,30 +3208,7 @@ LHL
 (sizeof) S
 0.000 0.000 0.000 FG
 (\(fftw_complex\)*N\);) S
-EndPage
-EndDSCPage
-EndSheet
-
-%%Page: 5 5
-/Lines 486 def
-/PageCount 7 def
-1 BeginSheet
-BeginDSCPage
-/LineNumber 305 def
-/PageNumber 5 def
-/HeaderLinesLeft[
- [/h0 (radon_rays.c)]
- [/h1 (~/Documentos/Maestria_Fisi/SemestreII/InvestigacionII/Radon_implementation/Codigo_radon_rays/)]
-]def
-/HeaderLinesRight[
- [/h0 /pagenumberstring load]
- [/h1 (02/11/16)]
-]def
-2 SetHeaderLines
-312 BeginPage
-/f0 F
-false BG
-0.000 0.000 0.000 FG
+LHL
 (  in_radon = \() S
 0.133 0.545 0.133 FG
 (fftw_complex) S
@@ -3270,6 +3329,27 @@ PHL
 LHL
 (  fftw_execute\(my_plan1\);) S
 PHL
+PHL
+LHL
+(  ) S
+0.627 0.125 0.941 FG
+(if) S
+0.000 0.000 0.000 FG
+(\(out_wave1D==) S
+0.000 0.545 0.545 FG
+(NULL) S
+0.000 0.000 0.000 FG
+(\)) S
+LHL
+(    printf\() S
+0.545 0.133 0.322 FG
+("THE FILE CAN NOT BE CREATED\\n") S
+0.000 0.000 0.000 FG
+(\);) S
+PHL
+( ) S
+( ) S
+(  ) S
 LHL
 (  out_wave1D = fopen\() S
 0.545 0.133 0.322 FG
@@ -3298,6 +3378,13 @@ LHL
 LHL
 (    }) S
 PHL
+LHL
+(  printf\() S
+0.545 0.133 0.322 FG
+("THE STATE OF 1D FT OVER RT IS: SUCESS\\n") S
+0.000 0.000 0.000 FG
+(\)) S
+(;) S
 PHL
 LHL
 ( ) S
@@ -3353,9 +3440,54 @@ LHL
 (  my_plan2 = fftw_plan_dft_2d\(N, N, in, out_origin, FFTW_FORWARD, FFTW_MEASURE\);) S
 PHL
 (   ) S
-LHL
+EndPage
+EndDSCPage
+EndSheet
+
+%%Page: 6 6
+/Lines 524 def
+/PageCount 7 def
+1 BeginSheet
+BeginDSCPage
+/LineNumber 383 def
+/PageNumber 6 def
+/HeaderLinesLeft[
+ [/h0 (radon_rays.c)]
+ [/h1 (~/Documentos/Maestria_Fisi/SemestreII/InvestigacionII/Radon_implementation/Codigo_radon_rays/)]
+]def
+/HeaderLinesRight[
+ [/h0 /pagenumberstring load]
+ [/h1 (02/11/16)]
+]def
+2 SetHeaderLines
+390 BeginPage
+/f0 F
+false BG
+0.000 0.000 0.000 FG
 (  fftw_execute\(my_plan2\);) S
 PHL
+PHL
+(  ) S
+LHL
+(  ) S
+0.627 0.125 0.941 FG
+(if) S
+0.000 0.000 0.000 FG
+(\(out_wave1==) S
+0.000 0.545 0.545 FG
+(NULL) S
+0.000 0.000 0.000 FG
+(\)) S
+LHL
+(    printf\() S
+0.545 0.133 0.322 FG
+("THE FILE CAN NOT BE CREATED\\n") S
+0.000 0.000 0.000 FG
+(\);) S
+PHL
+( ) S
+( ) S
+(  ) S
 LHL
 (  out_wave1 = fopen\() S
 0.545 0.133 0.322 FG
@@ -3384,7 +3516,13 @@ LHL
 LHL
 (    }) S
 PHL
-PHL
+LHL
+(  printf\() S
+0.545 0.133 0.322 FG
+("THE STATE OF 2D FT OVER THE DATA ds/c IS: SUCESS\\n") S
+0.000 0.000 0.000 FG
+(\)) S
+(;) S
 PHL
 (  ) S
 LHL
@@ -3392,13 +3530,18 @@ LHL
 (/) S
 (///////////////////////////////) S
 (Calculating 2D IFFT OF 1DFT_RT-DATA /////////////////////////) S
+PHL
+0.000 0.000 0.000 FG
+(  ) S
 LHL
+0.698 0.133 0.133 FG
 (//) S
-(HERE WE OBTAIN THE SLOWNESS//) S
+(HERE WE OBTAIN THE SLOWNESS RELATED TO THE TRAVEL TIMES AND RAY PATHS THAT ARE LOAD//) S
 PHL
 0.000 0.000 0.000 FG
 PHL
-(  ) S
+( ) S
+( ) S
 LHL
 (  ) S
 0.627 0.125 0.941 FG
@@ -3426,32 +3569,29 @@ LHL
 PHL
 PHL
 (   ) S
-EndPage
-EndDSCPage
-EndSheet
-
-%%Page: 6 6
-/Lines 486 def
-/PageCount 7 def
-1 BeginSheet
-BeginDSCPage
-/LineNumber 383 def
-/PageNumber 6 def
-/HeaderLinesLeft[
- [/h0 (radon_rays.c)]
- [/h1 (~/Documentos/Maestria_Fisi/SemestreII/InvestigacionII/Radon_implementation/Codigo_radon_rays/)]
-]def
-/HeaderLinesRight[
- [/h0 /pagenumberstring load]
- [/h1 (02/11/16)]
-]def
-2 SetHeaderLines
-390 BeginPage
-/f0 F
-false BG
-0.000 0.000 0.000 FG
+LHL
 (  fftw_execute\(my_plan3\);) S
 PHL
+PHL
+LHL
+(  ) S
+0.627 0.125 0.941 FG
+(if) S
+0.000 0.000 0.000 FG
+(\(out_wave2D==) S
+0.000 0.545 0.545 FG
+(NULL) S
+0.000 0.000 0.000 FG
+(\)) S
+LHL
+(    printf\() S
+0.545 0.133 0.322 FG
+("THE FILE CAN NOT BE CREATED\\n") S
+0.000 0.000 0.000 FG
+(\);) S
+PHL
+( ) S
+( ) S
 LHL
 (  out_wave2D = fopen\() S
 0.545 0.133 0.322 FG
@@ -3482,11 +3622,26 @@ PHL
 LHL
 (    }) S
 PHL
-PHL
-PHL
-(   ) S
 LHL
-(  tend = clock\(\);) S
+(  printf\() S
+0.545 0.133 0.322 FG
+("THE STATE OF 2D IFT OVER 1D FT OF RT IS: SUCESS\\n") S
+0.000 0.000 0.000 FG
+(\)) S
+(;) S
+PHL
+LHL
+(  ) S
+0.698 0.133 0.133 FG
+(/) S
+(////////////////////////////////////////////////////////////////////////////////////////) S
+PHL
+0.000 0.000 0.000 FG
+(  ) S
+LHL
+(  ) S
+(t) S
+(end = clock\(\);) S
 PHL
 (  ) S
 LHL
@@ -3548,7 +3703,30 @@ LHL
 (}) S
 PHL
 PHL
-LHL
+EndPage
+EndDSCPage
+EndSheet
+
+%%Page: 7 7
+/Lines 524 def
+/PageCount 7 def
+1 BeginSheet
+BeginDSCPage
+/LineNumber 461 def
+/PageNumber 7 def
+/HeaderLinesLeft[
+ [/h0 (radon_rays.c)]
+ [/h1 (~/Documentos/Maestria_Fisi/SemestreII/InvestigacionII/Radon_implementation/Codigo_radon_rays/)]
+]def
+/HeaderLinesRight[
+ [/h0 /pagenumberstring load]
+ [/h1 (02/11/16)]
+]def
+2 SetHeaderLines
+468 BeginPage
+/f0 F
+false BG
+0.000 0.000 0.000 FG
 0.698 0.133 0.133 FG
 (/) S
 (/////////////////////////////////) S
@@ -3777,7 +3955,8 @@ LHL
 (*/) S
 0.000 0.000 0.000 FG
 PHL
-(  ) S
+( ) S
+( ) S
 LHL
 (  ) S
 (r) S
@@ -3791,30 +3970,7 @@ LHL
 (  read_file3\(in_file_slowness, N\)) S
 (;) S
 PHL
-EndPage
-EndDSCPage
-EndSheet
-
-%%Page: 7 7
-/Lines 486 def
-/PageCount 7 def
-1 BeginSheet
-BeginDSCPage
-/LineNumber 459 def
-/PageNumber 7 def
-/HeaderLinesLeft[
- [/h0 (radon_rays.c)]
- [/h1 (~/Documentos/Maestria_Fisi/SemestreII/InvestigacionII/Radon_implementation/Codigo_radon_rays/)]
-]def
-/HeaderLinesRight[
- [/h0 /pagenumberstring load]
- [/h1 (02/11/16)]
-]def
-2 SetHeaderLines
-468 BeginPage
-/f0 F
-false BG
-0.000 0.000 0.000 FG
+LHL
 (  ) S
 0.627 0.125 0.941 FG
 (for) S
