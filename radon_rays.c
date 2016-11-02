@@ -20,9 +20,10 @@ ANALISIS AND DESIGN
 
 To solve our problem we have to do:
 
--Receive the travel times and the ray trajectories, and verify that these are apload in the correct way
+-Receive the travel times, the model (1/c -slowness-) and the ray trajectories. 
+Verify that these are apload in the correct way.
 
--Receive the iterations number (# of data lines)
+-Receive the iterations number (# of data lines).
 
 -Do a fit to the trajectories -Nonlinear adjustment- to ensure the geometry of the trajectories
 
@@ -30,7 +31,7 @@ NOTE: AS A PRACTICAL EXERCISE, IN FIRST APPROXIMATION WE WILL CONSIDER THAT THE 
  DESCRIBING THE CORRECT GEOMETRY, IS TO SAY, THESE ARE PARABOLAS. WITH THIS ASSUMPTION WE DON'T
  HAVE TO DO ANY ADJUSTMENT.
 
--Perform the RT to the trajectories
+-Perform the RT to the trajectories.
 
 -Use the CST to obtain c. This is done in the next way, 
  apply a 1D FT on the RT that was performed previously,
@@ -46,8 +47,7 @@ CONTROL TESTS
 
 /* IMPLEMENTATION -> PARABOLIC RADON TRANSFORM */
 
-/*Note: The idea is to use the code Mmyradon2.c to implement the PRT in the ray approach*/
-
+/*Note: We are using the code Mmyradon2.c to implement the PRT in the ray approach*/
 
 
 #include<stdio.h>
@@ -61,27 +61,18 @@ CONTROL TESTS
 
 #include"myradon2.c"
 
-/*PATHS: /home/xibelly/Madagascar/rsfsrc/user/pyang myradon2.c
+/*
+PATHS: /home/xibelly/Madagascar/rsfsrc/user/pyang myradon2.c
 PATHS: /home/xibelly/Madagascar/rsfsrc/system/seismic/Mradon.c radon.c
-PATHS: /home/xibelly/Madagascar/include */
-
-
-/*LIBRARY PATHS
-
-  /home/xibelly/Madagascar/rsf/include -> source rsf.h
-
-  /home/xibelly/Madagascar/rsf/lib    -> file.o of rsf.h
-
-  /home/xibelly/Madagascar/rsfsrc/build/api/c  -> file.o of rsf.h
-
-*/
+PATHS: /home/xibelly/Madagascar/include
+ */
 
 /*NOTA: el indicador sf_...  es para indicar el formato por defecto de MADAGASCAR -> rsf */
 
 ///////////////////////GLOBAL VARIABLES////////////////////
 
 int N;
-char *in_file_ray_ttime, *out_file;
+char *in_file_ray, *in_file_ttime, *in_file_slowness, *out_file;
 clock_t tini, tend, tacum;
 double cpu_time_used;
 
@@ -91,8 +82,12 @@ FILE *out =NULL;
 //////////////////////////STRUCTURES//////////////////////////
 struct read {
   
-  double *dd; /* input data -> ray trajectory -data size nt*nx- */
+  double *dd; /* input data -> model data -size nt*nx- */
   double *mm; /* input data -> travel time -data size nt*np- */
+  
+  double *slowness; /*input data -> the initial model */
+  double *ds; /* input data -> ray trajectory -data size nt*nx- */
+  
 
 };
 
@@ -182,7 +177,7 @@ int radon(char *out_file, int N)
 	  invmode="toeplitz";
 	  /* inverse method: 'ls' if least-squares; 'toeplitz' -> 't' if use FFT */			
 	  eps=0.01;  
-      /* regularization parameter */
+	  /* regularization parameter */
 	}
       else
 	{
@@ -262,27 +257,23 @@ int radon(char *out_file, int N)
 	}
     }
   
-  //if(adj||inv){// m(tau,p)=sum_{i=0}^{nx} d(t=tau+p*x_i,x_i) 
-  //matrix_transpose(cmm, np, nw);
-    for(ip=0; ip<np; ip++) // loop over slopes // 
-      {			
-	memcpy(tmpc, &cmm[ip*nw], nw*sizeof(complex));
-	fftw_execute(ifft1); // IFFT: cmm-->mm //
-	data.mm[ip]=tmpr[ip]/nfft;
-	
-      }
+  for(ip=0; ip<np; ip++) // loop over slopes // 
+    {			
+      memcpy(tmpc, &cmm[ip*nw], nw*sizeof(complex));
+      fftw_execute(ifft1); // IFFT: cmm-->mm //
+      data.mm[ip]=tmpr[ip]/nfft;
+      
+    }
+  
+  //wrting in disk the output ->the PRT
+  
+  out = fopen(out_file,"w");
+  for(ip=0; ip<np; ip++) 
+    {			
+      fprintf(out,"%lf\n", data.mm[ip]);
+    }
+  
    
-    //wrting in disk the output ->the PRT
-
-    out = fopen(out_file,"w");
-    for(ip=0; ip<np; ip++) 
-      {			
-	fprintf(out,"%lf\n", data.mm[ip]);
-      }
-   
-
-
- 
   
   free(p);
   free(xx);
@@ -353,7 +344,7 @@ int fourier(int N)
   for(i=0; i<=N; i++)
     {
   
-      in[i][0] = data.dd[i];   //REAL PART -ray path -> data domain - 
+      in[i][0] = data.dd[i];   //REAL PART -ray path/slowness -> data domain - 
 
       in[i][1] = 0.0;          //IMAGINARY PART 
       
@@ -432,32 +423,44 @@ int fourier(int N)
 //////////////////////////////////MAIN PROGRAM/////////////////////
 int main(int argc, char **argv){
 
- 
+  int i;
+  
   printf("%d\n",argc);
   
-  if(argc != 4)
+  if(argc != 6)
     {
       printf("ERROR--> use as:\n");
-      printf("%s #iterations input_file_ray_ttime  output_file\n",argv[0]);
+      printf("%s #iterations input_file_ray in_file_ttime in_file_model output_file\n",argv[0]);
       exit(0);  
     }
   
   N   = atoi(argv[1]);
-  in_file_ray_ttime  = argv[2];
-  out_file  = argv[3];
+  in_file_ray  = argv[2];
+  in_file_ttime  = argv[3];
+  in_file_slowness  = argv[4];
+  out_file  = argv[5];
   
-  printf("%s %d %s %s \n",argv[0], N, in_file_ray_ttime, out_file);
-  
-  
-  data.dd = (double *) malloc(N* sizeof(double));
-  data.mm = (double *) malloc(N* sizeof(double)); 
+  printf("%s %d %s %s %s %s\n",argv[0], N, in_file_ray, in_file_ttime, in_file_slowness, out_file);
   
   
+  data.dd = (double *) malloc(N* sizeof(double));              //data -> ds/c(x)
+  data.mm = (double *) malloc(N* sizeof(double));              //travel time
+  data.ds = (double *) malloc(N *sizeof(double));              //ds
+  data.slowness = (double *) malloc(N *sizeof(double));        //slowness 1/c(x)
   
-  /*Reading the file data*/
+  /*Reading the file data - loading data*/
   
-  read_file(in_file_ray_ttime, N);
-  
+  read_file1(in_file_ray, N);
+
+  read_file2(in_file_ttime, N);
+
+  read_file3(in_file_slowness, N);
+
+  for(i=0; i<N; i++)
+    {
+      data.dd[i] = (data.ds[i]) / (data.slowness[i]);
+      
+    }
   
   /*Calculate the Radon Transform to rays */
   

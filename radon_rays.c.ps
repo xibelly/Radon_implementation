@@ -1,8 +1,8 @@
 %!PS-Adobe-3.0
 %%Title: radon_rays.c
 %%Creator: ps-print v7.3.5
-%%For: XIBELLY
-%%CreationDate: 18:38:34 oct 23 2016
+%%For: Xibelly
+%%CreationDate: 10:36:32 nov 02 2016
 %%Orientation: Portrait
 %%DocumentNeededResources: font Times-Roman Times-Italic
 %%+ font Courier
@@ -29,7 +29,7 @@
 % === BEGIN ps-print prologue 0
 % version: 6.0
 
-% Copyright (C) 2000-2013 Free Software Foundation, Inc.
+% Copyright (C) 2000-2015 Free Software Foundation, Inc.
 
 % This file is part of GNU Emacs.
 
@@ -254,7 +254,7 @@
 % === BEGIN ps-print prologue 1
 % version: 6.1
 
-% Copyright (C) 2000-2013 Free Software Foundation, Inc.
+% Copyright (C) 2000-2015 Free Software Foundation, Inc.
 
 % This file is part of GNU Emacs.
 
@@ -1254,7 +1254,7 @@ BeginDoc
 %%EndSetup
 
 %%Page: 1 1
-/Lines 477 def
+/Lines 486 def
 /PageCount 7 def
 1 BeginSheet
 BeginDSCPage
@@ -1262,11 +1262,11 @@ BeginDSCPage
 /PageNumber 1 def
 /HeaderLinesLeft[
  [/h0 (radon_rays.c)]
- [/h1 (~/Documentos/UdeA/Maestria_Fisi/SemestreII/InvestigacionII/Radon_implementation-master/)]
+ [/h1 (~/Documentos/Maestria_Fisi/SemestreII/InvestigacionII/Radon_implementation/Codigo_radon_rays/)]
 ]def
 /HeaderLinesRight[
  [/h0 /pagenumberstring load]
- [/h1 (23/10/16)]
+ [/h1 (02/11/16)]
 ]def
 2 SetHeaderLines
 0 BeginPage
@@ -1323,12 +1323,12 @@ LHL
 (To solve our problem we have to do:) S
 PHL
 LHL
-(-Receive the travel times and the ray trajectories, and verify that these are apload in the co) S
-SL
-(rrect way) S
+(-Receive the travel times, the model \(1/c -slowness-\) and the ray trajectories. ) S
+LHL
+(Verify that these are apload in the correct way.) S
 PHL
 LHL
-(-Receive the iterations number \(# of data lines\)) S
+(-Receive the iterations number \(# of data lines\).) S
 PHL
 LHL
 (-Do a fit to the trajectories -Nonlinear adjustment- to ensure the geometry of the trajectorie) S
@@ -1345,7 +1345,7 @@ LHL
 ( HAVE TO DO ANY ADJUSTMENT.) S
 PHL
 LHL
-(-Perform the RT to the trajectories) S
+(-Perform the RT to the trajectories.) S
 PHL
 LHL
 (-Use the CST to obtain c. This is done in the next way, ) S
@@ -1377,10 +1377,9 @@ PHL
 LHL
 0.698 0.133 0.133 FG
 (/*) S
-(Note: The idea is to use the code Mmyradon2.c to implement the PRT in the ray approach) S
+(Note: We are using the code Mmyradon2.c to implement the PRT in the ray approach) S
 (*/) S
 0.000 0.000 0.000 FG
-PHL
 PHL
 PHL
 LHL
@@ -1396,6 +1395,13 @@ LHL
 (include) S
 0.545 0.133 0.322 FG
 (<stdlib.h>) S
+0.000 0.000 0.000 FG
+LHL
+0.282 0.239 0.545 FG
+(#) S
+(include) S
+0.545 0.133 0.322 FG
+(<string.h>) S
 0.000 0.000 0.000 FG
 LHL
 0.282 0.239 0.545 FG
@@ -1422,8 +1428,6 @@ LHL
 0.282 0.239 0.545 FG
 (#) S
 (include) S
-0.000 0.000 0.000 FG
-( ) S
 0.545 0.133 0.322 FG
 (<stdbool.h>) S
 0.000 0.000 0.000 FG
@@ -1445,55 +1449,15 @@ LHL
 PHL
 LHL
 0.698 0.133 0.133 FG
-(/) S
-(*) S
+(/*) S
+LHL
 (PATHS: /home/xibelly/Madagascar/rsfsrc/user/pyang myradon2.c) S
 LHL
 (PATHS: /home/xibelly/Madagascar/rsfsrc/system/seismic/Mradon.c radon.c) S
 LHL
-(PATHS: /home/xibelly/Madagascar/include ) S
-(*/) S
-0.000 0.000 0.000 FG
-PHL
-PHL
+(PATHS: /home/xibelly/Madagascar/include) S
 LHL
-0.698 0.133 0.133 FG
-(/*) S
-(LIBRARY PATHS) S
-PHL
-LHL
-(  /home/xibelly/Madagascar/rsf/include -> source rsf.h) S
-PHL
-EndPage
-EndDSCPage
-EndSheet
-
-%%Page: 2 2
-/Lines 477 def
-/PageCount 7 def
-1 BeginSheet
-BeginDSCPage
-/LineNumber 72 def
-/PageNumber 2 def
-/HeaderLinesLeft[
- [/h0 (radon_rays.c)]
- [/h1 (~/Documentos/UdeA/Maestria_Fisi/SemestreII/InvestigacionII/Radon_implementation-master/)]
-]def
-/HeaderLinesRight[
- [/h0 /pagenumberstring load]
- [/h1 (23/10/16)]
-]def
-2 SetHeaderLines
-78 BeginPage
-/f0 F
-false BG
-0.698 0.133 0.133 FG
-(  /home/xibelly/Madagascar/rsf/lib    -> file.o of rsf.h) S
-PHL
-LHL
-(  /home/xibelly/Madagascar/rsfsrc/build/api/c  -> file.o of rsf.h) S
-PHL
-LHL
+( ) S
 (*/) S
 0.000 0.000 0.000 FG
 PHL
@@ -1508,7 +1472,30 @@ LHL
 0.698 0.133 0.133 FG
 (///////////////////////) S
 (GLOBAL VARIABLES////////////////////) S
-PHL
+EndPage
+EndDSCPage
+EndSheet
+
+%%Page: 2 2
+/Lines 486 def
+/PageCount 7 def
+1 BeginSheet
+BeginDSCPage
+/LineNumber 73 def
+/PageNumber 2 def
+/HeaderLinesLeft[
+ [/h0 (radon_rays.c)]
+ [/h1 (~/Documentos/Maestria_Fisi/SemestreII/InvestigacionII/Radon_implementation/Codigo_radon_rays/)]
+]def
+/HeaderLinesRight[
+ [/h0 /pagenumberstring load]
+ [/h1 (02/11/16)]
+]def
+2 SetHeaderLines
+78 BeginPage
+/f0 F
+false BG
+0.698 0.133 0.133 FG
 0.000 0.000 0.000 FG
 LHL
 0.133 0.545 0.133 FG
@@ -1528,7 +1515,17 @@ LHL
 0.000 0.000 0.000 FG
 ( *) S
 0.627 0.322 0.176 FG
-(in_file_ray_ttime) S
+(in_file_ray) S
+0.000 0.000 0.000 FG
+(,) S
+( *) S
+0.627 0.322 0.176 FG
+(in_file_ttime) S
+0.000 0.000 0.000 FG
+(,) S
+( *) S
+0.627 0.322 0.176 FG
+(in_file_slowness) S
 0.000 0.000 0.000 FG
 (,) S
 ( *) S
@@ -1616,11 +1613,12 @@ LHL
 0.698 0.133 0.133 FG
 (/) S
 (* ) S
-(input data -> ray trajectory -data size nt*nx- ) S
+(input data -> model data -size nt*nx- ) S
 (*/) S
 0.000 0.000 0.000 FG
 LHL
-(  ) S
+( ) S
+( ) S
 0.133 0.545 0.133 FG
 (d) S
 (oubl) S
@@ -1630,15 +1628,65 @@ LHL
 0.627 0.322 0.176 FG
 (mm) S
 0.000 0.000 0.000 FG
-(; ) S
+(;) S
+( ) S
 0.698 0.133 0.133 FG
-(/* ) S
+(/) S
+(* ) S
 (input data -> travel time -data size nt*np- ) S
 (*/) S
 0.000 0.000 0.000 FG
 PHL
+( ) S
+( ) S
 LHL
-(};) S
+( ) S
+( ) S
+0.133 0.545 0.133 FG
+(d) S
+(oubl) S
+(e) S
+0.000 0.000 0.000 FG
+( *) S
+0.627 0.322 0.176 FG
+(slowness) S
+0.000 0.000 0.000 FG
+(;) S
+( ) S
+0.698 0.133 0.133 FG
+(/) S
+(*) S
+(input data -> the initial model ) S
+(*) S
+(/) S
+0.000 0.000 0.000 FG
+LHL
+( ) S
+( ) S
+0.133 0.545 0.133 FG
+(doubl) S
+(e) S
+0.000 0.000 0.000 FG
+( *) S
+0.627 0.322 0.176 FG
+(ds) S
+0.000 0.000 0.000 FG
+(;) S
+( ) S
+0.698 0.133 0.133 FG
+(/) S
+(* ) S
+(input data -> ray trajectory -data size nt*nx- ) S
+(*) S
+(/) S
+0.000 0.000 0.000 FG
+PHL
+( ) S
+( ) S
+PHL
+LHL
+(}) S
+(;) S
 PHL
 LHL
 0.627 0.125 0.941 FG
@@ -1772,8 +1820,7 @@ PHL
 PHL
 LHL
 0.133 0.545 0.133 FG
-(v) S
-(oi) S
+(voi) S
 (d) S
 0.000 0.000 0.000 FG
 ( ) S
@@ -1889,7 +1936,7 @@ LHL
 0.698 0.133 0.133 FG
 (/) S
 (*) S
-(Computes the LRT or PRT to the load data -rays- ) S
+(Computes the PRT to the load data -rays- ) S
 (*/) S
 0.000 0.000 0.000 FG
 PHL
@@ -1924,7 +1971,7 @@ LHL
 LHL
 ({) S
 PHL
-(    ) S
+(  ) S
 LHL
 (  ) S
 0.133 0.545 0.133 FG
@@ -2087,10 +2134,10 @@ LHL
 (**dd y **mm ) S
 LHL
 0.000 0.000 0.000 FG
-(  ) S
+( ) S
+( ) S
 0.133 0.545 0.133 FG
-(c) S
-(omple) S
+(comple) S
 (x) S
 0.000 0.000 0.000 FG
 ( *) S
@@ -2130,32 +2177,10 @@ LHL
 (ifft1) S
 0.000 0.000 0.000 FG
 (;) S
-EndPage
-EndDSCPage
-EndSheet
-
-%%Page: 3 3
-/Lines 477 def
-/PageCount 7 def
-1 BeginSheet
-BeginDSCPage
-/LineNumber 150 def
-/PageNumber 3 def
-/HeaderLinesLeft[
- [/h0 (radon_rays.c)]
- [/h1 (~/Documentos/UdeA/Maestria_Fisi/SemestreII/InvestigacionII/Radon_implementation-master/)]
-]def
-/HeaderLinesRight[
- [/h0 /pagenumberstring load]
- [/h1 (23/10/16)]
-]def
-2 SetHeaderLines
-156 BeginPage
-/f0 F
-false BG
-0.000 0.000 0.000 FG
 PHL
-(    ) S
+(  ) S
+PHL
+(  ) S
 LHL
 (  adj=) S
 0.000 0.545 0.545 FG
@@ -2163,21 +2188,45 @@ LHL
 0.000 0.000 0.000 FG
 (;) S
 LHL
-( ) S
-( ) S
+(  ) S
 0.698 0.133 0.133 FG
-(/* ) S
+(/) S
+(* ) S
 (if y, perform adjoint operation ) S
 (*/) S
 0.000 0.000 0.000 FG
 LHL
 (  ) S
-(inv=) S
+(i) S
+(nv=) S
 0.000 0.545 0.545 FG
-(false) S
+(true) S
 0.000 0.000 0.000 FG
 (;) S
-LHL
+EndPage
+EndDSCPage
+EndSheet
+
+%%Page: 3 3
+/Lines 486 def
+/PageCount 7 def
+1 BeginSheet
+BeginDSCPage
+/LineNumber 151 def
+/PageNumber 3 def
+/HeaderLinesLeft[
+ [/h0 (radon_rays.c)]
+ [/h1 (~/Documentos/Maestria_Fisi/SemestreII/InvestigacionII/Radon_implementation/Codigo_radon_rays/)]
+]def
+/HeaderLinesRight[
+ [/h0 /pagenumberstring load]
+ [/h1 (02/11/16)]
+]def
+2 SetHeaderLines
+156 BeginPage
+/f0 F
+false BG
+0.000 0.000 0.000 FG
 (  ) S
 0.698 0.133 0.133 FG
 (/) S
@@ -2216,7 +2265,9 @@ LHL
 (i) S
 (f) S
 0.000 0.000 0.000 FG
-( \(adj||inv\){) S
+( \(adj||inv\)) S
+LHL
+(    {) S
 ( ) S
 0.698 0.133 0.133 FG
 (/) S
@@ -2225,14 +2276,13 @@ LHL
 (*/) S
 0.000 0.000 0.000 FG
 PHL
-( ) S
-(   ) S
+(      ) S
 LHL
-(    ) S
+(      ) S
 (n) S
 (x = N;) S
 LHL
-(    ) S
+(      ) S
 0.698 0.133 0.133 FG
 (/) S
 (* ) S
@@ -2242,20 +2292,20 @@ LHL
 PHL
 (    ) S
 LHL
-(    ) S
+(      ) S
 0.698 0.133 0.133 FG
 (/* ) S
 (specify slope axis ) S
 (*/) S
 0.000 0.000 0.000 FG
 LHL
-(    ) S
+(      ) S
 (n) S
 (p = N;) S
 PHL
-(    ) S
+(      ) S
 LHL
-(    ) S
+(      ) S
 0.698 0.133 0.133 FG
 (/) S
 (* ) S
@@ -2263,13 +2313,12 @@ LHL
 (*/) S
 0.000 0.000 0.000 FG
 LHL
-(    ) S
-(d) S
-(p = 0.001;) S
+( ) S
+(     dp = 0.001;) S
 PHL
 (    ) S
 LHL
-(    ) S
+(      ) S
 0.698 0.133 0.133 FG
 (/) S
 (* ) S
@@ -2277,13 +2326,13 @@ LHL
 (*/) S
 0.000 0.000 0.000 FG
 LHL
-(    ) S
+(      ) S
 (p) S
 (0 = -0.2;) S
 PHL
 (      ) S
 LHL
-(    ) S
+(      ) S
 0.698 0.133 0.133 FG
 (/) S
 (* ) S
@@ -2291,37 +2340,42 @@ LHL
 (*/) S
 0.000 0.000 0.000 FG
 PHL
-(    ) S
+(      ) S
 LHL
-(    ) S
+(      ) S
 0.627 0.125 0.941 FG
 (i) S
 (f) S
 0.000 0.000 0.000 FG
-(\(inv\){) S
-20 W
+(\(inv\)) S
 LHL
-(      invmode=) S
+8 W
+({) S
+23 W
+LHL
+10 W
+(invmode=) S
 0.545 0.133 0.322 FG
 ("toeplitz") S
 0.000 0.000 0.000 FG
 (;) S
 LHL
-(      ) S
+10 W
 0.698 0.133 0.133 FG
 (/) S
 (* ) S
 (inverse method: 'ls' if least-squares; 'toeplitz' -> 't' if use FFT ) S
 (*/) S
 0.000 0.000 0.000 FG
-15 W
+11 W
 SL
-2 W
+10 W
 LHL
-(      ) S
-(eps=0.01;  ) S
+10 W
+(e) S
+(ps=0.01;  ) S
 LHL
-(      ) S
+10 W
 0.698 0.133 0.133 FG
 (/) S
 (* ) S
@@ -2329,26 +2383,30 @@ LHL
 (*/) S
 0.000 0.000 0.000 FG
 LHL
-( ) S
-(   } ) S
+8 W
+(}) S
+LHL
+(      ) S
 0.627 0.125 0.941 FG
 (else) S
 0.000 0.000 0.000 FG
-( {) S
 LHL
-(      invmode=) S
+8 W
+({) S
+LHL
+10 W
+(invmode=) S
 0.000 0.545 0.545 FG
 (NULL) S
 0.000 0.000 0.000 FG
 (;) S
 LHL
-(    }) S
+8 W
+(}) S
 PHL
-(    ) S
-PHL
-(   ) S
+(      ) S
 LHL
-(  }) S
+(    }) S
 PHL
 (  ) S
 PHL
@@ -2358,13 +2416,15 @@ LHL
 LHL
 (  nw=nfft/2+1;) S
 LHL
-(  ) S
-(p) S
-(=\() S
+(  p=\() S
 0.133 0.545 0.133 FG
 (double) S
 0.000 0.000 0.000 FG
-( *\)malloc\(np*) S
+( *\)malloc\() S
+0.133 0.545 0.133 FG
+(np) S
+0.000 0.000 0.000 FG
+(*) S
 0.627 0.125 0.941 FG
 (sizeof) S
 0.000 0.000 0.000 FG
@@ -2372,14 +2432,17 @@ LHL
 0.133 0.545 0.133 FG
 (double) S
 0.000 0.000 0.000 FG
-(\)\)) S
-(;) S
+(\)\);) S
 LHL
 (  xx==\() S
 0.133 0.545 0.133 FG
 (double) S
 0.000 0.000 0.000 FG
-( *\)malloc\(nx*) S
+( *\)malloc\() S
+0.133 0.545 0.133 FG
+(nx) S
+0.000 0.000 0.000 FG
+(*) S
 0.627 0.125 0.941 FG
 (sizeof) S
 0.000 0.000 0.000 FG
@@ -2387,12 +2450,9 @@ LHL
 0.133 0.545 0.133 FG
 (double) S
 0.000 0.000 0.000 FG
-(\)\)) S
-(;) S
+(\)\);) S
 LHL
-(  ) S
-(c) S
-(dd=\() S
+(  cdd=\() S
 0.133 0.545 0.133 FG
 (complex) S
 0.000 0.000 0.000 FG
@@ -2416,7 +2476,11 @@ LHL
 0.133 0.545 0.133 FG
 (double) S
 0.000 0.000 0.000 FG
-(*\)fftw_malloc\(nfft*) S
+(*\)fftw_malloc\() S
+0.133 0.545 0.133 FG
+(nfft) S
+0.000 0.000 0.000 FG
+(*) S
 0.627 0.125 0.941 FG
 (sizeof) S
 0.000 0.000 0.000 FG
@@ -2430,7 +2494,11 @@ LHL
 0.133 0.545 0.133 FG
 (fftw_complex) S
 0.000 0.000 0.000 FG
-(*\)fftw_malloc\(nw*) S
+(*\)fftw_malloc\() S
+0.133 0.545 0.133 FG
+(nw) S
+0.000 0.000 0.000 FG
+(*) S
 0.627 0.125 0.941 FG
 (sizeof) S
 0.000 0.000 0.000 FG
@@ -2453,12 +2521,9 @@ LHL
 (    p[ip]=p0+ip*dp;) S
 5 W
 PHL
-(  ) S
-(  ) S
+(    ) S
 LHL
-(  ) S
-(o) S
-(x = 0.0;) S
+(  ox = 0.0;) S
 LHL
 (  ) S
 0.698 0.133 0.133 FG
@@ -2476,8 +2541,7 @@ PHL
 LHL
 (  ) S
 0.627 0.125 0.941 FG
-(f) S
-(or) S
+(for) S
 0.000 0.000 0.000 FG
 (\(ix=0; ix<nx; ix++\) ) S
 LHL
@@ -2500,7 +2564,8 @@ LHL
 0.000 0.000 0.000 FG
 LHL
 (  ) S
-(x0=1.0;   ) S
+(x) S
+(0=1.0;   ) S
 LHL
 (  ) S
 0.698 0.133 0.133 FG
@@ -2510,12 +2575,12 @@ LHL
 (*/) S
 0.000 0.000 0.000 FG
 PHL
-8 W
+( ) S
+( ) S
 LHL
 (  ) S
 0.627 0.125 0.941 FG
-(f) S
-(or) S
+(for) S
 0.000 0.000 0.000 FG
 ( \(ix=0; ix < nx; ix++\)) S
 0.698 0.133 0.133 FG
@@ -2536,9 +2601,7 @@ LHL
 PHL
 (      ) S
 LHL
-( ) S
-(   ) S
-(}) S
+(    }) S
 PHL
 (  ) S
 LHL
@@ -2546,7 +2609,9 @@ LHL
 0.627 0.125 0.941 FG
 (if) S
 0.000 0.000 0.000 FG
-(\(adj||inv\){) S
+(\(adj||inv\)) S
+LHL
+(    {) S
 0.698 0.133 0.133 FG
 (/) S
 (* ) S
@@ -2554,8 +2619,7 @@ LHL
 (*/) S
 0.000 0.000 0.000 FG
 LHL
-( ) S
-(   ) S
+(      ) S
 0.627 0.125 0.941 FG
 (f) S
 (or) S
@@ -2569,34 +2633,15 @@ LHL
 (*/) S
 0.000 0.000 0.000 FG
 LHL
-(      ) S
-({) S
-EndPage
-EndDSCPage
-EndSheet
-
-%%Page: 4 4
-/Lines 477 def
-/PageCount 7 def
-1 BeginSheet
-BeginDSCPage
-/LineNumber 227 def
-/PageNumber 4 def
-/HeaderLinesLeft[
- [/h0 (radon_rays.c)]
- [/h1 (~/Documentos/UdeA/Maestria_Fisi/SemestreII/InvestigacionII/Radon_implementation-master/)]
-]def
-/HeaderLinesRight[
- [/h0 /pagenumberstring load]
- [/h1 (23/10/16)]
-]def
-2 SetHeaderLines
-234 BeginPage
-/f0 F
-false BG
-0.000 0.000 0.000 FG
 8 W
-(memset\(tmpr, 0, nfft*) S
+({) S
+LHL
+10 W
+(memset\(tmpr, 0, ) S
+0.133 0.545 0.133 FG
+(nfft) S
+0.000 0.000 0.000 FG
+(*) S
 0.627 0.125 0.941 FG
 (sizeof) S
 0.000 0.000 0.000 FG
@@ -2604,18 +2649,37 @@ false BG
 0.133 0.545 0.133 FG
 (double) S
 0.000 0.000 0.000 FG
-(\)\)) S
-(;) S
+(\)\);) S
+EndPage
+EndDSCPage
+EndSheet
+
+%%Page: 4 4
+/Lines 486 def
+/PageCount 7 def
+1 BeginSheet
+BeginDSCPage
+/LineNumber 228 def
+/PageNumber 4 def
+/HeaderLinesLeft[
+ [/h0 (radon_rays.c)]
+ [/h1 (~/Documentos/Maestria_Fisi/SemestreII/InvestigacionII/Radon_implementation/Codigo_radon_rays/)]
+]def
+/HeaderLinesRight[
+ [/h0 /pagenumberstring load]
+ [/h1 (02/11/16)]
+]def
+2 SetHeaderLines
+234 BeginPage
+/f0 F
+false BG
+0.000 0.000 0.000 FG
+10 W
+(tmpr[ix] = data.dd[ix];) S
+7 W
 LHL
-8 W
-(tmpr[ix] = data.dd[ix) S
-(]) S
-(;) S
-1 W
-LHL
-8 W
-(f) S
-(ftw_execute\(fft1\);) S
+10 W
+(fftw_execute\(fft1\);) S
 0.698 0.133 0.133 FG
 (/) S
 (* ) S
@@ -2623,21 +2687,26 @@ LHL
 (*/) S
 0.000 0.000 0.000 FG
 LHL
-8 W
+10 W
 (m) S
-(emcpy\(&cdd[ix*nw], tmpc, nw*) S
+(emcpy\(&cdd[ix*nw], tmpc, ) S
+0.133 0.545 0.133 FG
+(nw) S
+0.000 0.000 0.000 FG
+(*) S
 0.627 0.125 0.941 FG
 (sizeof) S
 0.000 0.000 0.000 FG
 (\(complex\)\);) S
 LHL
-(      }) S
+8 W
+(}) S
 LHL
-(    matrix_transpose\(cdd, nw, nx\);) S
+(      matrix_transpose\(cdd, nw, nx\);) S
 PHL
-(    ) S
+(      ) S
 LHL
-(    ) S
+(      ) S
 0.627 0.125 0.941 FG
 (for) S
 0.000 0.000 0.000 FG
@@ -2650,11 +2719,15 @@ LHL
 (*/) S
 0.000 0.000 0.000 FG
 LHL
-(      ) S
+8 W
 ({) S
 LHL
-8 W
-(memset\(tmpr, 0, nfft*) S
+10 W
+(memset\(tmpr, 0, ) S
+0.133 0.545 0.133 FG
+(nfft) S
+0.000 0.000 0.000 FG
+(*) S
 0.627 0.125 0.941 FG
 (sizeof) S
 0.000 0.000 0.000 FG
@@ -2662,17 +2735,13 @@ LHL
 0.133 0.545 0.133 FG
 (double) S
 0.000 0.000 0.000 FG
-(\)\)) S
-(;) S
+(\)\);) S
 LHL
-8 W
-(tmpr[ip] = data.mm[ip) S
-(]) S
-(;) S
+10 W
+(tmpr[ip] = data.mm[ip];) S
 LHL
-8 W
-(f) S
-(ftw_execute\(fft1\);) S
+10 W
+(fftw_execute\(fft1\);) S
 0.698 0.133 0.133 FG
 (/) S
 (* ) S
@@ -2680,9 +2749,13 @@ LHL
 (*/) S
 0.000 0.000 0.000 FG
 LHL
-8 W
+10 W
 (m) S
-(emcpy\(&cmm[ip*nw], tmpc, nw*) S
+(emcpy\(&cmm[ip*nw], tmpc, ) S
+0.133 0.545 0.133 FG
+(nw) S
+0.000 0.000 0.000 FG
+(*) S
 0.627 0.125 0.941 FG
 (sizeof) S
 0.000 0.000 0.000 FG
@@ -2692,13 +2765,14 @@ LHL
 0.000 0.000 0.000 FG
 (\)\);) S
 PHL
+10 W
+LHL
 8 W
+(}) S
 LHL
-(      }) S
+(      matrix_transpose\(cmm, nw, np\);) S
 LHL
-(    matrix_transpose\(cmm, nw, np\);) S
-LHL
-(  }) S
+(    }) S
 PHL
 (  ) S
 PHL
@@ -2720,7 +2794,7 @@ LHL
 LHL
 (      myradon2_lop\(adj, ) S
 0.000 0.545 0.545 FG
-(false) S
+(true) S
 0.000 0.000 0.000 FG
 (, np, nx, &cmm[iw*np], &cdd[iw*nx]\);) S
 0.698 0.133 0.133 FG
@@ -2729,25 +2803,39 @@ LHL
 (Linear operator RT) S
 LHL
 0.000 0.000 0.000 FG
-( ) S
-(     ) S
-0.698 0.133 0.133 FG
-(/*) S
+(      ) S
+0.627 0.125 0.941 FG
 (i) S
-(f\(adj&&inv\){) S
-LHL
-8 W
-(if \(invmode[0]=='t'\)) S
-LHL
-10 W
-(myradon2_inv\(&cmm[iw*np], &cmm[iw*np], eps\);) S
-PHL
-8 W
-LHL
-10 W
-(}) S
-(*/) S
+(f) S
 0.000 0.000 0.000 FG
+(\(adj&&inv\)) S
+LHL
+8 W
+({) S
+LHL
+10 W
+0.627 0.125 0.941 FG
+(if) S
+0.000 0.000 0.000 FG
+( \(invmode[0]==) S
+0.545 0.133 0.322 FG
+('t') S
+0.000 0.000 0.000 FG
+(\)) S
+LHL
+12 W
+(myradon2_inv\(&cmm[iw*np], &cmm[iw*np], eps\);) S
+0.698 0.133 0.133 FG
+(/) S
+(/) S
+(Inverts the model) S
+PHL
+0.000 0.000 0.000 FG
+8 W
+(  ) S
+LHL
+8 W
+(}) S
 LHL
 (    }) S
 PHL
@@ -2755,23 +2843,8 @@ PHL
 LHL
 (  ) S
 0.627 0.125 0.941 FG
-(if) S
-0.000 0.000 0.000 FG
-(\(adj||inv\){) S
-0.698 0.133 0.133 FG
-(/) S
-(/ ) S
-(m\(tau,p\)=sum_{i=0}^{nx} d\(t=tau+p*x_i,x_i\) ) S
-LHL
-0.000 0.000 0.000 FG
-( ) S
-(   ) S
-(m) S
-(atrix_transpose\(cmm, np, nw\);) S
-LHL
-(    ) S
-0.627 0.125 0.941 FG
-(for) S
+(f) S
+(or) S
 0.000 0.000 0.000 FG
 (\(ip=0; ip<np; ip++\)) S
 ( ) S
@@ -2781,19 +2854,21 @@ LHL
 (loop over slopes // ) S
 LHL
 0.000 0.000 0.000 FG
-(      ) S
+(    ) S
 ({) S
-17 W
+19 W
 LHL
-8 W
-(memcpy\(tmpc, &cmm[ip*nw], nw*) S
+(      memcpy\(tmpc, &cmm[ip*nw], ) S
+0.133 0.545 0.133 FG
+(nw) S
+0.000 0.000 0.000 FG
+(*) S
 0.627 0.125 0.941 FG
 (sizeof) S
 0.000 0.000 0.000 FG
 (\(complex\)\);) S
 LHL
-8 W
-(fftw_execute\(ifft1\);) S
+(      fftw_execute\(ifft1\);) S
 ( ) S
 0.698 0.133 0.133 FG
 (/) S
@@ -2801,68 +2876,55 @@ LHL
 (IFFT: cmm-->mm //) S
 LHL
 0.000 0.000 0.000 FG
-8 W
-(data.mm[ip]=tmpr[ip]/nfft) S
-(;) S
-LHL
-8 W
-0.698 0.133 0.133 FG
-(//) S
-(f) S
-(or\(iw=0; iw<nt; iw++\) data.mm[ip][iw]=tmpr[iw]/nfft;) S
-( /) S
-(/mm[ip][iw]=tmpr[iw]/nfft;) S
-LHL
-0.000 0.000 0.000 FG
 ( ) S
 (     ) S
-(}) S
+(d) S
+(ata.mm[ip]=tmpr[ip]/nfft;) S
 PHL
-(   ) S
+(      ) S
 LHL
-(    ) S
+(    }) S
+PHL
+(  ) S
+LHL
+(  ) S
 0.698 0.133 0.133 FG
 (/) S
 (/) S
 (wrting in disk the output ->the PRT) S
 PHL
 0.000 0.000 0.000 FG
+( ) S
+( ) S
 LHL
-(    out = fopen\(out_fil) S
-(e) S
-(,) S
+(  ) S
+(o) S
+(ut = fopen\(out_file,) S
 0.545 0.133 0.322 FG
 ("w") S
 0.000 0.000 0.000 FG
 (\);) S
 LHL
-( ) S
-(   ) S
+(  ) S
 0.627 0.125 0.941 FG
 (for) S
 0.000 0.000 0.000 FG
-(\(ip=0; ip<np; ip++\)) S
-( ) S
+(\(ip=0; ip<np; ip++\) ) S
 LHL
-(      ) S
-({) S
-17 W
+(    {) S
+19 W
 LHL
-8 W
-(fprintf\(out,) S
+(      fprintf\(out,) S
 0.545 0.133 0.322 FG
 ("%lf\\n") S
 0.000 0.000 0.000 FG
 (, data.mm[ip]\);) S
 LHL
-( ) S
-(     }) S
+(    }) S
+PHL
+(  ) S
 PHL
 (   ) S
-PHL
-PHL
-PHL
-( ) S
 PHL
 (  ) S
 LHL
@@ -2870,9 +2932,7 @@ LHL
 LHL
 (  free\(xx\);) S
 LHL
-(  ) S
-(f) S
-(ree\(cdd\); ) S
+(  free\(cdd\); ) S
 LHL
 (  free\(cmm\); ) S
 LHL
@@ -2888,7 +2948,7 @@ PHL
 LHL
 (  exit\(0\);) S
 LHL
-(}) S
+(} ) S
 PHL
 LHL
 0.698 0.133 0.133 FG
@@ -2907,7 +2967,7 @@ LHL
 (t) S
 0.000 0.000 0.000 FG
 ( ) S
-0.627 0.322 0.176 FG
+0.000 0.000 1.000 FG
 (fourier) S
 0.000 0.000 0.000 FG
 (\() S
@@ -2929,8 +2989,7 @@ LHL
 0.000 0.000 0.000 FG
 ( *) S
 0.627 0.322 0.176 FG
-(out_wave) S
-(1D) S
+(out_wave1D) S
 0.000 0.000 0.000 FG
 ( = ) S
 0.000 0.545 0.545 FG
@@ -2994,30 +3053,7 @@ PHL
 ( ) S
 PHL
 (  ) S
-EndPage
-EndDSCPage
-EndSheet
-
-%%Page: 5 5
-/Lines 477 def
-/PageCount 7 def
-1 BeginSheet
-BeginDSCPage
-/LineNumber 304 def
-/PageNumber 5 def
-/HeaderLinesLeft[
- [/h0 (radon_rays.c)]
- [/h1 (~/Documentos/UdeA/Maestria_Fisi/SemestreII/InvestigacionII/Radon_implementation-master/)]
-]def
-/HeaderLinesRight[
- [/h0 /pagenumberstring load]
- [/h1 (23/10/16)]
-]def
-2 SetHeaderLines
-312 BeginPage
-/f0 F
-false BG
-0.000 0.000 0.000 FG
+LHL
 (  ) S
 0.133 0.545 0.133 FG
 (fftw_pla) S
@@ -3090,7 +3126,30 @@ LHL
 (sizeof) S
 0.000 0.000 0.000 FG
 (\(fftw_complex\)*N\);) S
-LHL
+EndPage
+EndDSCPage
+EndSheet
+
+%%Page: 5 5
+/Lines 486 def
+/PageCount 7 def
+1 BeginSheet
+BeginDSCPage
+/LineNumber 305 def
+/PageNumber 5 def
+/HeaderLinesLeft[
+ [/h0 (radon_rays.c)]
+ [/h1 (~/Documentos/Maestria_Fisi/SemestreII/InvestigacionII/Radon_implementation/Codigo_radon_rays/)]
+]def
+/HeaderLinesRight[
+ [/h0 /pagenumberstring load]
+ [/h1 (02/11/16)]
+]def
+2 SetHeaderLines
+312 BeginPage
+/f0 F
+false BG
+0.000 0.000 0.000 FG
 (  in_radon = \() S
 0.133 0.545 0.133 FG
 (fftw_complex) S
@@ -3171,10 +3230,7 @@ LHL
 PHL
 (  ) S
 LHL
-(      in_radon[i][0] =) S
-( data.mm[i) S
-(]) S
-(;) S
+(      in_radon[i][0] = data.mm[i];) S
 (  ) S
 0.698 0.133 0.133 FG
 (/) S
@@ -3183,7 +3239,9 @@ LHL
 PHL
 0.000 0.000 0.000 FG
 LHL
-(      in_radon[i][1] = 0.0;          ) S
+(      ) S
+(i) S
+(n_radon[i][1] = 0.0;          ) S
 0.698 0.133 0.133 FG
 (//) S
 (IMAGINARY PART ) S
@@ -3196,24 +3254,24 @@ PHL
 LHL
 (  ) S
 0.698 0.133 0.133 FG
-(////////////////////////////////) S
+(/) S
+(///////////////////////////////) S
 (Calculating 1D FFT OF RT-DATA /////////////////////////) S
 PHL
 0.000 0.000 0.000 FG
-(  ) S
+( ) S
+( ) S
 LHL
-(  my_plan1 = fftw_plan_dft_1d\(N, in_radon, out_fourier1D, FFTW_FORWARD, FFTW) S
-(_MEASUR) S
-(E\);) S
+(  ) S
+(m) S
+(y_plan1 = fftw_plan_dft_1d\(N, in_radon, out_fourier1D, FFTW_FORWARD, FFTW_MEASURE\);) S
 PHL
 (   ) S
 LHL
 (  fftw_execute\(my_plan1\);) S
 PHL
 LHL
-(  out_wave) S
-(1D) S
-( = fopen\() S
+(  out_wave1D = fopen\() S
 0.545 0.133 0.322 FG
 ("1DFT_of_RT.dat") S
 0.000 0.000 0.000 FG
@@ -3232,9 +3290,7 @@ LHL
 LHL
 (    {) S
 LHL
-(      fprintf\(out_wave) S
-(1D) S
-(,) S
+(      fprintf\(out_wave1D,) S
 0.545 0.133 0.322 FG
 ("%lf %lf\\n") S
 0.000 0.000 0.000 FG
@@ -3266,24 +3322,27 @@ LHL
 PHL
 (  ) S
 LHL
-(      in[i][0] =) S
-( data.dd[i];) S
+(      in[i][0] = data.dd[i];) S
 (   ) S
 0.698 0.133 0.133 FG
 (/) S
 (/) S
-(REAL PART -ray path -> data domain - ) S
+(REAL PART -ray path/slowness -> data domain - ) S
 PHL
 0.000 0.000 0.000 FG
 LHL
-( ) S
-(     in[i][1] = 0.0;          ) S
+(      ) S
+(i) S
+(n[i][1] = 0.0;) S
+(          ) S
 0.698 0.133 0.133 FG
-(//) S
+(/) S
+(/) S
 (IMAGINARY PART ) S
 PHL
 0.000 0.000 0.000 FG
-(      ) S
+( ) S
+(     ) S
 LHL
 (    }) S
 PHL
@@ -3291,9 +3350,7 @@ PHL
 PHL
 8 W
 LHL
-(  my_plan2 = fftw_plan_dft_2d\(N, N, in, out_origin, FFTW_FORWARD, FFTW) S
-(_MEASURE) S
-(\);) S
+(  my_plan2 = fftw_plan_dft_2d\(N, N, in, out_origin, FFTW_FORWARD, FFTW_MEASURE\);) S
 PHL
 (   ) S
 LHL
@@ -3319,18 +3376,11 @@ LHL
 LHL
 (    {) S
 LHL
-(      ) S
-(fprintf\(out_wave) S
-(1) S
-(,) S
+(      fprintf\(out_wave1,) S
 0.545 0.133 0.322 FG
 ("%lf %lf\\n") S
 0.000 0.000 0.000 FG
-(, out_origin[i][0) S
-(]) S
-(, out_origin[i][1) S
-(]) S
-(\);) S
+(, out_origin[i][0], out_origin[i][1]\);) S
 LHL
 (    }) S
 PHL
@@ -3339,7 +3389,8 @@ PHL
 (  ) S
 LHL
 0.698 0.133 0.133 FG
-(////////////////////////////////) S
+(/) S
+(///////////////////////////////) S
 (Calculating 2D IFFT OF 1DFT_RT-DATA /////////////////////////) S
 LHL
 (//) S
@@ -3351,7 +3402,8 @@ PHL
 LHL
 (  ) S
 0.627 0.125 0.941 FG
-(for) S
+(f) S
+(or) S
 0.000 0.000 0.000 FG
 (\(i=0; i<=N; i++\)) S
 LHL
@@ -3361,48 +3413,43 @@ LHL
 PHL
 (      ) S
 LHL
-(      FT_RT[i][1] ) S
-(=) S
-(  out_fourier1D[i][1]) S
-(;) S
+(      FT_RT[i][1] =  out_fourier1D[i][1];) S
 LHL
 (    }) S
 PHL
 PHL
 (  ) S
+PHL
+(  ) S
+LHL
+(  my_plan3 = fftw_plan_dft_2d\(N, N, FT_RT, out_fourier2D, FFTW_BACKWARD, FFTW_MEASURE\);) S
+PHL
+PHL
+(   ) S
 EndPage
 EndDSCPage
 EndSheet
 
 %%Page: 6 6
-/Lines 477 def
+/Lines 486 def
 /PageCount 7 def
 1 BeginSheet
 BeginDSCPage
-/LineNumber 382 def
+/LineNumber 383 def
 /PageNumber 6 def
 /HeaderLinesLeft[
  [/h0 (radon_rays.c)]
- [/h1 (~/Documentos/UdeA/Maestria_Fisi/SemestreII/InvestigacionII/Radon_implementation-master/)]
+ [/h1 (~/Documentos/Maestria_Fisi/SemestreII/InvestigacionII/Radon_implementation/Codigo_radon_rays/)]
 ]def
 /HeaderLinesRight[
  [/h0 /pagenumberstring load]
- [/h1 (23/10/16)]
+ [/h1 (02/11/16)]
 ]def
 2 SetHeaderLines
 390 BeginPage
 /f0 F
 false BG
 0.000 0.000 0.000 FG
-(  ) S
-LHL
-(  my_plan3 = fftw_plan_dft_2d\(N, N, FT_RT, out_fourier2D, FFTW_BACKWARD,) S
-( FFTW_MEASUR) S
-(E\);) S
-PHL
-PHL
-(   ) S
-LHL
 (  fftw_execute\(my_plan3\);) S
 PHL
 LHL
@@ -3464,12 +3511,9 @@ PHL
 ( ) S
 7 W
 LHL
-(  fclose\(out_wave) S
-(1) S
-(\);) S
+(  fclose\(out_wave1\);) S
 LHL
-(  fclose\(out_wave1D\)) S
-(;) S
+(  fclose\(out_wave1D\);) S
 LHL
 (  fclose\(out_wave2D\);) S
 PHL
@@ -3482,29 +3526,17 @@ LHL
 (  fftw_destroy_plan\(my_plan3\);) S
 PHL
 LHL
-(  fftw_free\(in\)) S
-(;) S
+(  fftw_free\(in\);) S
 LHL
 (  fftw_free\(in_radon\);) S
 LHL
-(  fftw_free) S
-(\(out_origi) S
-(n) S
-(\);) S
+(  fftw_free\(out_origin\);) S
 LHL
-(  fftw_free) S
-(\(out_fourier1) S
-(D) S
-(\);) S
+(  fftw_free\(out_fourier1D\);) S
 LHL
-(  fftw_free) S
-(\(out_fourier2) S
-(D) S
-(\);) S
+(  fftw_free\(out_fourier2D\);) S
 LHL
-(  fftw_free\(FT_R) S
-(T) S
-(\);) S
+(  fftw_free\(FT_RT\);) S
 PHL
 LHL
 (  ) S
@@ -3518,7 +3550,8 @@ PHL
 PHL
 LHL
 0.698 0.133 0.133 FG
-(//////////////////////////////////) S
+(/) S
+(/////////////////////////////////) S
 (MAIN PROGRAM/////////////////////) S
 LHL
 0.133 0.545 0.133 FG
@@ -3527,7 +3560,7 @@ LHL
 (t) S
 0.000 0.000 0.000 FG
 ( ) S
-0.627 0.322 0.176 FG
+0.000 0.000 1.000 FG
 (main) S
 0.000 0.000 0.000 FG
 (\() S
@@ -3549,8 +3582,19 @@ LHL
 0.000 0.000 0.000 FG
 (\){) S
 PHL
-PHL
+LHL
+(  ) S
+0.133 0.545 0.133 FG
+(in) S
+(t) S
+0.000 0.000 0.000 FG
 ( ) S
+0.627 0.322 0.176 FG
+(i) S
+0.000 0.000 0.000 FG
+(;) S
+PHL
+(  ) S
 LHL
 (  printf\() S
 0.545 0.133 0.322 FG
@@ -3558,12 +3602,13 @@ LHL
 0.000 0.000 0.000 FG
 (,argc\);) S
 PHL
+(  ) S
 LHL
 (  ) S
 0.627 0.125 0.941 FG
 (if) S
 0.000 0.000 0.000 FG
-(\(argc != 4\)) S
+(\(argc != 6\)) S
 LHL
 (    {) S
 LHL
@@ -3575,9 +3620,15 @@ LHL
 LHL
 (      printf\() S
 0.545 0.133 0.322 FG
-("%s #iterations input_file_ray_ttime  output_file\\n") S
+("%s #iterations input_file_ray in_file_ttim) S
+(e) S
+( in_file_mode) S
+(l) S
+( output_file\\n") S
 0.000 0.000 0.000 FG
-(,argv[0]\);) S
+(,argv[0]) S
+SL
+(\);) S
 LHL
 (      exit\(0\);  ) S
 LHL
@@ -3587,24 +3638,41 @@ PHL
 LHL
 (  N   = atoi\(argv[1]\);) S
 LHL
-(  in_file_ray_ttime  = argv[2];) S
+(  in_file_ray  = argv[2];) S
 LHL
-(  out_file  = argv[3];) S
+(  in_file_ttime  = argv[3]) S
+(;) S
+LHL
+(  in_file_slowness  = argv[4]) S
+(;) S
+LHL
+(  out_file  = argv[5];) S
 PHL
+(  ) S
 LHL
 (  printf\() S
 0.545 0.133 0.322 FG
-("%s %d %s %s \\n") S
+("%s %d %s %s %s %s\\n") S
 0.000 0.000 0.000 FG
-(,argv[0], N, in_file_ray_ttime, out_file\);) S
+(,argv[0], N, in_file_ray, in_file_ttim) S
+(e) S
+(, in_file_slowness, out_f) S
+SL
+(ile\);) S
 PHL
+(  ) S
 PHL
+(  ) S
 LHL
 (  data.dd = \() S
 0.133 0.545 0.133 FG
 (double) S
 0.000 0.000 0.000 FG
-( *\) malloc\(N* ) S
+( *\) malloc\() S
+0.133 0.545 0.133 FG
+(N) S
+0.000 0.000 0.000 FG
+(* ) S
 0.627 0.125 0.941 FG
 (sizeof) S
 0.000 0.000 0.000 FG
@@ -3613,14 +3681,24 @@ LHL
 (double) S
 0.000 0.000 0.000 FG
 (\)\);) S
+(              ) S
+0.698 0.133 0.133 FG
+(/) S
+(/) S
+(data -> ds/c\(x\)) S
 LHL
+0.000 0.000 0.000 FG
 (  ) S
 (d) S
 (ata.mm = \() S
 0.133 0.545 0.133 FG
 (double) S
 0.000 0.000 0.000 FG
-( *\) malloc\(N* ) S
+( *\) malloc\() S
+0.133 0.545 0.133 FG
+(N) S
+0.000 0.000 0.000 FG
+(* ) S
 0.627 0.125 0.941 FG
 (sizeof) S
 0.000 0.000 0.000 FG
@@ -3628,27 +3706,130 @@ LHL
 0.133 0.545 0.133 FG
 (double) S
 0.000 0.000 0.000 FG
-(\)\); ) S
-PHL
-PHL
+(\)\);) S
+(              ) S
+0.698 0.133 0.133 FG
+(/) S
+(/) S
+(travel time) S
+LHL
+0.000 0.000 0.000 FG
 (  ) S
+(d) S
+(ata.ds = \() S
+0.133 0.545 0.133 FG
+(double) S
+0.000 0.000 0.000 FG
+( *\) malloc\() S
+0.133 0.545 0.133 FG
+(N) S
+0.000 0.000 0.000 FG
+( *) S
+0.627 0.125 0.941 FG
+(sizeof) S
+0.000 0.000 0.000 FG
+(\() S
+0.133 0.545 0.133 FG
+(double) S
+0.000 0.000 0.000 FG
+(\)\)) S
+(;) S
+(              ) S
+0.698 0.133 0.133 FG
+(/) S
+(/) S
+(ds) S
+LHL
+0.000 0.000 0.000 FG
+(  ) S
+(d) S
+(ata.slowness = \() S
+0.133 0.545 0.133 FG
+(double) S
+0.000 0.000 0.000 FG
+( *\) malloc\() S
+0.133 0.545 0.133 FG
+(N) S
+0.000 0.000 0.000 FG
+( *) S
+0.627 0.125 0.941 FG
+(sizeof) S
+0.000 0.000 0.000 FG
+(\() S
+0.133 0.545 0.133 FG
+(double) S
+0.000 0.000 0.000 FG
+(\)\)) S
+(;) S
+(        ) S
+0.698 0.133 0.133 FG
+(/) S
+(/) S
+(slowness 1/c\(x\)) S
 PHL
+0.000 0.000 0.000 FG
+(  ) S
 LHL
 (  ) S
 0.698 0.133 0.133 FG
-(/) S
-(*) S
-(Reading the file data) S
+(/*) S
+(Reading the file data - loading data) S
 (*/) S
 0.000 0.000 0.000 FG
 PHL
+(  ) S
 LHL
 (  ) S
 (r) S
-(ead_file\(in_file_ray_ttime, N\);) S
+(ead_file1\(in_file_ray, N\);) S
 PHL
+LHL
+(  read_file2\(in_file_ttime, N\)) S
+(;) S
 PHL
-( ) S
+LHL
+(  read_file3\(in_file_slowness, N\)) S
+(;) S
+PHL
+EndPage
+EndDSCPage
+EndSheet
+
+%%Page: 7 7
+/Lines 486 def
+/PageCount 7 def
+1 BeginSheet
+BeginDSCPage
+/LineNumber 459 def
+/PageNumber 7 def
+/HeaderLinesLeft[
+ [/h0 (radon_rays.c)]
+ [/h1 (~/Documentos/Maestria_Fisi/SemestreII/InvestigacionII/Radon_implementation/Codigo_radon_rays/)]
+]def
+/HeaderLinesRight[
+ [/h0 /pagenumberstring load]
+ [/h1 (02/11/16)]
+]def
+2 SetHeaderLines
+468 BeginPage
+/f0 F
+false BG
+0.000 0.000 0.000 FG
+(  ) S
+0.627 0.125 0.941 FG
+(for) S
+0.000 0.000 0.000 FG
+(\(i=0; i<N; i++\)) S
+LHL
+(    {) S
+LHL
+(      data.dd[i] = \(data.ds[i]\) / \(data.slowness[i]\);) S
+PHL
+(      ) S
+LHL
+(    }) S
+PHL
+(  ) S
 LHL
 (  ) S
 0.698 0.133 0.133 FG
@@ -3658,35 +3839,15 @@ LHL
 (*/) S
 0.000 0.000 0.000 FG
 PHL
+( ) S
+( ) S
 LHL
 (  ) S
 (r) S
 (adon\(out_file, N\);) S
 PHL
-EndPage
-EndDSCPage
-EndSheet
-
-%%Page: 7 7
-/Lines 477 def
-/PageCount 7 def
-1 BeginSheet
-BeginDSCPage
-/LineNumber 460 def
-/PageNumber 7 def
-/HeaderLinesLeft[
- [/h0 (radon_rays.c)]
- [/h1 (~/Documentos/UdeA/Maestria_Fisi/SemestreII/InvestigacionII/Radon_implementation-master/)]
-]def
-/HeaderLinesRight[
- [/h0 /pagenumberstring load]
- [/h1 (23/10/16)]
-]def
-2 SetHeaderLines
-468 BeginPage
-/f0 F
-false BG
-0.000 0.000 0.000 FG
+(  ) S
+LHL
 (  ) S
 0.698 0.133 0.133 FG
 (/) S
@@ -3695,12 +3856,13 @@ false BG
 (*/) S
 0.000 0.000 0.000 FG
 PHL
-( ) S
-( ) S
+(  ) S
 LHL
-(  fourier\(N\);) S
+(  ) S
+(f) S
+(ourier\(N\);) S
 PHL
-(         ) S
+(  ) S
 LHL
 (  ) S
 0.627 0.125 0.941 FG
@@ -3712,6 +3874,7 @@ PHL
 LHL
 (}) S
 PHL
+( ) S
 PHL
 PHL
 PHL
