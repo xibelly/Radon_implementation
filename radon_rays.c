@@ -73,6 +73,7 @@ obtained trough the PRT.
 
 #include"myradon2.c"
 
+
 /*
 PATHS: /home/xibelly/Madagascar/rsfsrc/user/pyang myradon2.c
 PATHS: /home/xibelly/Madagascar/rsfsrc/system/seismic/Mradon.c radon.c
@@ -83,24 +84,40 @@ PATHS: /home/xibelly/Madagascar/include
 
 ///////////////////////GLOBAL VARIABLES////////////////////
 
-int N;
+int gridx;
+int gridz;
+int NRAYS;
+double GRADIENTE;
+int MAX_ITERATIONS;
+double Xini;
+double Zini;
+double Xfin; 
+double Zfin;  
+int r;
+
+int num_ray;
+int Ray_id, NSLOWNESS, Nds;
 char *in_file_ray, *in_file_ttime, *in_file_slowness, *out_file;
 clock_t tini, tend, tacum;
 double cpu_time_used;
 
 FILE *out =NULL; 
+FILE *read =NULL; 
 
+#include "Read_params.c"
 
 //////////////////////////STRUCTURES//////////////////////////
 struct read {
   
-  double *dd; /* input data -> model data (ds/c) -size nt*nx- */
-  double *mm; /* input data -> travel time -data size nt*np- */
+  double *dd; /* input data -> model data (ds/c) - */
+  double *mm; /* input data -> travel time  */
   
   double *slowness; /*input data -> the initial model */
-  double *ds; /* input data -> ray trajectory -data size nt*nx- */
-  
+  double *ds;
+  double *ds_x; /* input data -> ray trajectory -data size - */
+  double *ds_z;
 
+ 
 };
 
 struct read data;
@@ -114,6 +131,7 @@ struct read data;
 
 
 ///////////////////////FUNCTIONS/////////////////////////////
+
 int fft_next_fast_size(int n)
 {
     while(1) {
@@ -144,7 +162,7 @@ void matrix_transpose(complex *matrix, int nx, int nz)
 
 /*Computes the PRT to the load data -rays- */
 
-int radon(char *out_file, int N)
+int radon(char *out_file)  //Nds : # of ray points
 {
   
   bool adj, inv, par;
@@ -163,18 +181,18 @@ int radon(char *out_file, int N)
   /* if y, perform inverse operation */
   
   /* parameters */
-  nt = N;
-  /* number of samples in time axis */
+  nt = Nds;
+  /* number of samples in time axis, //# of ponist that constitues the ray */
  
   
   if (adj||inv)
     { /* m(tau,p)=sum_{i=0}^{nx} d(t=tau+p*x_i,x_i) */
       
-      nx = N;
-      /* number of offset if the input in the data domain */
+      nx = Nds;  
+      /* number of offset if the input in the data domain, //# of ponist that constitues the ray */
     
       /* specify slope axis */
-      np = N;
+      np = 1; //A ray
       
       /* number of p values (if adj=y) */
 
@@ -207,13 +225,15 @@ int radon(char *out_file, int N)
   nfft=2*fft_next_fast_size(nt);
   nw=nfft/2+1;
   p=(double *)malloc(np*sizeof(double));
-  xx==(double *)malloc(nx*sizeof(double));
+  xx=(double *)malloc(nx*sizeof(double));
   cdd=(complex*)malloc(nw*nx*sizeof(complex));
   cmm=(complex*)malloc(nw*np*sizeof(complex));
   tmpr=(double*)fftw_malloc(nfft*sizeof(double));
   tmpc=(fftw_complex*)fftw_malloc(nw*sizeof(fftw_complex));
   fft1=fftw_plan_dft_r2c_1d(nfft,tmpr,tmpc,FFTW_MEASURE);	
   ifft1=fftw_plan_dft_c2r_1d(nfft,tmpc,tmpr,FFTW_MEASURE);
+
+  printf("STATE OF LOADING PARAMTERS FOR PRT IS: SUCESS\n");
   
 
   for(ip=0; ip<np; ip++) 
@@ -251,7 +271,7 @@ int radon(char *out_file, int N)
       for(ip=0; ip<np; ip++) /* loop over slopes */
 	{
 	  memset(tmpr, 0, nfft*sizeof(double));
-	  tmpr[ip] = data.mm[ip];
+	  tmpr[ip] = data.mm[num_ray];               //num_ray
 	  fftw_execute(fft1);/* FFT: mm-->cmm */
 	  memcpy(&cmm[ip*nw], tmpc, nw*sizeof(double));
 	  
@@ -284,10 +304,13 @@ int radon(char *out_file, int N)
   
   //wrting in disk the output ->the PRT
 
+  
+  out = fopen(out_file,"w");
+
   if(out==NULL)
     printf("THE FILE CAN NOT BE CREATED\n");
   
-  out = fopen(out_file,"w");
+
   for(ip=0; ip<np; ip++) 
     {			
       fprintf(out,"%lf\n", data.mm[ip]);
@@ -306,44 +329,48 @@ int radon(char *out_file, int N)
 
   printf("THE STATE OF THE PARABOLIC RADON TRANSFORM IS: SUCESS\n");
   
-  exit(0);
+  return 0;
 } 
 
 /*Reads output  -the RT data- and computes the 1D FT-. To obtain the wave velocity a 2D IFT is applied to before step*/
 
-int fourier(int N)
+int fourier()
 {
   FILE *out_wave1D = NULL;
   FILE *out_wave1 = NULL;
   FILE *out_wave2D = NULL;
+
+  char buff1[200], buff2[200], buff3[200];
   
   int i, j, nread;
  
+  int N = 1; //A ray
   
   fftw_plan my_plan1, my_plan2, my_plan3;
   fftw_complex *in_radon, *in,*out_origin, *in_fourier,*out_fourier1D, *out_fourier2D, *FT_RT;
 
-  in = (fftw_complex*) fftw_malloc(sizeof(fftw_complex)*N);
+ 
   in_radon = (fftw_complex*) fftw_malloc(sizeof(fftw_complex)*N);
-  out_origin = (fftw_complex*) fftw_malloc(sizeof(fftw_complex)*N);
   out_fourier1D = (fftw_complex*) fftw_malloc(sizeof(fftw_complex)*N);
-  out_fourier2D = (fftw_complex*) fftw_malloc(sizeof(fftw_complex)*N*N);
-  FT_RT = (fftw_complex*) fftw_malloc(sizeof(fftw_complex)*N);
-
   
 
+  in = (fftw_complex*) fftw_malloc(sizeof(fftw_complex)*Nds*Nds);
+  out_origin = (fftw_complex*) fftw_malloc(sizeof(fftw_complex)*Nds*Nds);
+   
+  FT_RT = (fftw_complex*) fftw_malloc(sizeof(fftw_complex)*N);
+  out_fourier2D = (fftw_complex*) fftw_malloc(sizeof(fftw_complex)*N*N);
 
   ///////////////////////////////////READING THE RADON DATA/////////////////////////
   
-  tini = clock();
-      
-  for(i=0; i<=N; i++)
+       
+  for(i=0; i<N; i++)
     {
   
       in_radon[i][0] = data.mm[i];  //REAL PART -travel time -> model or Radon domain-
 
       in_radon[i][1] = 0.0;          //IMAGINARY PART 
       
+      printf("%lf\n",in_radon[i][0]);
     }
 
   ////////////////////////////////Calculating 1D FFT OF RT-DATA /////////////////////////
@@ -351,14 +378,15 @@ int fourier(int N)
   my_plan1 = fftw_plan_dft_1d(N, in_radon, out_fourier1D, FFTW_FORWARD, FFTW_MEASURE);
    
   fftw_execute(my_plan1);
-
+    
+  sprintf(buff1,"%s_%d","1DFT_of_RT",Ray_id);
+  
+  out_wave1D = fopen(buff1,"w");
 
   if(out_wave1D==NULL)
     printf("THE FILE CAN NOT BE CREATED\n");
-    
-  out_wave1D = fopen("1DFT_of_RT.dat","w");
 
-  for(i=0; i<=N; i++)
+  for(i=0; i<N; i++)
     {
       fprintf(out_wave1D,"%lf %lf\n", out_fourier1D[i][0], out_fourier1D[i][1]);
     }
@@ -366,33 +394,39 @@ int fourier(int N)
   printf("THE STATE OF 1D FT OVER RT IS: SUCESS\n");
 
  ////////////////////////////////Calculating 2D FFT OF THE ORIGINAL DATA ///////////////////
-
+ 
   	
-  for(i=0; i<=N; i++)
+  for(i=0; i<Nds; i++)
     {
-  
-      in[i][0] = data.dd[i];   //REAL PART -ray path/slowness -> data domain - 
-
-      in[i][1] = 0.0;          //IMAGINARY PART 
-      
+      for(j=0; j<Nds; j++)
+	{
+	  
+	  in[Nds * i + j][0] = data.dd[Nds * i + j];   //REAL PART -ray path/slowness -> data domain - 
+	  
+	  in[Nds * i + j][1] = 0.0;          //IMAGINARY PART 
+	}
     }
 	
 	
-  my_plan2 = fftw_plan_dft_2d(N, N, in, out_origin, FFTW_FORWARD, FFTW_MEASURE);
+  my_plan2 = fftw_plan_dft_2d(Nds, Nds, in, out_origin, FFTW_FORWARD, FFTW_MEASURE);
    
   fftw_execute(my_plan2);
-
   
+  sprintf(buff2,"%s_%d","2DFT_ORIGINAL_DATA",Ray_id);
+
+  out_wave1 = fopen(buff2,"w");
+
   if(out_wave1==NULL)
     printf("THE FILE CAN NOT BE CREATED\n");
-    
-  out_wave1 = fopen("2DFT_ORIGINAL_DATA.dat","w");
 
-  for(i=0; i<=N; i++)
+  for(i=0; i<Nds; i++)
     {
-      fprintf(out_wave1,"%lf %lf\n", out_origin[i][0], out_origin[i][1]);
-    }
+      for(j=0; j<Nds; j++)
+	{
+	  fprintf(out_wave1,"%lf %lf\n", out_origin[Nds * i + j][0], out_origin[Nds * i + j][1]);
+	}
 
+    }
   printf("THE STATE OF 2D FT OVER THE DATA ds/c IS: SUCESS\n");
   
 ////////////////////////////////Calculating 2D IFFT OF 1DFT_RT-DATA /////////////////////////
@@ -400,13 +434,16 @@ int fourier(int N)
 //HERE WE OBTAIN THE SLOWNESS RELATED TO THE TRAVEL TIMES AND RAY PATHS THAT ARE LOAD//
 
   
-  for(i=0; i<=N; i++)
+  for(i=0; i<N; i++)
     {
-      FT_RT[i][0] =  out_fourier1D[i][0];
-      
-      FT_RT[i][1] =  out_fourier1D[i][1];
+      for(j=0; j<N; j++)
+	{
+	  
+	  FT_RT[N* i + j][0] =  out_fourier1D[N* i + j][0];
+	  
+	  FT_RT[N* i + j][1] =  out_fourier1D[N* i + j][1];
+	}
     }
-
   
   
   my_plan3 = fftw_plan_dft_2d(N, N, FT_RT, out_fourier2D, FFTW_BACKWARD, FFTW_MEASURE);
@@ -415,29 +452,26 @@ int fourier(int N)
   fftw_execute(my_plan3);
 
 
+  sprintf(buff3,"%s_%d","2DIFT_of_1DFT_RT",Ray_id);
+  
+  out_wave2D = fopen(buff3,"w");
+
   if(out_wave2D==NULL)
     printf("THE FILE CAN NOT BE CREATED\n");
-  
-  out_wave2D = fopen("2DIFT_of_1DFT_RT.dat","w");
 
-  for(i=0; i<=N; i++)
+  for(i=0; i<N; i++)
     {
-      fprintf(out_wave2D,"%lf %lf\n", out_fourier2D[i][0]/N*N, out_fourier2D[i][1]/N*N);
-      
+      for(j=0; j<N; j++)
+	{
+	  fprintf(out_wave2D,"%lf %lf\n", out_fourier2D[N* i + j][0]/N*N, out_fourier2D[N* i + j][1]/N*N);
+	}
     }
 
   printf("THE STATE OF 2D IFT OVER 1D FT OF RT IS: SUCESS\n");
 
   /////////////////////////////////////////////////////////////////////////////////////////
   
-  tend = clock();
-  
-  cpu_time_used = ((double) (tend - tini)) / CLOCKS_PER_SEC;
-  
-  printf("CPU TIME USED: %16.8lf\n",cpu_time_used);
-  
-  
- 	
+   	
   fclose(out_wave1);
   fclose(out_wave1D);
   fclose(out_wave2D);
@@ -461,52 +495,103 @@ int fourier(int N)
 //////////////////////////////////MAIN PROGRAM/////////////////////
 int main(int argc, char **argv){
 
-  int i;
-  
+  int i,j, ch;
+    
   printf("%d\n",argc);
   
-  if(argc != 6)
+  if(argc != 7)
     {
       printf("ERROR--> use as:\n");
-      printf("%s #iterations input_file_ray in_file_ttime in_file_model output_file\n",argv[0]);
+      printf("%s param_file input_file_ray in_file_ttime in_file_model output_file Ray_id\n",argv[0]);
       exit(0);  
     }
   
-  N   = atoi(argv[1]);
   in_file_ray  = argv[2];
   in_file_ttime  = argv[3];
   in_file_slowness  = argv[4];
   out_file  = argv[5];
+  Ray_id = atoi(argv[6]); //Ray ID 
   
-  printf("%s %d %s %s %s %s\n",argv[0], N, in_file_ray, in_file_ttime, in_file_slowness, out_file);
+  printf("%s %s %s %s %s %s %d\n",argv[0], argv[1], in_file_ray, in_file_ttime, in_file_slowness, out_file, Ray_id);
+ 
+
+  /*Loading the parameters data*/
+
+  tini = clock();
+
+  Param_SPM(argv[1]);
+
+  NSLOWNESS = gridx*gridz;
+
+  printf("%d %d %d %lf %d %lf %lf %lf %lf %d\n", gridx, gridz, NRAYS, GRADIENTE, MAX_ITERATIONS, Xini, Zini, Xfin, Zfin, r);
+
+  //---------------------------------------------------------Number of lines of in_file_ray
+
+  read = fopen(in_file_ray,"r"); 
+
+  if(read==NULL)
+    printf("THE FILE CAN NOT BE OPENED\n");
+
+  Nds = 0;
+
+  while((ch = fgetc(read)) != EOF)
+    if(ch == '\n')
+      Nds++;
+  
+  printf("THE INPUT FILE %s HAS %d LINES\n",in_file_ray, Nds);
   
   
-  data.dd = (double *) malloc(N* sizeof(double));              //data -> ds/c(x)
-  data.mm = (double *) malloc(N* sizeof(double));              //travel time
-  data.ds = (double *) malloc(N *sizeof(double));              //ds
-  data.slowness = (double *) malloc(N *sizeof(double));        //slowness 1/c(x)
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  data.dd = (double *) malloc(Nds* sizeof(double));              //data -> ds/c(x)
+  data.ds_x = (double *) malloc(Nds*sizeof(double));              //ds
+  data.ds_z = (double *) malloc(Nds*sizeof(double));
+  data.ds = (double *) malloc(Nds*sizeof(double));
+  data.slowness = (double *) malloc(NSLOWNESS *sizeof(double));  //slowness 1/c(x)
+  data.mm = (double *) malloc(NRAYS* sizeof(double));         //travel time
+  
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
   
   /*Reading the file data - loading data*/
   
-  read_file1(in_file_ray, N);
+  read_file1(in_file_ray, Nds); //READ RAYS' COORDINATES
 
-  read_file2(in_file_ttime, N);
+  read_file2(in_file_ttime, NRAYS);  //READ FILE TRAVEL TIME
 
-  read_file3(in_file_slowness, N);
+  read_file3(in_file_slowness, NSLOWNESS);  //READ FILE SLOWNESS
 
-  for(i=0; i<N; i++)
+  for(i=0; i<Nds; i++)
     {
-      data.dd[i] = (data.ds[i]) / (data.slowness[i]);
+      for(j=0; j<NSLOWNESS; j++)
+	{
+	  data.dd[i] = (data.ds[i]) / (data.slowness[j]); //DUDA!!!
+	  
+	}
       
     }
   
   /*Calculate the Radon Transform to rays */
+
+  num_ray = Ray_id -1;
+
+  printf("THE SELECTED RAY IS :%d\n", Ray_id);
   
-  radon(out_file, N);
+  printf("THE TRAVEL TIME OF THIS RAY IS:\n");
+  printf("%lf\n",data.mm[num_ray]);
+  
+  radon(out_file);
   
   /*Calculate the 1D FT of RT and the 2D IFT of FT_RT -> COMPUTES CST: Central Slice Theorem*/
   
-  fourier(N);
+  fourier();
+
+  tend = clock();
+  
+  cpu_time_used = ((double) (tend - tini)) / CLOCKS_PER_SEC;
+  
+  printf("CPU TIME USED: %16.8lf\n",cpu_time_used);
   
   return 0;
   

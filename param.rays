@@ -1,0 +1,10 @@
+GRIDX 100
+GRIDZ 40
+NRAYS 98
+GRADIENTE 10.6
+MAX_ITERATIONS 10
+Xini 0.0
+Zini 0.0
+Xfin 3000.0 
+Zfin 1400.0
+radio_vecinos 4
