@@ -51,12 +51,6 @@ int read_file1(char *filename, int num_lineas)
                  
     }
    
-  for(k=0; k<num_lineas; k++)
-    {
-      data.ds[k] = sqrt( ( (data.ds_x[k+1] - data.ds_x[k])*(data.ds_x[k+1] - data.ds_x[k]) ) + ( (data.ds_z[k+1] - data.ds_z[k])*(data.ds_z[k+1] - data.ds_z[k]) ) );//ray-path -> length of ray in a cell
-      
-          
-      }
 
   printf("READ FILE STATE %s: SUCESSFUL\n", filename);
 
@@ -100,8 +94,9 @@ int read_file2(char *filename, int N)
 
 int read_file3(char *filename, int N)
 {
-  int i, nread;
-  double v;
+  int i, nread, id;
+  double x, z, v;
+  
 
   FILE *pf3=NULL;
 
@@ -113,15 +108,28 @@ int read_file3(char *filename, int N)
     printf("THE FILE CAN NOT BE OPENED\n");
   
 
-  data.slowness = (double *) malloc(N *sizeof(double));
+  celda.slowness = (double *) malloc(N *sizeof(double));
+
+  celda.id = (int *) malloc(N *sizeof(int));
+
+  celda.x =  (double *) malloc(N *sizeof(double));
+ 
+  celda.z =  (double *) malloc(N *sizeof(double));
+
 
   printf(" ->In read_file:\n");
     
   for(i=0; i<N; i++)
     {
-      nread = fscanf(pf3,"%lf",&v);
+      nread = fscanf(pf3,"%lf %lf %d %lf",&x, &z, &id, &v);
 
-      data.slowness[i] = v ; // 1/c -initial model-
+      celda.x[i] = x;
+
+      celda.z[i] = z;
+
+      celda.id[i] = id;
+
+      celda.slowness[i] = v ; // 1/c -initial model-
       
     }
 

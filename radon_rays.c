@@ -71,6 +71,9 @@ obtained trough the PRT.
 #include<stdbool.h>
 #include<complex.h>
 
+#include <gsl/gsl_errno.h>
+#include <gsl/gsl_spline.h>
+
 #include"myradon2.c"
 
 
@@ -101,7 +104,10 @@ char *in_file_ray, *in_file_ttime, *in_file_slowness, *out_file;
 clock_t tini, tend, tacum;
 double cpu_time_used;
 
-FILE *out =NULL; 
+char buff_extra[200];
+
+FILE *out =NULL;
+FILE *out2=NULL;
 FILE *read =NULL; 
 
 #include "Read_params.c"
@@ -109,12 +115,11 @@ FILE *read =NULL;
 //////////////////////////STRUCTURES//////////////////////////
 struct read {
   
-  double *dd; /* input data -> model data (ds/c) - */
-  double *mm; /* input data -> travel time  */
-  
-  double *slowness; /*input data -> the initial model */
-  double *ds;
-  double *ds_x; /* input data -> ray trajectory -data size - */
+  double *dd;        /* input data -> model data (ds/c) - */
+  double *mm;        /* input data -> travel time  */
+ 
+  double *ds;        /* input data -> ray trajectory -data size - */
+  double *ds_x; 
   double *ds_z;
 
  
@@ -122,6 +127,17 @@ struct read {
 
 struct read data;
 
+struct cells    
+{
+  int *id;            /*cell id*/
+
+  double *slowness;  /*input data -> the initial model */
+
+  double *x;          /*cell coordinates*/
+  double *z;
+
+}; 
+struct cells celda; 
 
 
 //////////////////////////SUB-STRUCTURES//////////////////////////
@@ -131,6 +147,7 @@ struct read data;
 
 
 ///////////////////////FUNCTIONS/////////////////////////////
+
 
 int fft_next_fast_size(int n)
 {
@@ -314,6 +331,7 @@ int radon(char *out_file)  //Nds : # of ray points
   for(ip=0; ip<np; ip++) 
     {			
       fprintf(out,"%lf\n", data.mm[ip]);
+           
     }
   
    
@@ -328,6 +346,7 @@ int radon(char *out_file)  //Nds : # of ray points
   fftw_destroy_plan(ifft1);
 
   printf("THE STATE OF THE PARABOLIC RADON TRANSFORM IS: SUCESS\n");
+  printf("%lf\n", data.mm[0]);
   
   return 0;
 } 
@@ -370,7 +389,7 @@ int fourier()
 
       in_radon[i][1] = 0.0;          //IMAGINARY PART 
       
-      printf("%lf\n",in_radon[i][0]);
+      //printf("%lf\n",in_radon[i][0]);
     }
 
   ////////////////////////////////Calculating 1D FFT OF RT-DATA /////////////////////////
@@ -379,7 +398,7 @@ int fourier()
    
   fftw_execute(my_plan1);
     
-  sprintf(buff1,"%s_%d","1DFT_of_RT",Ray_id);
+  sprintf(buff1,"1DFT_of_RT_%d.dat",Ray_id);
   
   out_wave1D = fopen(buff1,"w");
 
@@ -412,7 +431,7 @@ int fourier()
    
   fftw_execute(my_plan2);
   
-  sprintf(buff2,"%s_%d","2DFT_ORIGINAL_DATA",Ray_id);
+  sprintf(buff2,"2DFT_ORIGINAL_DATA_%d.dat",Ray_id);
 
   out_wave1 = fopen(buff2,"w");
 
@@ -452,7 +471,7 @@ int fourier()
   fftw_execute(my_plan3);
 
 
-  sprintf(buff3,"%s_%d","2DIFT_of_1DFT_RT",Ray_id);
+  sprintf(buff3,"2DIFT_of_1DFT_RT_%d.dat",Ray_id);
   
   out_wave2D = fopen(buff3,"w");
 
@@ -495,7 +514,10 @@ int fourier()
 //////////////////////////////////MAIN PROGRAM/////////////////////
 int main(int argc, char **argv){
 
-  int i,j, ch;
+  int i,j, ch, count;
+  char buff[200];
+  double Xmax, Xmin, Zmax, Zmin;
+    
     
   printf("%d\n",argc);
   
@@ -547,8 +569,13 @@ int main(int argc, char **argv){
   data.ds_x = (double *) malloc(Nds*sizeof(double));              //ds
   data.ds_z = (double *) malloc(Nds*sizeof(double));
   data.ds = (double *) malloc(Nds*sizeof(double));
-  data.slowness = (double *) malloc(NSLOWNESS *sizeof(double));  //slowness 1/c(x)
+  celda.slowness = (double *) malloc(NSLOWNESS *sizeof(double));  //slowness 1/c(x)
   data.mm = (double *) malloc(NRAYS* sizeof(double));         //travel time
+
+  celda.id = (int *) malloc(NSLOWNESS *sizeof(int));
+  celda.x =  (double *) malloc(NSLOWNESS *sizeof(double));
+  celda.z =  (double *) malloc(NSLOWNESS *sizeof(double));
+
   
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -562,15 +589,36 @@ int main(int argc, char **argv){
 
   read_file3(in_file_slowness, NSLOWNESS);  //READ FILE SLOWNESS
 
-  for(i=0; i<Nds; i++)
+
+  /*Lenght ray into a given cell*/
+
+  sprintf(buff_extra,"ray_lenght_%d.dat",Ray_id);
+
+  out2 = fopen(buff_extra,"w");
+
+  for(i=0; i<NSLOWNESS; i++)  //cells in the grid
     {
-      for(j=0; j<NSLOWNESS; j++)
-	{
-	  data.dd[i] = (data.ds[i]) / (data.slowness[j]); //DUDA!!!
-	  
-	}
+      Xmin = celda.x[i];
+      Xmax = celda.x[i+1];
       
+      Zmin = celda.z[i];
+      Zmax = celda.z[i+1];
+
+      
+      for(j=0; j<Nds; j++) // # of points that constitutes the ray
+	{
+	  
+	  if( (data.ds_z[j]>=Zmin) && (data.ds_z[j]<=Zmax) )
+	    if( (data.ds_x[j]>=Xmin) && (data.ds_x[j]<=Xmax) ) 
+	      {
+		data.ds[j] = sqrt( ( (data.ds_x[j+1] - data.ds_x[j])*(data.ds_x[j+1] - data.ds_x[j]) ) + ( (data.ds_z[j+1] - data.ds_z[j])*(data.ds_z[j+1] - data.ds_z[j]) ) );//ray-path into the cell -> ray lenght
+		
+		data.dd[j] = (data.ds[j]) / (celda.slowness[i]) ;
+		fprintf(out2,"%lf\n",data.dd[j]);
+	      }
+	}
     }
+	
   
   /*Calculate the Radon Transform to rays */
 

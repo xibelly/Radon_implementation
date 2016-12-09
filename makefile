@@ -19,7 +19,7 @@ myradon2:
 radon_rays:
 	echo Estoy compilando $@.c
 	$(CC) $(CFLAGS) $@.c -o $@.o
-	$(CC) $@.o $(LFLAGS) -lm -lfftw3 -o  $@.x		
+	$(CC) $@.o $(LFLAGS) -lm -lgsl -lgslcblas -lfftw3 -o  $@.x		
 
 debug: 
 	echo Estoy compilando para debugear $@.c
